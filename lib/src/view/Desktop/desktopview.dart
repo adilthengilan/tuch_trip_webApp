@@ -10,6 +10,19 @@ class DesktopView extends StatefulWidget {
 class _HomePageState extends State<DesktopView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Text(
+          'Tech Trip',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: Column(
+        children: [
+          
+        ],
+      ),
+    );
   }
 }
