@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final TextStyle smallTextStyle = GoogleFonts.poppins(
+final TextStyle smallTextStyle = GoogleFonts.montserrat(
   textStyle: TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
 );
+
+final largeHeadings = GoogleFonts.poppins(
+  textStyle: TextStyle(
+      fontSize: 54,
+      fontWeight: FontWeight.w600,
+      color: Colors.white),
+);
+
 
 final TextStyle buttonTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
