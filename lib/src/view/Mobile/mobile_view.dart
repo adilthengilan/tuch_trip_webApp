@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tuch/src/view/Mobile/Home/home_page.dart';
+import 'package:tuch/src/view/Mobile/Home/mobile_view_body.dart';
 
 class MobileView extends StatefulWidget {
   const MobileView({super.key});
@@ -11,6 +11,6 @@ class MobileView extends StatefulWidget {
 class _MobileViewState extends State<MobileView> {
   @override
   Widget build(BuildContext context) {
-    return MobileViewHome();
+    return MobileViewBody();
   }
 }

@@ -13,6 +13,7 @@ class DrawerScreen extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Drawer(
+      elevation: 0,
       backgroundColor: backgroundColor,
       width: width * 0.75,
       child: Padding(
