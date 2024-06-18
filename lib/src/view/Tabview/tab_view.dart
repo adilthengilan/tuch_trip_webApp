@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tuch/src/view/Tabview/home_page.dart';
 
 class TabView extends StatefulWidget {
   const TabView({super.key});
@@ -10,6 +11,6 @@ class TabView extends StatefulWidget {
 class _TabViewState extends State<TabView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return TabViewHome();
   }
 }
