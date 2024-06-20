@@ -49,6 +49,11 @@ final TextStyle mediumtextstyle = GoogleFonts.montserrat(
   fontWeight: FontWeight.bold,
   color: Colors.white,
 );
+final TextStyle mediumtextstylelight = GoogleFonts.montserrat(
+  fontSize: 20,
+  fontWeight: FontWeight.w500,
+  color: Colors.black,
+);
 final TextStyle smallTextstylewhite = GoogleFonts.montserrat(
   fontSize: 14,
   fontWeight: FontWeight.normal,
@@ -61,7 +66,7 @@ final TextStyle smallTextstylelight = GoogleFonts.montserrat(
 );
 final TextStyle smallboldTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w500,
     color: Colors.black,
   ),

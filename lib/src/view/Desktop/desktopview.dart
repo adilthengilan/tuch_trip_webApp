@@ -1,26 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
-import 'package:tuch/utils/app_colors.dart';
+import 'package:tuch/src/view/Desktop/detaile_page/detaile_page.dart';
+import 'package:tuch/src/view/Desktop/search_page/search_page.dart';
 import 'package:tuch/utils/textstyles.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
 TextEditingController locationController = TextEditingController();
 bool locationSearchingList = false;
 bool calendarPicker = false;
 bool roomsCounter = false;
 
-class DesktopView extends StatefulWidget {
+
+class DesktopView extends StatelessWidget {
   const DesktopView({super.key});
 
   @override
-  State<DesktopView> createState() => _HomePageState();
+  Widget build(BuildContext context) {
+    return DetailePageDesktop();
+  }
 }
 
-class _HomePageState extends State<DesktopView> {
+
+
+class HomePageDeskTop extends StatefulWidget {
+  const HomePageDeskTop({super.key});
+
+  @override
+  State<HomePageDeskTop> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePageDeskTop> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -57,7 +69,7 @@ class _HomePageState extends State<DesktopView> {
               sizedbox(height * 0.25, width),
               Text('Tuchtrip Travel Service', style: largeHeadings),
               sizedbox(height * 0.2, 0.0),
-              SearchBar(height: height, width: width),
+              SearchingBar(height: height, width: width),
               sizedbox(height * 0.3, width),
               Text('Your', style: largeHeadings),
               SizedBox(
@@ -74,9 +86,9 @@ class _HomePageState extends State<DesktopView> {
                 width: width * 0.8,
                 padding: EdgeInsets.only(left: width * 0.01, top: height * 0),
                 decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Colors.grey.shade900,
                     borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
+                    image: const DecorationImage(
                       fit: BoxFit.fill,
                       image: AssetImage('assets/images/luxury hotel.jpg'),
                     )),
@@ -88,7 +100,8 @@ class _HomePageState extends State<DesktopView> {
                     SizedBox(
                       width: width * 0.45,
                       child: Text(
-                        'Travel the world with our broad selection of stays, offering unique and luxurious accommodations tailored to suit every traveler’s needs and preferences.',
+                        'Travel the world with our broad selection of stays,'
+                        ' offering unique and luxurious accommodations tailored to suit every traveler’s needs and preferences.',
                         style: smallTextstylewhite,
                       ),
                     ),
@@ -103,12 +116,13 @@ class _HomePageState extends State<DesktopView> {
                     height: height * 0.46,
                     width: width * 0.39,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.blue,
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image:
-                                AssetImage('assets/images/smartcheking.png'))),
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.grey.shade900,
+                      image: const DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage('assets/images/smartcheking.png'),
+                      ),
+                    ),
                   ),
                   sizedbox(0.0, width * 0.02),
                   Container(
@@ -116,8 +130,8 @@ class _HomePageState extends State<DesktopView> {
                     width: width * 0.39,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Colors.blue,
-                      image: DecorationImage(
+                      color: Colors.grey.shade900,
+                      image: const DecorationImage(
                         fit: BoxFit.fill,
                         image:
                             AssetImage('assets/images/smart_door_unlock.png'),
@@ -133,7 +147,7 @@ class _HomePageState extends State<DesktopView> {
                 padding: EdgeInsets.only(bottom: height * 0.04),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     fit: BoxFit.fill,
                     image: AssetImage('assets/images/loyalty.png'),
                   ),
@@ -149,7 +163,8 @@ class _HomePageState extends State<DesktopView> {
                     SizedBox(
                       width: width * 0.4,
                       child: Text(
-                        'Discover Coins and earn digital and physical rewards. Invite friends to collect Coins collectibles and increase your rewards.',
+                        'Discover Coins and earn digital and physical rewards.'
+                        ' Invite friends to collect Coins collectibles and increase your rewards.',
                         style: smallTextstylewhite,
                         textAlign: TextAlign.center,
                       ),
@@ -220,7 +235,7 @@ class _HomePageState extends State<DesktopView> {
                                 margin: EdgeInsets.only(right: width * 0.01),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  gradient: LinearGradient(
+                                  gradient: const LinearGradient(
                                     colors: [
                                       Color.fromARGB(255, 163, 238, 255),
                                       Color.fromARGB(255, 252, 215, 249),
@@ -240,7 +255,7 @@ class _HomePageState extends State<DesktopView> {
                                       ),
                                     ),
                                     sizedbox(width * 0.02, 0.0),
-                                    Column(
+                                    const Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
@@ -275,8 +290,8 @@ class _HomePageState extends State<DesktopView> {
                         horizontal: width * 0.08,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.blue,
-                        image: DecorationImage(
+                        color: Colors.grey.shade900,
+                        image: const DecorationImage(
                           fit: BoxFit.fill,
                           image: AssetImage('assets/images/QrCode.png'),
                         ),
@@ -330,7 +345,7 @@ class _HomePageState extends State<DesktopView> {
                   height: height * 0.53,
                   width: width * 0.16,
                   decoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: Colors.grey.shade900,
                     image: DecorationImage(
                       fit: BoxFit.fill,
                       image: AssetImage(images[index]),
@@ -358,7 +373,7 @@ class _HomePageState extends State<DesktopView> {
     ];
     return Container(
       width: width,
-      height: height * 0.4,
+      height: height * 0.38,
       margin: EdgeInsets.symmetric(horizontal: width * 0.08),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -373,17 +388,25 @@ class _HomePageState extends State<DesktopView> {
                 children: List.generate(
                   6,
                   (index) => Padding(
-                    padding: EdgeInsets.only(right: width * 0.02),
-                    child:
-                        Text(policiesList[index], style: smallTextstylewhite),
+                    padding: EdgeInsets.only(right: width * 0.03),
+                    child: InkWell(
+                      onTap: () {},
+                      child: Text(
+                        policiesList[index],
+                        style: GoogleFonts.montserrat(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: height * 0.017),
+                      ),
+                    ),
                   ),
                 ),
               ),
               sizedbox(height * 0.05, 0.0),
               Text(
-                  '© 2024 ONLINE Booking SOLUTIONS - FZCO. All rights reserved.',
-                  style: mediumtextstyle),
-              sizedbox(height * 0.03, 0.0),
+                  '© 2024 ONLINE Booking And Checking SOLUTIONS - FZCO. All rights reserved.',
+                  style: smallTextstylewhite),
+              sizedbox(height * 0.015, 0.0),
               SizedBox(
                 width: width * 0.45,
                 child: Text(
@@ -396,18 +419,29 @@ class _HomePageState extends State<DesktopView> {
             ],
           ),
           Container(
-            height: height * 0.01,
-            width: width * 0.2,
-            color: Colors.blueAccent,
+            height: height * 0.14,
+            width: width * 0.12,
             margin: EdgeInsets.only(top: height * 0.04),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
                 3,
                 (index) {
-                  List <String> socialMedia = []; 
+                  List<String> socialMedia = [
+                    'assets/images/Instagram_Icon.png',
+                    'assets/images/Fb_Icon.png',
+                    'assets/images/LinkedIn_Icon.png',
+                  ];
                   return CircleAvatar(
-                    radius: height * 0.02,
-                    backgroundImage: AssetImage(socialMedia[index]),
+                    radius: height * 0.03,
+                    backgroundColor: Colors.grey.shade900,
+                    child: Padding(
+                      padding: EdgeInsets.all(height * 0.01),
+                      child: Image(
+                        fit: BoxFit.contain,
+                        image: AssetImage(socialMedia[index]),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -419,23 +453,23 @@ class _HomePageState extends State<DesktopView> {
   }
 }
 
-class SearchBar extends StatefulWidget {
+// ======================================================== Search Bar ==========================================================
+class SearchingBar extends StatefulWidget {
   final double height;
   final double width;
-  const SearchBar({
+  const SearchingBar({
     super.key,
     required this.height,
     required this.width,
   });
 
   @override
-  State<SearchBar> createState() => _SearchBarState();
+  State<SearchingBar> createState() => _SearchBarState();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class _SearchBarState extends State<SearchingBar> {
   @override
   Widget build(BuildContext context) {
-    // ======================================================== Search Bar ==========================================================
     return Container(
       width: widget.width * 0.8,
       height: locationSearchingList || calendarPicker || roomsCounter
@@ -449,11 +483,11 @@ class _SearchBarState extends State<SearchBar> {
             children: [
               Container(
                 height: widget.height * 0.065,
-                width: widget.width * 0.7,
+                width: widget.width * 0.65,
                 padding: EdgeInsets.only(left: widget.width * 0.005),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [
                       Color.fromARGB(255, 163, 238, 255),
                       Color.fromARGB(255, 252, 215, 249),
@@ -464,7 +498,7 @@ class _SearchBarState extends State<SearchBar> {
                   children: [
                     //===================================================== Location searcher =====================================================
                     Container(
-                      width: widget.width * 0.3,
+                      width: widget.width * 0.23,
                       child: Consumer<FeaturesProvider>(
                         builder: (context, feature, child) => TextField(
                           onTap: () {
@@ -474,19 +508,19 @@ class _SearchBarState extends State<SearchBar> {
                               roomsCounter = false;
                             });
                           },
-                          controller: locationController,
-                          onChanged: (value) {},
+                          onChanged: (value) => feature.searchLocations(value),
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Where would you like to go?',
+                            hintText:'Where would you like to go?',
                             hintStyle: smallTextStyle,
-                            contentPadding:
-                                EdgeInsets.only(left: widget.width * 0.01),
+                            contentPadding:EdgeInsets.only(left: widget.width * 0.01),
+
                           ),
                         ),
                       ),
                     ),
-                    VerticalDivider(),
+                    const VerticalDivider(),
+                    //===================================================== Calendar for Date picking =====================================================
                     InkWell(
                       onTap: () {
                         setState(() {
@@ -497,7 +531,7 @@ class _SearchBarState extends State<SearchBar> {
                       },
                       child: Container(
                         height: widget.height * 0.5,
-                        width: widget.width * 0.18,
+                        width: widget.width * 0.2,
                         padding: EdgeInsets.only(left: widget.width * 0.01),
                         decoration: BoxDecoration(
                           border: Border(
@@ -508,12 +542,17 @@ class _SearchBarState extends State<SearchBar> {
                         ),
                         child: Align(
                           alignment: Alignment.centerLeft,
-                          child:
-                              Text('Choose Your Date', style: smallTextStyle),
+                          child: Consumer<FeaturesProvider>(
+                            builder: (context, calendar, child) => Text(
+                                calendar.checkingDate != '' &&
+                                        calendar.checkoutDate != ''
+                                    ? '${calendar.checkingDate} - ${calendar.checkoutDate}'
+                                    : 'Choose Your Date',
+                                style: smallTextStyle),
+                          ),
                         ),
                       ),
                     ),
-                    // VerticalDivider(),
                     InkWell(
                       onTap: () {
                         setState(() {
@@ -524,13 +563,16 @@ class _SearchBarState extends State<SearchBar> {
                       },
                       child: Container(
                         height: widget.height * 0.5,
-                        width: widget.width * 0.2,
+                        width: widget.width * 0.18,
                         padding: EdgeInsets.only(left: widget.width * 0.01),
                         child: Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Rooms',
-                            style: smallTextStyle,
+                          child: Consumer<FeaturesProvider>(
+                            builder: (context, searchbar, child) =>
+                                Text(
+                              '${searchbar.rooms} Rooms, ${searchbar.adults} Adults, ${searchbar.children} children',
+                              style: smallTextStyle,
+                            ),
                           ),
                         ),
                       ),
@@ -539,22 +581,36 @@ class _SearchBarState extends State<SearchBar> {
                 ),
               ),
               sizedbox(0.0, widget.width * 0.01),
-              Container(
-                height: widget.height * 0.065,
-                width: widget.width * 0.08,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 93, 239, 255),
-                      Color.fromARGB(255, 51, 192, 252),
-                    ],
-                  ),
+              Consumer<FeaturesProvider>(
+                builder: (context, searchbar, child) => 
+                InkWell(
                   borderRadius: BorderRadius.circular(15),
-                ),
-                child: Center(
-                  child: Text(
-                    'Search',
-                    style: smallTextStyle,
+                  onTap: () {
+                    // if (searchbar.locationText == '' && searchbar.checkingDate != ''&& searchbar.checkoutDate != '') {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPageDeskTop(),));
+                    // }
+                    // else{
+                      // implement toast message
+                    // }
+                  },
+                  child: Container(
+                    height: widget.height * 0.065,
+                    width: widget.width * 0.075,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 125, 217, 248),
+                          Color.fromARGB(255, 28, 198, 255),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Search',
+                        style: smallTextStyle,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -569,7 +625,7 @@ class _SearchBarState extends State<SearchBar> {
                   ? Container(
                       height: widget.height * 0.5,
                       width: widget.width * 0.3,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(10),
                           bottomRight: Radius.circular(10),
@@ -577,16 +633,18 @@ class _SearchBarState extends State<SearchBar> {
                         ),
                         color: Colors.white,
                       ),
+                      //=================================================================================================================================
                       child: Consumer<FeaturesProvider>(
                         builder: (context, locationProvider, child) =>
                             ListView.builder(
-                          itemCount: 2,
+                          itemCount: locationProvider.searchResults.length,
                           padding: EdgeInsets.symmetric(
                             horizontal: widget.width * 0.00,
                             vertical: widget.height * 0.005,
                           ),
                           itemBuilder: (context, index) {
-                            // final location = locationProvider.searchResults[index];
+                            final location =
+                                locationProvider.searchResults[index];
                             return TextButton(
                               style: TextButton.styleFrom(
                                 overlayColor: Colors.black,
@@ -595,52 +653,247 @@ class _SearchBarState extends State<SearchBar> {
                                 ),
                               ),
                               onPressed: () {
-                                // location.setLocationText(location['display_name']);
+                                location.setLocationText(location['display_name']);
                                 Navigator.pop(context);
                               },
                               child: ListTile(
                                 leading: Icon(Icons.location_on_outlined),
-                                // title: Text(location['display_name']),
-                                title: Text('data'),
+                                title: Text(location['display_name']),
                               ),
                             );
                           },
                         ),
                       ),
                     )
+                  //=======================================================================================================================================
                   : SizedBox(width: widget.width * 0.305),
               calendarPicker
-                  ? Container(
-                      height: widget.height * 0.5,
-                      width: widget.width * 0.28,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
-                          topLeft: Radius.circular(5),
-                        ),
-                        color: Colors.white,
-                      ),
+                  ? CalendarDatePicker(
+                      height: widget.height,
+                      width: widget.width,
                     )
                   : SizedBox(width: widget.width * 0.19),
               roomsCounter
-                  ? Container(
-                      height: widget.height * 0.5,
-                      width: widget.width * 0.2,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
-                          topRight: Radius.circular(5),
-                        ),
-                        color: Colors.white,
-                      ),
+                  ? RoomsCountDropDownSheet(
+                      height: widget.height,
+                      width: widget.width,
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
             ],
           ),
         ],
       ),
     );
+  }
+}
+
+class CalendarDatePicker extends StatefulWidget {
+  final double height;
+  final double width;
+  const CalendarDatePicker({
+    super.key,
+    required this.height,
+    required this.width,
+  });
+
+  @override
+  State<CalendarDatePicker> createState() => _CalendarDatePickerState();
+}
+
+class _CalendarDatePickerState extends State<CalendarDatePicker> {
+  @override
+  Widget build(BuildContext context) {
+    final config = CalendarDatePicker2Config(
+      centerAlignModePicker: true,
+      calendarType: CalendarDatePicker2Type.range,
+      calendarViewMode: CalendarDatePicker2Mode.scroll,
+      rangeBidirectional: true,
+      selectedDayHighlightColor: Color.fromARGB(255, 0, 238, 210),
+      dayBorderRadius: BorderRadius.circular(10),
+      firstDate: DateTime.now(),
+      currentDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 1),
+      disabledDayTextStyle: TextStyle(fontSize: 16, color: Colors.grey),
+      hideScrollViewTopHeader: false,
+      dayTextStyle: TextStyle(color: Colors.black),
+      selectableYearPredicate: (year) => true,
+      selectableDayPredicate: (day) => true,
+      controlsTextStyle: const TextStyle(
+        color: Colors.black,
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+    return Container(
+      height: widget.height * 0.5,
+      width: widget.width * 0.28,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+          topLeft: Radius.circular(5),
+        ),
+        color: Colors.white,
+      ),
+      child: Center(
+        child: Consumer<FeaturesProvider>(
+          builder: (context, value, child) => CalendarDatePicker2(
+            config: config,
+            value: value.rangeDatePickerValueWithDefaultValue,
+            onValueChanged: (dates) {
+              value.setSelectDates(dates);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//==================================== How Many Guests are Booking and they need How many Roooms ====================================================
+//===================================================================================================================================================
+//================================================= Rooms Guest and childrens count =================================================================
+//===================================================================================================================================================
+//===================================================================================================================================================
+class RoomsCountDropDownSheet extends StatelessWidget {
+  final double height;
+  final double width;
+  const RoomsCountDropDownSheet({
+    super.key,
+    required this.height,
+    required this.width,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final bottomSheet = Provider.of<FeaturesProvider>(context);
+    return Container(
+      height: height * 0.5,
+      width: width * 0.2,
+      padding: EdgeInsets.symmetric(horizontal: width * 0.00),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+          topRight: Radius.circular(5),
+        ),
+        color: Colors.white,
+      ),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: width * 0.01),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Consumer<FeaturesProvider>(
+                builder: (context, bottomsheet, child) =>
+                    _buildDropdown('Rooms', bottomsheet.rooms, (value) {
+                  bottomsheet.setRoomCount(value);
+                }),
+              ),
+              Consumer<FeaturesProvider>(
+                builder: (context, bottomSheet, child) =>
+                    _buildDropdown('Adults', bottomSheet.adults, (value) {
+                  bottomSheet.setAdultsCount(value);
+                }),
+              ),
+              Consumer<FeaturesProvider>(
+                builder: (context, bottomSheet, child) =>
+                    _buildDropdown('Children', bottomSheet.children, (value) {
+                  bottomSheet.setChildrenCount(value);
+                }),
+              ),
+              sizedbox(height * 0.02, 0.0),
+              if (bottomSheet.children > 0) ..._buildChildrenAges(context),
+              sizedbox(height * 0.02, 0.0),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDropdown(String label, int value, ValueChanged onChanged) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(fontSize: 18.0),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.white54,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Center(
+              child: DropdownButton<int>(
+                value: value,
+                onChanged: onChanged,
+                items: List.generate(60, (index) => index)
+                    .map<DropdownMenuItem<int>>((int value) {
+                  return DropdownMenuItem<int>(
+                    value: value,
+                    child: Text(value.toString().padLeft(2, '0')),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildChildrenAges(context) {
+    final bottomSheet = Provider.of<FeaturesProvider>(context, listen: false);
+    List<Widget> childrenAgesWidgets = [];
+    for (int i = 0; i < bottomSheet.children; i++) {
+      childrenAgesWidgets.add(
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(10)),
+          margin: EdgeInsets.symmetric(vertical: 8.0),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Child ${i + 1} Age',
+                style: TextStyle(fontSize: 18.0),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Consumer<FeaturesProvider>(
+                  builder: (context, guest, child) => DropdownButton<int>(
+                      value: guest.childrenAges[i],
+                      onChanged: (int? newValue) {
+                        guest.setChildrenAges(newValue, i);
+                      },
+                      items: List.generate(18, (index) => index)
+                          .map<DropdownMenuItem<int>>((int value) {
+                        return DropdownMenuItem<int>(
+                          value: value,
+                          child: Text(value.toString().padLeft(2, '0')),
+                        );
+                      }).toList()),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return childrenAgesWidgets;
   }
 }
