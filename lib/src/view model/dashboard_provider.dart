@@ -13,6 +13,8 @@ class DashBoardProvider extends ChangeNotifier {
   int adults = 1;
   int children = 0;
 
+  get allFilters => null;
+
 
   void setBottomBarindex(index) {
     bottombarindex = index;
@@ -114,4 +116,6 @@ class DashBoardProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void updateFilter(int index, bool bool) {}
 }

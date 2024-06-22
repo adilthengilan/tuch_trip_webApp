@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tuch/src/view/Tabview/tab_view_body.dart';
+import 'package:tuch/src/view/Tabview/Home/tab_view_body.dart';
 
 class TabView extends StatefulWidget {
   const TabView({super.key});

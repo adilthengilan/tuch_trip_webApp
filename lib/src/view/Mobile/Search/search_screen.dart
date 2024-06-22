@@ -38,16 +38,19 @@ class SearchScreen extends StatelessWidget {
         toolbarHeight: height * 0.1,
         leadingWidth: width,
         leading: Container(
-          height: height * 0.1, 
+          height: height * 0.1,
           padding: EdgeInsets.only(top: height * 0.02, bottom: height * 0.005),
           child: Consumer<SearchProvider>(
             builder: (context, search, child) => AppSearchBar(
-              onChange: (enteringKey) => search.runSearching(enteringKey, hotelList),
+              onChange: (enteringKey) =>
+                  search.runSearching(enteringKey, hotelList),
               prefixIcon: InkWell(
                 onTap: () => Navigator.pop(context),
                 child: Icon(Icons.arrow_back_rounded),
               ),
-              hintText: "Enter Destination", width: width, height: height,
+              hintText: "Enter Destination",
+              width: width,
+              height: height,
             ),
           ),
         ),

@@ -55,7 +55,7 @@ class Faq extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('Customer Support', style: heading),
-                  sizedbox(height * 0.02, width),
+                  sizedbox(height * 0.03, width),
                   AppSearchBar(
                     hintText: "Search",
                     width: width * 0.900,
@@ -183,7 +183,7 @@ class Faq extends StatelessWidget {
                     ),
                   ),
                 ),
-                ArticleList(),
+                SizedBox(height: height * 0.90, child: ArticleList()),
               ],
             ),
           ],
@@ -195,7 +195,7 @@ class Faq extends StatelessWidget {
 
 class ArticleList extends StatelessWidget {
   final List<String> articles = [
-    'Which digital wallet can I use to store my collectible Planet?',
+    'Which digital wallet can I use to store my collectible stickers?',
     'What is a digital wallet?',
     'What blockchain are these NFTs minted on?',
     'How to pay for your trip with crypto?',
@@ -211,7 +211,7 @@ class ArticleList extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           Text(
             'Promoted articles',
             style: TextStyle(
@@ -226,7 +226,7 @@ class ArticleList extends StatelessWidget {
               itemCount: articles.length,
               itemBuilder: (context, index) {
                 return Column(
-                  children: <Widget>[
+                  children: [
                     ListTile(
                       title: Text(
                         articles[index],
@@ -239,7 +239,6 @@ class ArticleList extends StatelessWidget {
                         // Handle article tap
                       },
                     ),
-                    Divider(),
                   ],
                 );
               },

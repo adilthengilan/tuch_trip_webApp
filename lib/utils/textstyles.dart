@@ -3,10 +3,16 @@ import 'package:google_fonts/google_fonts.dart';
 
 final TextStyle smallTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
+);
+final largeHeadings = GoogleFonts.poppins(
+  textStyle: TextStyle(
+      fontSize: 54,
+      fontWeight: FontWeight.w600,
+      color: Colors.white),
 );
 
 final TextStyle whiteSmallTextStyle = GoogleFonts.poppins(
@@ -24,7 +30,6 @@ final TextStyle whitelargeTextStyle = GoogleFonts.poppins(
     color: Colors.white,
   ),
 );
-
 
 final TextStyle buttonTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(

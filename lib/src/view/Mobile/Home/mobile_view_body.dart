@@ -3,17 +3,18 @@ import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
+import 'package:tuch/src/view/Mobile/Search/hotel_lists.dart';
 import 'package:tuch/src/view/Mobile/Search/search_screen.dart';
+import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
 import 'package:tuch/src/view/constants/aboutus.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
-import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
 import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
 import 'package:tuch/src/view/constants/calender_screen.dart';
 import 'package:tuch/src/view/constants/contact_details.dart';
+import 'package:tuch/src/view/constants/cookies.dart';
 import 'package:tuch/src/view/constants/faq.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
-
 import '../../../view model/feauture_provider.dart';
 
 class MobileViewBody extends StatelessWidget {
@@ -265,6 +266,11 @@ class MobileViewBody extends StatelessWidget {
     final bottomProvider =
         Provider.of<DashBoardProvider>(context, listen: false);
     bottomProvider.loadRoomsAndGuestCount();
+
+    // Define the list of locations and initialize the selected location to null
+    List<String> locations = ['Dubai', 'Jeddhah', 'London'];
+    String? selectedLocation;
+
     return Container(
       width: width,
       margin: EdgeInsets.symmetric(horizontal: width * 0.04),
@@ -301,24 +307,36 @@ class MobileViewBody extends StatelessWidget {
                     IconData icon = Icons.circle;
                     String text = "";
                     Color iconColor = Colors.black;
+                    Widget childWidget = Container();
                     VoidCallback onpressed = () {};
                     switch (index) {
                       case 0:
                         icon = Icons.search;
-                        text = featuresProvider.isLoading
-                            ? 'Loading...'
-                            : featuresProvider.locationText == ''
-                                ? 'Where would you like to go?'
-                                : featuresProvider.locationText;
                         iconColor = Colors.blueAccent;
-                        onpressed = () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SearchScreen(),
-                            ),
-                          );
-                        };
+                        childWidget = DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            hint: Text('Where would you like to go?'),
+                            value: selectedLocation,
+                            onChanged: (String? newValue) {
+                              if (newValue != null) {
+                                selectedLocation = newValue;
+                                (context as Element).markNeedsBuild();
+                              }
+                            },
+                            items: locations
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            icon: SizedBox
+                                .shrink(), // This removes the dropdown icon
+                          ),
+                        );
+                        onpressed = () {};
+                        break;
                       case 1:
                         icon = Icons.calendar_today_outlined;
                         text = featuresProvider.selectedDates.isEmpty
@@ -333,6 +351,12 @@ class MobileViewBody extends StatelessWidget {
                             ),
                           );
                         };
+                        childWidget = Text(
+                          text,
+                          style: smallTextStyle,
+                          maxLines: 1,
+                        );
+                        break;
                       case 2:
                         icon = Icons.person_outline_outlined;
                         text =
@@ -341,6 +365,11 @@ class MobileViewBody extends StatelessWidget {
                         onpressed = () {
                           showBottomSheet(context, height, width);
                         };
+                        childWidget = Text(
+                          text,
+                          style: smallTextStyle,
+                          maxLines: 1,
+                        );
                         break;
                       default:
                     }
@@ -352,12 +381,14 @@ class MobileViewBody extends StatelessWidget {
                         padding: EdgeInsets.only(
                             left: width * 0.05, right: width * 0.02),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(10),
-                            ),
-                            border:
-                                Border(bottom: BorderSide(color: Colors.grey)),
-                            color: Colors.transparent),
+                          borderRadius: index == 2
+                              ? BorderRadius.vertical(
+                                  bottom: Radius.circular(10))
+                              : BorderRadius.zero,
+                          border:
+                              Border(bottom: BorderSide(color: Colors.grey)),
+                          color: Colors.transparent,
+                        ),
                         child: Row(
                           children: [
                             AppIcon(
@@ -368,11 +399,7 @@ class MobileViewBody extends StatelessWidget {
                             sizedbox(0.0, width * 0.04),
                             SizedBox(
                               width: width * 0.7,
-                              child: Text(
-                                text,
-                                style: smallTextStyle,
-                                maxLines: 1,
-                              ),
+                              child: childWidget,
                             ),
                           ],
                         ),
@@ -392,14 +419,14 @@ class MobileViewBody extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SearchScreen(),
+                      builder: (context) => HotelListScreen(),
                     ),
                   );
                 },
                 gradient: LinearGradient(
                   colors: [
                     Color.fromARGB(255, 51, 192, 252),
-                    Color.fromARGB(255, 22, 228, 251)
+                    Color.fromARGB(255, 22, 228, 251),
                   ],
                 ),
                 height: height,
@@ -805,7 +832,10 @@ class Footerlink extends StatelessWidget {
         ),
         //Cookies Policy
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CookiesPolicy()));
+          },
           child: Text('Cookies Policy', style: smallTextstylewhite),
         ),
 

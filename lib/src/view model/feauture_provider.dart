@@ -1,67 +1,91 @@
 import 'dart:async';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart';
 import 'package:tuch/src/view%20model/location_searching_provider.dart';
-import 'package:tuch/src/view/Common%20widget/toest_message.dart';
 
 class FeaturesProvider extends ChangeNotifier {
-  final toDayDate = DateTime.now();
-  List<DateTime> selectedDates = [];
-  List<DateTime> conformedDate = [];
-
+  List<DateTime?> rangeDatePickerValueWithDefaultValue = [null, null];
+  List<DateTime?> selectedDates = [null, null];
   String checkingDate = '';
   String checkoutDate = '';
 
-  void onSelected(selectedDay, context) {
-    if (selectedDay.isBefore(toDayDate)) return;
+  void setSelectDates(dates) {
+    rangeDatePickerValueWithDefaultValue = dates;
+    if (dates.length >= 2 && dates[0] != null && dates[1] != null) {
+      selectedDates = dates;
 
-    // when two selected they want select another one
-    if (selectedDates.length >= 2) {
-      selectedDates.clear();
+      final checkingDayDate = DateFormat.d().format(selectedDates[0]!);
+      final checkoutDayDate = DateFormat.d().format(selectedDates[1]!);
+      final checkingMonth = DateFormat.MMM().format(selectedDates[0]!);
+      final checkoutMonth = DateFormat.MMM().format(selectedDates[1]!);
+      final checkingDayName = DateFormat.E().format(selectedDates[0]!);
+      final checkoutDayName = DateFormat.E().format(selectedDates[1]!);
+
+      checkingDate = '${checkingDayName} ${checkingDayDate} ${checkingMonth}';
+      checkoutDate = '${checkoutDayName} ${checkoutDayDate} ${checkoutMonth}';
+      print(checkingDate);
+      print(checkoutDate);
+      notifyListeners();
+    } else {
+      return;
     }
-
-    if (selectedDates.isEmpty || selectedDates.length == 1) {
-      selectedDates.add(selectedDay);
-      selectedDates.sort();
-
-      if (selectedDates.length >= 2) {
-        final difference =
-            selectedDates.last.difference(selectedDates[0]).inDays;
-
-        if (difference > 27) {
-          selectedDates.clear();
-          toastmessege("Hotels can't be Booked for a maximum of 28 Days.");
-        } else {
-          // Add dates between the two selected dates to the list
-          List<DateTime> betweenDates = [];
-          DateTime currentDate = selectedDates[0];
-
-          while (currentDate.isBefore(selectedDates[1])) {
-            betweenDates.add(currentDate);
-            currentDate = currentDate.add(Duration(days: 1));
-          }
-          betweenDates.add(selectedDates[1]); // add the end date
-          if (betweenDates.length <= 28) {
-            selectedDates = betweenDates;
-          } else {
-            selectedDates
-                .clear(); // Remove the second date if the range is more than 28 days
-          }
-          final firstDay = DateFormat.d().format(selectedDates[0]);
-          final lastDay = DateFormat.d().format(selectedDates.last);
-          final firstmonth = DateFormat.MMM().format(selectedDates[0]);
-          final lastMonth = DateFormat.MMM().format(selectedDates.last);
-          final firstDayName = DateFormat.E().format(selectedDates[0]);
-          final lastDayName = DateFormat.E().format(selectedDates.last);
-          checkingDate = '$firstDayName $firstDay $firstmonth';
-          checkoutDate = '$lastDayName $lastDay  $lastMonth';
-        }
-      }
-    }
-    notifyListeners();
   }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // final toDayDate = DateTime.now();
+  // List<DateTime> selectedDates = [];
+  // List<DateTime> conformedDate = [];
+
+  // void onSelected(selectedDay, context) {
+  //   if (selectedDay.isBefore(toDayDate)) return;
+
+  //   // when two selected they want select another one
+  //   if (selectedDates.length >= 2) {
+  //     selectedDates.clear();
+  //   }
+
+  //   if (selectedDates.isEmpty || selectedDates.length == 1) {
+  //     selectedDates.add(selectedDay);
+  //     selectedDates.sort();
+
+  //     if (selectedDates.length >= 2) {
+  //       final difference =
+  //           selectedDates.last.difference(selectedDates[0]).inDays;
+
+  //       if (difference > 27) {
+  //         selectedDates.clear();
+  //         toastmessege("Hotels can't be Booked for a maximum of 28 Days.");
+  //       } else {
+  //         // Add dates between the two selected dates to the list
+  //         List<DateTime> betweenDates = [];
+  //         DateTime currentDate = selectedDates[0];
+
+  //         while (currentDate.isBefore(selectedDates[1])) {
+  //           betweenDates.add(currentDate);
+  //           currentDate = currentDate.add(Duration(days: 1));
+  //         }
+  //         betweenDates.add(selectedDates[1]); // add the end date
+  //         if (betweenDates.length <= 28) {
+  //           selectedDates = betweenDates;
+  //         } else {
+  //           selectedDates
+  //               .clear(); // Remove the second date if the range is more than 28 days
+  //         }
+  //         final firstDay = DateFormat.d().format(selectedDates[0]);
+  //         final lastDay = DateFormat.d().format(selectedDates.last);
+  //         final firstmonth = DateFormat.MMM().format(selectedDates[0]);
+  //         final lastMonth = DateFormat.MMM().format(selectedDates.last);
+  //         final firstDayName = DateFormat.E().format(selectedDates[0]);
+  //         final lastDayName = DateFormat.E().format(selectedDates.last);
+  //         checkingDate = '$firstDayName $firstDay $firstmonth';
+  //         checkoutDate = '$lastDayName $lastDay  $lastMonth';
+  //       }
+  //     }
+  //   }
+  //   notifyListeners();
+  // }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,8 +165,10 @@ class FeaturesProvider extends ChangeNotifier {
       print(
           'Latitude: ${currentPosition!.latitude} Longitude ${currentPosition!.longitude}');
       Placemark place = placemarks[0];
-      currentAddress = '${place.street}, ${place.subLocality}, '
-          '${place.subAdministrativeArea}, ${place.postalCode}';
+      currentAddress = '${place.street},'
+          '${place.subLocality}, '
+          '${place.subAdministrativeArea},'
+          '${place.postalCode}';
       locationText = currentAddress ?? '';
       notifyListeners();
     }).catchError((e) {
@@ -152,10 +178,10 @@ class FeaturesProvider extends ChangeNotifier {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // on changed function in the search bar, this function will passing user input to Api service and list all the matching in the listview builder
+// on changed function in the search bar, this function will passing user input to Api service and list all the matching in the listview builder
   void searchLocations(value) async {
     if (value != null) {
-      final results = await _geocodingService.searchLocations(value);
+      var results = await _geocodingService.searchLocations(value);
       searchResults = results;
       notifyListeners();
     }
@@ -168,17 +194,34 @@ class FeaturesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //==================================== How Many Guests are Booking and they need How many Roooms ====================================================
+  //===================================================================================================================================================
+  //================================================= Rooms Guest and childrens count =================================================================
+  //===================================================================================================================================================
+  //===================================================================================================================================================
+  int rooms = 1;
+  int adults = 1;
+  int children = 0;
+  List<int> childrenAges = [];
 
-  void simulateLoading() async {
-    isLoading = true;
-
-    // Simulate a network call or any other asynchronous operation
-    await Future.delayed(Duration(seconds: 3));
-
-    isLoading = false;
+  void setRoomCount(value) {
+    rooms = value;
     notifyListeners();
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void setAdultsCount(value) {
+    adults = value;
+    notifyListeners();
+  }
+
+  void setChildrenCount(value) {
+    children = value;
+    childrenAges = List.filled(value, 0);
+    notifyListeners();
+  }
+
+  void setChildrenAges(newvalue, i) {
+    childrenAges[i] = newvalue ?? 0;
+    notifyListeners();
+  }
 }

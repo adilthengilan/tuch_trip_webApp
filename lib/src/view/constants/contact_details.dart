@@ -100,7 +100,6 @@ class Contact extends StatelessWidget {
                   'Articles in this section',
                   style: smallTextStyle,
                 ),
-                children: [],
               ),
               sizedbox(height * 0.08, width),
               Text(
