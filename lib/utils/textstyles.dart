@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 final TextStyle smallTextStyle = GoogleFonts.montserrat(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
     color: Colors.black,
   ),
@@ -67,7 +67,7 @@ final TextStyle smallTextstylelight = GoogleFonts.montserrat(
 final TextStyle smallboldTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.bold,
     color: Colors.black,
   ),
 );

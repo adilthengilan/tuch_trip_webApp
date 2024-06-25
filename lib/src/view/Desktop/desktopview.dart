@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
-import 'package:tuch/src/view/Desktop/detaile_page/detaile_page.dart';
+import 'package:tuch/src/view/Desktop/booking_page/booking_page.dart';
 import 'package:tuch/src/view/Desktop/search_page/search_page.dart';
 import 'package:tuch/utils/textstyles.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
 TextEditingController locationController = TextEditingController();
+TextEditingController emailController = TextEditingController();
+TextEditingController phoneNumberController = TextEditingController();
+TextEditingController firstNameController = TextEditingController();
+TextEditingController lastNameController = TextEditingController();
+
 bool locationSearchingList = false;
 bool calendarPicker = false;
 bool roomsCounter = false;
@@ -19,7 +25,7 @@ class DesktopView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DetailePageDesktop();
+    return BookingPage();
   }
 }
 
@@ -471,7 +477,7 @@ class _SearchBarState extends State<SearchingBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.width * 0.8,
+      width: widget.width * 0.75,
       height: locationSearchingList || calendarPicker || roomsCounter
           ? widget.height * 0.6
           : widget.height * 0.08,
@@ -624,7 +630,7 @@ class _SearchBarState extends State<SearchingBar> {
               locationSearchingList
                   ? Container(
                       height: widget.height * 0.5,
-                      width: widget.width * 0.3,
+                      width: widget.width * 0.25,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(10),
@@ -666,13 +672,13 @@ class _SearchBarState extends State<SearchingBar> {
                       ),
                     )
                   //=======================================================================================================================================
-                  : SizedBox(width: widget.width * 0.305),
+                  : SizedBox(width: widget.width * 0.24),
               calendarPicker
                   ? CalendarDatePicker(
                       height: widget.height,
                       width: widget.width,
                     )
-                  : SizedBox(width: widget.width * 0.19),
+                  : SizedBox(width: widget.width * 0.205),
               roomsCounter
                   ? RoomsCountDropDownSheet(
                       height: widget.height,
@@ -720,7 +726,7 @@ class _CalendarDatePickerState extends State<CalendarDatePicker> {
       selectableDayPredicate: (day) => true,
       controlsTextStyle: const TextStyle(
         color: Colors.black,
-        fontSize: 15,
+        fontSize: 1,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -896,4 +902,46 @@ class RoomsCountDropDownSheet extends StatelessWidget {
     }
     return childrenAgesWidgets;
   }
+}
+
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final double height;
+  final double width;
+
+  const CustomAppBar({super.key, required this.height, required this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
+      automaticallyImplyLeading: false,
+      title: Text(
+        'Tuchtrip',
+        style: GoogleFonts.montserrat(
+          fontSize: 24,
+          color: Colors.black,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(IconlyLight.chat),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(
+            IconlyLight.profile,
+            size: height * 0.035,
+            color: Colors.black,
+          ),
+        ),
+        SizedBox(width: width * 0.01),
+      ],
+    );
+  }
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }

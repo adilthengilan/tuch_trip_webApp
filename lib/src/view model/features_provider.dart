@@ -10,6 +10,7 @@ class FeaturesProvider extends ChangeNotifier {
   List<DateTime?> selectedDates = [null, null];
   String checkingDate = '';
   String checkoutDate = '';
+  int nights = 1;
 
   void setSelectDates(dates) {
     rangeDatePickerValueWithDefaultValue = dates;
@@ -25,8 +26,15 @@ class FeaturesProvider extends ChangeNotifier {
 
       checkingDate = '${checkingDayName} ${checkingDayDate} ${checkingMonth}';
       checkoutDate = '${checkoutDayName} ${checkoutDayDate} ${checkoutMonth}';
-      print(checkingDate);
-      print(checkoutDate);
+
+      DateTime date1 = DateFormat('d, MMMM, E').parse(checkingDate);
+      DateTime date2 = DateFormat('d, MMMM, E').parse(checkoutDate);
+
+      // // Calculate the difference
+      Duration difference = date2.difference(date1);
+
+      // // Extract the difference in days
+      nights = difference.inDays;
       notifyListeners();
     } else {
       return;
