@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 
 class DashBoardProvider extends ChangeNotifier {
@@ -28,7 +27,6 @@ class DashBoardProvider extends ChangeNotifier {
 
   void scrollToDownr(double number) {
     if (scrollController.hasClients) {
-      final position = scrollController.position;
       scrollController.animateTo(
         number,
         duration: const Duration(seconds: 1),
