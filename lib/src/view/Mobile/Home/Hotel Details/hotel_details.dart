@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:tuch/src/view%20model/feauture_provider.dart';
 import 'package:tuch/src/view%20model/hotel_details_provider.dart';
 import 'package:tuch/src/view%20model/room_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
@@ -18,7 +17,6 @@ class HotelDetailScreen extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final hotelDetail = Provider.of<HotelDetailProvider>(context).hotelDetail;
-    final featuresProvider = Provider.of<FeaturesProvider>(context);
     final roomProvider = Provider.of<RoomProvider>(context);
     return Scaffold(
       backgroundColor: backgroundColor,

@@ -70,7 +70,6 @@ class SearchScreen extends StatelessWidget {
                     print(search.foundHotels);
                     return InkWell(
                       onTap: () {
-                        search.getCurrentPosition(context);
                       },
                       child: ListTile(
                         leading: Icon(Icons.location_on_outlined),

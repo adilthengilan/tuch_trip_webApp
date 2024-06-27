@@ -1001,7 +1001,7 @@ class DetailePageDesktop extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  fixedSize: Size(width * 0.1, height * 0.028),
+                  fixedSize: Size(width * 0.12, height * 0.028),
                   side: BorderSide(
                     color: Colors.cyan.shade300,
                   ),

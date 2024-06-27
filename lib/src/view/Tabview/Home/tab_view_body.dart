@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
-import 'package:tuch/src/view%20model/feauture_provider.dart';
+import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
@@ -273,7 +273,6 @@ class TabViewHome extends StatelessWidget {
   Widget LocationDatePersonCountBox(height, width, context) {
     final bottomProvider =
         Provider.of<DashBoardProvider>(context, listen: false);
-    bottomProvider.loadRoomsAndGuestCount();
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -299,8 +298,8 @@ class TabViewHome extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Consumer2<DashBoardProvider, FeaturesProvider>(
-            builder: (context, dashBoardProvider, featuresProvider, child) {
+          Consumer<FeaturesProvider>(
+            builder: (context, featuresProvider, child) {
               return Column(
                 children: List.generate(
                   3,
@@ -312,11 +311,9 @@ class TabViewHome extends StatelessWidget {
                     switch (index) {
                       case 0:
                         icon = Icons.search;
-                        text = featuresProvider.isLoading
-                            ? 'Loading...'
-                            : featuresProvider.locationText == ''
+                        text = featuresProvider.selectedLocation == ''
                                 ? 'Where would you like to go?'
-                                : featuresProvider.locationText;
+                                : featuresProvider.selectedLocation;
                         iconColor = Colors.blueAccent;
                         onpressed = () async {
                           Navigator.push(
@@ -343,7 +340,7 @@ class TabViewHome extends StatelessWidget {
                       case 2:
                         icon = Icons.person_outline_outlined;
                         text =
-                            '${dashBoardProvider.rooms} Rooms, ${dashBoardProvider.adults} Adults, ${dashBoardProvider.children} children';
+                            '${featuresProvider.rooms} Rooms, ${featuresProvider.adults} Adults, ${featuresProvider.children} children';
                         iconColor = Colors.black54;
                         onpressed = () {
                           showBottomSheet(context, height, width);
@@ -441,7 +438,7 @@ class BottomSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bottomSheet = Provider.of<DashBoardProvider>(context, listen: false);
+    final bottomSheet = Provider.of<FeaturesProvider>(context, listen: false);
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -472,19 +469,19 @@ class BottomSheetContent extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 8.0),
-              Consumer<DashBoardProvider>(
+              Consumer<FeaturesProvider>(
                 builder: (context, bottomsheet, child) =>
                     buildDropdown('Rooms', bottomsheet.rooms, (value) {
                   bottomsheet.setRoomCount(value);
                 }),
               ),
-              Consumer<DashBoardProvider>(
+              Consumer<FeaturesProvider>(
                 builder: (context, bottomSheet, child) =>
                     buildDropdown('Adults', bottomSheet.adults, (value) {
                   bottomSheet.setAdultsCount(value);
                 }),
               ),
-              Consumer<DashBoardProvider>(
+              Consumer<FeaturesProvider>(
                 builder: (context, bottomSheet, child) =>
                     buildDropdown('Children', bottomSheet.children, (value) {
                   bottomSheet.setChildrenCount(value);
@@ -508,7 +505,6 @@ class BottomSheetContent extends StatelessWidget {
                     ],
                   ),
                   onPressed: () {
-                    bottomsheet.submitingRoomsGuestCount(context);
                   },
                   height: height,
                   width: double.infinity,
@@ -558,7 +554,7 @@ class BottomSheetContent extends StatelessWidget {
   }
 
   List<Widget> _buildChildrenAges(context) {
-    final bottomSheet = Provider.of<DashBoardProvider>(context);
+    final bottomSheet = Provider.of<FeaturesProvider>(context);
     List<Widget> childrenAgesWidgets = [];
     for (int i = 0; i < bottomSheet.children; i++) {
       childrenAgesWidgets.add(
@@ -581,7 +577,7 @@ class BottomSheetContent extends StatelessWidget {
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Consumer<DashBoardProvider>(
+                child: Consumer<FeaturesProvider>(
                   builder: (context, guest, child) => DropdownButton<int>(
                       value: guest.childrenAges[i],
                       onChanged: (int? newValue) {

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tuch/src/view%20model/calender_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
-import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
 class BookingCalendarPage extends StatelessWidget {

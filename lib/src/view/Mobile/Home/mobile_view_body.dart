@@ -5,7 +5,7 @@ import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
 import 'package:tuch/src/view/Mobile/Search/hotel_lists.dart';
 import 'package:tuch/src/view/Mobile/Search/search_screen.dart';
-import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
+import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view/constants/aboutus.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
 import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
@@ -15,7 +15,6 @@ import 'package:tuch/src/view/constants/cookies.dart';
 import 'package:tuch/src/view/constants/faq.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
-import '../../../view model/feauture_provider.dart';
 
 class MobileViewBody extends StatelessWidget {
   const MobileViewBody({super.key});
@@ -265,7 +264,6 @@ class MobileViewBody extends StatelessWidget {
   Widget LocationDatePersonCountBox(height, width, context) {
     final bottomProvider =
         Provider.of<DashBoardProvider>(context, listen: false);
-    bottomProvider.loadRoomsAndGuestCount();
 
     // Define the list of locations and initialize the selected location to null
     List<String> locations = ['Dubai', 'Jeddhah', 'London'];
@@ -298,8 +296,8 @@ class MobileViewBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Consumer2<DashBoardProvider, FeaturesProvider>(
-            builder: (context, dashBoardProvider, featuresProvider, child) {
+          Consumer<FeaturesProvider>(
+            builder: (context, featuresProvider, child) {
               return Column(
                 children: List.generate(
                   3,
@@ -360,7 +358,7 @@ class MobileViewBody extends StatelessWidget {
                       case 2:
                         icon = Icons.person_outline_outlined;
                         text =
-                            '${dashBoardProvider.rooms} Rooms, ${dashBoardProvider.adults} Adults, ${dashBoardProvider.children} children';
+                            '${featuresProvider.rooms} Rooms, ${featuresProvider.adults} Adults, ${featuresProvider.children} children';
                         iconColor = Colors.black54;
                         onpressed = () {
                           showBottomSheet(context, height, width);
@@ -467,7 +465,7 @@ class BottomSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bottomSheet = Provider.of<DashBoardProvider>(context, listen: false);
+    final bottomSheet = Provider.of<FeaturesProvider>(context, listen: false);
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -498,19 +496,19 @@ class BottomSheetContent extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 8.0),
-              Consumer<DashBoardProvider>(
+              Consumer<FeaturesProvider>(
                 builder: (context, bottomsheet, child) =>
                     buildDropdown('Rooms', bottomsheet.rooms, (value) {
                   bottomsheet.setRoomCount(value);
                 }),
               ),
-              Consumer<DashBoardProvider>(
+              Consumer<FeaturesProvider>(
                 builder: (context, bottomSheet, child) =>
                     buildDropdown('Adults', bottomSheet.adults, (value) {
                   bottomSheet.setAdultsCount(value);
                 }),
               ),
-              Consumer<DashBoardProvider>(
+              Consumer<FeaturesProvider>(
                 builder: (context, bottomSheet, child) =>
                     buildDropdown('Children', bottomSheet.children, (value) {
                   bottomSheet.setChildrenCount(value);
@@ -524,7 +522,7 @@ class BottomSheetContent extends StatelessWidget {
                 style: TextStyle(fontSize: 14.0, color: Colors.grey),
               ),
               sizedbox(height * 0.02, 0.0),
-              Consumer<DashBoardProvider>(
+              Consumer<FeaturesProvider>(
                 builder: (context, bottomsheet, child) => AppTextButton(
                   text: 'Submit',
                   gradient: LinearGradient(
@@ -534,7 +532,6 @@ class BottomSheetContent extends StatelessWidget {
                     ],
                   ),
                   onPressed: () {
-                    bottomsheet.submitingRoomsGuestCount(context);
                   },
                   height: height,
                   width: double.infinity,
@@ -584,7 +581,7 @@ class BottomSheetContent extends StatelessWidget {
   }
 
   List<Widget> _buildChildrenAges(context) {
-    final bottomSheet = Provider.of<DashBoardProvider>(context);
+    final bottomSheet = Provider.of<FeaturesProvider>(context);
     List<Widget> childrenAgesWidgets = [];
     for (int i = 0; i < bottomSheet.children; i++) {
       childrenAgesWidgets.add(
@@ -607,7 +604,7 @@ class BottomSheetContent extends StatelessWidget {
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Consumer<DashBoardProvider>(
+                child: Consumer<FeaturesProvider>(
                   builder: (context, guest, child) => DropdownButton<int>(
                       value: guest.childrenAges[i],
                       onChanged: (int? newValue) {

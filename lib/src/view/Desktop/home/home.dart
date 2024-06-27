@@ -20,8 +20,7 @@ class _HomePageState extends State<HomePageDeskTop> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Consumer<FeaturesProvider>(
-      builder: (context, sheets, child) => 
-      GestureDetector(
+      builder: (context, sheets, child) => GestureDetector(
         onTap: () {
           sheets.disposeAllSheets();
         },
@@ -47,7 +46,6 @@ class _HomePageState extends State<HomePageDeskTop> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 sizedbox(height * 0.25, width),
-      
                 ///===========================================================================================================================
                 //===================================================== Home Seach Bar ======================================================
                 ///===========================================================================================================================
@@ -240,7 +238,7 @@ class _HomePageState extends State<HomePageDeskTop> {
                                   onTap: () {},
                                   child: Container(
                                     height: height * 0.08,
-                                    width: width * 0.12,
+                                    width: width * 0.14,
                                     padding: EdgeInsets.symmetric(
                                       horizontal: width * 0.008,
                                     ),
@@ -267,8 +265,7 @@ class _HomePageState extends State<HomePageDeskTop> {
                                         ),
                                         sizedbox(width * 0.02, 0.0),
                                         Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment:CrossAxisAlignment.start,
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(
@@ -277,7 +274,7 @@ class _HomePageState extends State<HomePageDeskTop> {
                                                 fontSize: 14,
                                                 color: Colors.black,
                                               ),
-                                            ), 
+                                            ),
                                             //======================== google Play============ Store and App Store ====================================
                                             Text(
                                               index == 0
@@ -330,12 +327,12 @@ class _HomePageState extends State<HomePageDeskTop> {
                 //===============================================================================================================================
                 chooseYourDestinationsCountries(width, height),
                 //===============================================================================================================================
-                //===============================================================================================================================
                 sizedbox(height * 0.3, width),
                 //===============================================================================================================================
                 //======================================== About Us =============================================================================
                 //===============================================================================================================================
                 aboutUsContainer(width, height),
+                //===============================================================================================================================
               ],
             ),
           ),
@@ -359,12 +356,42 @@ class _HomePageState extends State<HomePageDeskTop> {
       'Thailand',
       'Paris',
     ];
-    List <VoidCallback> onTap = [
-      () {Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPageDeskTop(),));},
-      () {Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPageDeskTop(),));},
-      () {Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPageDeskTop(),));},
-      () {Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPageDeskTop(),));},
-      () {Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPageDeskTop(),));},
+    List<VoidCallback> onTap = [
+      () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchPageDeskTop(),
+            ));
+      },
+      () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchPageDeskTop(),
+            ));
+      },
+      () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchPageDeskTop(),
+            ));
+      },
+      () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchPageDeskTop(),
+            ));
+      },
+      () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchPageDeskTop(),
+            ));
+      },
     ];
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: width * 0.08),
@@ -489,5 +516,3 @@ class _HomePageState extends State<HomePageDeskTop> {
     );
   }
 }
-
-

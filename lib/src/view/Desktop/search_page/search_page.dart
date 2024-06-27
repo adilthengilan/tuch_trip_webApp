@@ -126,7 +126,7 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  fixedSize: Size(width * 0.1, height * 0.028),
+                  fixedSize: Size(width * 0.12, height * 0.028),
                   side: BorderSide(color: Colors.cyan.shade300),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -159,12 +159,16 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
                           bottom: height * 0.015),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          FilterSelections[index],
-                          style: GoogleFonts.montserrat(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        child: SizedBox(
+                          width: width * 0.08,
+                          child: Text(
+                            FilterSelections[index],
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
