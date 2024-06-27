@@ -454,7 +454,7 @@ class _HomePageState extends State<HomePageDeskTop> {
 class SearchingBar extends StatefulWidget {
   final double height;
   final double width;
-  const SearchingBar({
+  const  SearchingBar({
     super.key,
     required this.height,
     required this.width,

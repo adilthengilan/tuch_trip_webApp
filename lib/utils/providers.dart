@@ -20,6 +20,9 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ChangeNotifierProvider<SearchProvider>(create: (context) => SearchProvider()),
   ChangeNotifierProvider<FeaturesProvider>(
       create: (context) => FeaturesProvider()),
+        ChangeNotifierProvider<SearchBarProvider>(
+      create: (context) => SearchBarProvider()),
+
   ChangeNotifierProvider<HotelProvider>(create: (context) => HotelProvider()),
     ChangeNotifierProvider<HotelDetailProvider>(create: (context) => HotelDetailProvider()),
     ChangeNotifierProvider<RoomProvider>(create: (context) => RoomProvider()),

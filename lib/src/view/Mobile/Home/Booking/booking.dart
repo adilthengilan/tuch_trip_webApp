@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/bookingProvider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
-import 'package:tuch/src/view/Mobile/Home/mobile_view_body.dart';
-import 'package:tuch/src/view/Tabview/tab_footer.dart';
-import 'package:tuch/src/view/constants/aboutus.dart';
-import 'package:tuch/src/view/constants/contact_details.dart';
-import 'package:tuch/src/view/constants/cookies.dart';
-import 'package:tuch/src/view/constants/faq.dart';
+import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
-class BookingTabview extends StatelessWidget {
+class BookingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -26,10 +22,25 @@ class BookingTabview extends StatelessWidget {
       appBar: AppBar(
         surfaceTintColor: backgroundColor,
         backgroundColor: backgroundColor,
-        title: Text('Tuch Trip', style: headingblack),
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Tuchtrip',
+          style: GoogleFonts.montserrat(
+            fontSize: 24,
+            color: Colors.black,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.person_2_outlined, color: blackShadeColor),
+            icon: Icon(IconlyLight.chat),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.person_2_outlined,
+              color: Colors.black,
+            ),
             onPressed: () {},
           ),
         ],
@@ -41,11 +52,7 @@ class BookingTabview extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(
                   left: width * 0.03, right: width * 0.03, top: height * 0.04),
-              child: Column(
-                children: [
-                  HotelDetails(),
-                ],
-              ),
+              child: HotelDetails(),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -80,30 +87,53 @@ class BookingTabview extends StatelessWidget {
                         style: GoogleFonts.montserrat(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 8),
+                      sizedbox(height * 0.02, width),
                       Text(
                         'We will send you the receipt and booking details',
-                        style: GoogleFonts.montserrat(fontSize: 12),
-                      ),
-                      SizedBox(height: 16),
-                      TextField(
                         style: GoogleFonts.montserrat(
-                            color: greyShadeMedium, fontSize: 14),
-                        decoration: InputDecoration(
-                          labelText: 'E-mail',
-                          border: OutlineInputBorder(),
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(height: 16),
-                      TextField(
-                        style: GoogleFonts.montserrat(
-                            color: greyShadeMedium, fontSize: 14),
-                        decoration: InputDecoration(
-                          labelText: 'Phone number',
-                          border: OutlineInputBorder(),
+                      sizedbox(height * 0.04, width),
+                      Container(
+                        height: height * 0.06,
+                        child: TextField(
+                          style: GoogleFonts.montserrat(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          decoration: InputDecoration(
+                            labelText: 'E-mail',
+                            labelStyle: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      sizedbox(height * 0.01, width),
+                      Container(
+                        height: height * 0.06,
+                        child: TextField(
+                          style: GoogleFonts.montserrat(
+                              color: greyShadeMedium, fontSize: 14),
+                          decoration: InputDecoration(
+                            labelText: 'Phone number',
+                            labelStyle: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      sizedbox(height * 0.02, width),
                       Row(
                         children: [
                           Checkbox(
@@ -162,8 +192,8 @@ class BookingTabview extends StatelessWidget {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           Container(
-                            height: height * 0.06,
-                            width: width * 0.200,
+                            height: height * 0.05,
+                            width: width * 0.150,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color.fromARGB(255, 208, 181, 255)),
@@ -171,32 +201,48 @@ class BookingTabview extends StatelessWidget {
                               child: Text(
                                 "Select",
                                 style: GoogleFonts.montserrat(
-                                    fontSize: 14,
+                                    fontSize: 12,
                                     color: Color.fromARGB(255, 65, 6, 104)),
                               ),
                             ),
-                          ),
+                          )
                         ],
                       ),
-                      SizedBox(height: 16),
-                      TextField(
-                        style: GoogleFonts.montserrat(
-                            color: greyShadeMedium, fontSize: 14),
-                        decoration: InputDecoration(
-                          labelText: 'First name',
-                          border: OutlineInputBorder(),
+                      sizedbox(height * 0.02, width),
+                      Container(
+                        height: height * 0.06,
+                        child: TextField(
+                          style: GoogleFonts.montserrat(
+                              color: greyShadeMedium, fontSize: 14),
+                          decoration: InputDecoration(
+                            labelText: 'First name',
+                            labelStyle: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 16),
-                      TextField(
-                        style: GoogleFonts.montserrat(
-                            color: greyShadeMedium, fontSize: 14),
-                        decoration: InputDecoration(
-                          labelText: 'Second name',
-                          border: OutlineInputBorder(),
+                      sizedbox(height * 0.01, width),
+                      Container(
+                        height: height * 0.06,
+                        child: TextField(
+                          style:
+                              TextStyle(color: greyShadeMedium, fontSize: 14),
+                          decoration: InputDecoration(
+                            labelText: 'Second name',
+                            labelStyle: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      sizedbox(height * 0.01, width),
                       Row(
                         children: [
                           Expanded(
@@ -208,7 +254,7 @@ class BookingTabview extends StatelessWidget {
                           ),
                         ],
                       ),
-                      sizedbox(height * 0.02, width),
+                      sizedbox(height * 0.03, width),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -218,8 +264,8 @@ class BookingTabview extends StatelessWidget {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           Container(
-                            height: height * 0.06,
-                            width: width * 0.200,
+                            height: height * 0.05,
+                            width: width * 0.150,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color.fromARGB(255, 208, 181, 255)),
@@ -227,29 +273,45 @@ class BookingTabview extends StatelessWidget {
                               child: Text(
                                 "Select",
                                 style: GoogleFonts.montserrat(
-                                    fontSize: 14,
+                                    fontSize: 12,
                                     color: Color.fromARGB(255, 65, 6, 104)),
                               ),
                             ),
                           )
                         ],
                       ),
-                      SizedBox(height: 16),
-                      TextField(
-                        style: GoogleFonts.montserrat(
-                            color: greyShadeMedium, fontSize: 14),
-                        decoration: InputDecoration(
-                          labelText: 'First name',
-                          border: OutlineInputBorder(),
+                      sizedbox(height * 0.02, width),
+                      Container(
+                        height: height * 0.06,
+                        child: TextField(
+                          style: GoogleFonts.montserrat(
+                              color: greyShadeMedium, fontSize: 14),
+                          decoration: InputDecoration(
+                            labelText: 'First name',
+                            labelStyle: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 16),
-                      TextField(
-                        style: GoogleFonts.montserrat(
-                            color: greyShadeMedium, fontSize: 14),
-                        decoration: InputDecoration(
-                          labelText: 'Second name',
-                          border: OutlineInputBorder(),
+                      sizedbox(height * 0.02, width),
+                      Container(
+                        height: height * 0.06,
+                        child: TextField(
+                          style:
+                              TextStyle(color: greyShadeMedium, fontSize: 14),
+                          decoration: InputDecoration(
+                            labelText: 'Second name',
+                            labelStyle: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
                         ),
                       ),
                     ],
@@ -292,11 +354,11 @@ class BookingTabview extends StatelessWidget {
                                   fontWeight: FontWeight.bold)),
                           Text(
                             'Jun 20 2024, Thu',
-                            style: GoogleFonts.montserrat(fontSize: 12),
+                            style: GoogleFonts.montserrat(fontSize: 11),
                           ),
                           Text(
                             'from 15:00',
-                            style: GoogleFonts.montserrat(fontSize: 12),
+                            style: GoogleFonts.montserrat(fontSize: 11),
                           ),
                         ],
                       ),
@@ -308,11 +370,11 @@ class BookingTabview extends StatelessWidget {
                                   fontWeight: FontWeight.bold)),
                           Text(
                             'Jun 21 2024, Fri',
-                            style: GoogleFonts.montserrat(fontSize: 12),
+                            style: GoogleFonts.montserrat(fontSize: 11),
                           ),
                           Text(
                             'until 12:00',
-                            style: GoogleFonts.montserrat(fontSize: 12),
+                            style: GoogleFonts.montserrat(fontSize: 11),
                           ),
                         ],
                       ),
@@ -366,11 +428,11 @@ class BookingTabview extends StatelessWidget {
                         children: [
                           Text(
                             'Stay fee',
-                            style: GoogleFonts.montserrat(fontSize: 12),
+                            style: GoogleFonts.montserrat(fontSize: 11),
                           ),
                           Text(
                             '750',
-                            style: GoogleFonts.montserrat(fontSize: 12),
+                            style: GoogleFonts.montserrat(fontSize: 11),
                           )
                         ],
                       ),
@@ -379,11 +441,11 @@ class BookingTabview extends StatelessWidget {
                         children: [
                           Text(
                             'Taxes and fee',
-                            style: GoogleFonts.montserrat(fontSize: 12),
+                            style: GoogleFonts.montserrat(fontSize: 11),
                           ),
                           Text(
                             '90',
-                            style: GoogleFonts.montserrat(fontSize: 12),
+                            style: GoogleFonts.montserrat(fontSize: 11),
                           )
                         ],
                       ),
@@ -439,50 +501,7 @@ class BookingTabview extends StatelessWidget {
               ),
             ),
             sizedbox(height * 0.08, width),
-            TabFooter(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget promocode(height, width) {
-    return Container(
-      height: height * 0.10,
-      width: width,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-              offset: Offset(-0.3, 1),
-              blurRadius: 2,
-              blurStyle: BlurStyle.normal,
-              spreadRadius: 0,
-              color: greyShadeDark
-              // color: darktheme
-              //     ? Color.fromARGB(255, 165, 223, 254)
-              //     : Color.fromARGB(255, 248, 248, 248),
-              ),
-        ],
-      ),
-      child: Padding(
-        padding: EdgeInsets.only(left: width * 0.02, right: width * 0.02),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Promo code or gift certificate',
-                  hintStyle: GoogleFonts.montserrat(fontSize: 10),
-                ),
-              ),
-            ),
-            SizedBox(width: 8.0),
-            InkWell(
-              onTap: () {},
-              child: Text('Apply'),
-            ),
+            Footer(),
           ],
         ),
       ),
@@ -576,7 +595,7 @@ class HotelDetails extends StatelessWidget {
                   children: [
                     Container(
                       height: height * 0.04,
-                      width: width * 0.05,
+                      width: width * 0.06,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(05),
                         color: Colors.yellow,
@@ -617,7 +636,7 @@ class HotelDetails extends StatelessWidget {
                   child: Text(
                     "Jubairah beach road,Jumairah madinath resort, United Arab Emirates,Dubai",
                     style: GoogleFonts.montserrat(
-                        color: Colors.grey, fontSize: 12),
+                        color: Colors.grey, fontSize: 11),
                   ),
                 ),
                 sizedbox(height * 0.02, width * 0.01),
@@ -627,7 +646,7 @@ class HotelDetails extends StatelessWidget {
                     SizedBox(width: 4.0),
                     Text(
                       'Jun 20 from 15:00 — Jun 21 until 12:00',
-                      style: GoogleFonts.montserrat(fontSize: 12),
+                      style: GoogleFonts.montserrat(fontSize: 11),
                     ),
                   ],
                 ),
@@ -645,7 +664,7 @@ class HotelDetails extends StatelessWidget {
                     SizedBox(width: 4.0),
                     Text(
                       'Room only',
-                      style: GoogleFonts.montserrat(fontSize: 12),
+                      style: GoogleFonts.montserrat(fontSize: 11),
                     ),
                   ],
                 ),
@@ -656,7 +675,7 @@ class HotelDetails extends StatelessWidget {
                     SizedBox(width: 4.0),
                     Text(
                       '2 adults',
-                      style: GoogleFonts.montserrat(fontSize: 12),
+                      style: GoogleFonts.montserrat(fontSize: 11),
                     ),
                   ],
                 ),
@@ -667,7 +686,7 @@ class HotelDetails extends StatelessWidget {
                     SizedBox(width: 4.0),
                     Text(
                       'Deluxe rooms',
-                      style: GoogleFonts.montserrat(fontSize: 12),
+                      style: GoogleFonts.montserrat(fontSize: 11),
                     ),
                   ],
                 ),
@@ -678,7 +697,7 @@ class HotelDetails extends StatelessWidget {
                     SizedBox(width: 4.0),
                     Text(
                       'Queen bed',
-                      style: GoogleFonts.montserrat(fontSize: 12),
+                      style: GoogleFonts.montserrat(fontSize: 11),
                     ),
                   ],
                 ),
@@ -711,120 +730,6 @@ class HotelDetails extends StatelessWidget {
       Icons.star,
       color: orangeColor,
       size: height * 0.02,
-    );
-  }
-}
-
-class Footer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-
-    return Container(
-      height: height * 0.95,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-        color: Colors.black,
-      ),
-      child: Column(
-        children: [
-          sizedbox(height * 0.05, width),
-
-          // Logo
-          Text('Tuch Trip', style: heading),
-          sizedbox(height * 0.03, width),
-
-          // About Us section
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Aboutus()));
-            },
-            child: Text('About Us', style: smallTextstylewhite),
-          ),
-          // B2B Solutions section
-          TextButton(
-            onPressed: () {},
-            child: Text('B2B Solutions', style: smallTextstylewhite),
-          ),
-          // Contacts section
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Contact()));
-            },
-            child: Text('Contacts', style: smallTextstylewhite),
-          ),
-          // FAQ section
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Faq()));
-            },
-            child: Text('FAQ', style: smallTextstylewhite),
-          ),
-          //User Agreement
-          TextButton(
-            onPressed: () {},
-            child: Text('User Agreement', style: smallTextstylewhite),
-          ),
-          //Privacy Policy
-          TextButton(
-            onPressed: () {},
-            child: Text('Privacy Policy', style: smallTextstylewhite),
-          ),
-          //Cookies Policy
-          TextButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CookiesPolicy()));
-            },
-            child: Text('Cookies Policy', style: smallTextstylewhite),
-          ),
-
-          sizedbox(height * 0.02, width),
-
-          accounts(),
-          sizedbox(height * 0.05, width),
-          SizedBox(
-            width: width * 0.900,
-            height: height * 0.25,
-            child: Text(
-              'The contents of this website are subject to copyright protection. ©2024 ONLINE TRAVEL SOLUTIONS - FZCO. All rights reserved. No contents of this website may be copied, used, distributed or modified. Solartrip shall not be held liable for the content of any external websites.',
-              style: lightsmalltext,
-              textAlign: TextAlign.center,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget accounts() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-            height: 50,
-            width: 50,
-            child: Image(
-                image:
-                    AssetImage('assets/images/facebk-removebg-preview.png'))),
-        Container(
-            height: 40,
-            width: 40,
-            child: Image(
-                image: AssetImage('assets/images/insta-removebg-preview.png'))),
-        Container(
-            height: 50,
-            width: 50,
-            child: Image(
-                image: AssetImage('assets/images/xtw-removebg-preview.png'))),
-      ],
     );
   }
 }

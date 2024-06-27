@@ -4,16 +4,50 @@ import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/hotel_details_provider.dart';
 import 'package:tuch/src/view%20model/room_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
-import 'package:tuch/src/view/Mobile/Home/Booking/payment_screen.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
-import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
+import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
+import 'package:tuch/src/view/Tabview/tab_footer.dart';
 import 'package:tuch/src/view/constants/calender_screen.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
-class HotelDetailScreen extends StatelessWidget {
+class HotelDetailTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // List of some similiar hotels for temporary
+    final List<HotelDetails> hoteldetail = [
+      HotelDetails(
+        name: 'Burj Al Arab Jumeirah',
+        category: 'Resorts',
+        rating: 5,
+        imageUrl: 'assets/images/luxury hotel.jpg',
+        originalPrice: 1528,
+        currentPrice: 1375,
+      ),
+      HotelDetails(
+        name: 'Jumeirah Al Naseem',
+        category: 'Resorts',
+        rating: 5,
+        imageUrl: 'assets/images/luxury hotel.jpg',
+        currentPrice: 610,
+      ),
+      HotelDetails(
+        name: 'Jumeirah Dar Al Masyaf',
+        category: 'Resorts',
+        rating: 5,
+        imageUrl: 'assets/images/luxury hotel.jpg',
+        currentPrice: 514,
+      ),
+      HotelDetails(
+        name: 'Grand Cosmopolitan Hotel',
+        category: 'Hotels',
+        rating: 5,
+        imageUrl: 'assets/images/luxury hotel.jpg',
+        originalPrice: 185,
+        currentPrice: 137,
+      ),
+    ];
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final hotelDetail = Provider.of<HotelDetailProvider>(context).hotelDetail;
@@ -23,6 +57,7 @@ class HotelDetailScreen extends StatelessWidget {
       //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AppBar
       drawer: DrawerScreen(),
       appBar: AppBar(
+        surfaceTintColor: backgroundColor,
         backgroundColor: backgroundColor,
         leading: Builder(builder: (context) {
           return IconButton(
@@ -37,14 +72,8 @@ class HotelDetailScreen extends StatelessWidget {
         title: Center(child: Text('Tuch Trip', style: headingblack)),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle, color: blackShadeColor),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Profile(),
-                  ));
-            },
+            icon: Icon(Icons.person_2_outlined, color: blackShadeColor),
+            onPressed: () {},
           ),
         ],
       ),
@@ -53,10 +82,10 @@ class HotelDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            sizedbox(height * 0.03, width),
             Padding(
-              padding: EdgeInsets.only(left: width * 0.03, right: width * 0.04),
-              //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Hotel,location,reviews>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+              padding: EdgeInsets.only(
+                  left: width * 0.03, right: width * 0.04, top: height * 0.04),
+              //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Hotel,location,reviews  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -74,12 +103,16 @@ class HotelDetailScreen extends StatelessWidget {
                         children: [
                           Text(
                             "Dubai, United Arab Emirates",
-                            style: TextStyle(color: Colors.grey),
+                            style: GoogleFonts.montserrat(color: Colors.grey),
                           ),
                           sizedbox(height * 0.01, width * 0.01),
-                          Text(
-                            "Show on map",
-                            style: TextStyle(color: Colors.blue),
+                          InkWell(
+                            onTap: () {},
+                            child: Text(
+                              "Show on map",
+                              style: GoogleFonts.montserrat(
+                                  color: Color.fromARGB(255, 67, 1, 79)),
+                            ),
                           ),
                         ],
                       ),
@@ -104,16 +137,16 @@ class HotelDetailScreen extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          height: height * 0.03,
+                          height: height * 0.04,
                           width: width * 0.05,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(07),
+                            borderRadius: BorderRadius.circular(05),
                             color: Colors.yellow,
                           ),
                           child: Center(
                             child: Text(
                               "8.9",
-                              style: TextStyle(
+                              style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.w600, fontSize: 12),
                             ),
                           ),
@@ -121,15 +154,21 @@ class HotelDetailScreen extends StatelessWidget {
                         sizedbox(height * 0.01, width * 0.02),
                         Text(
                           "Excellent",
-                          style: TextStyle(fontSize: 12),
+                          style: GoogleFonts.montserrat(fontSize: 12),
                         ),
                         Spacer(),
-                        Text(
-                          "View all",
-                          style: TextStyle(color: Colors.blue, fontSize: 12),
+                        InkWell(
+                          onTap: () {},
+                          child: Text(
+                            "View all",
+                            style: GoogleFonts.montserrat(
+                                color: Color.fromARGB(255, 67, 1, 79),
+                                fontSize: 12),
+                          ),
                         ),
                       ],
                     ),
+                    //.................................... hotel images ..................................................................
                     sizedbox(height * 0.02, width),
                     Container(
                       height: height * 0.45,
@@ -146,9 +185,11 @@ class HotelDetailScreen extends StatelessWidget {
             //.......................................................... HOUSING INFORMATION......................................................
             Padding(
               padding: EdgeInsets.only(
-                  top: height * 0.03, left: width * 0.02, right: width * 0.02),
+                top: height * 0.03,
+                left: width * 0.02,
+                right: width * 0.02,
+              ),
               child: Container(
-                height: height * 0.20,
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   borderRadius: BorderRadius.circular(15),
@@ -158,31 +199,34 @@ class HotelDetailScreen extends StatelessWidget {
                         blurRadius: 2,
                         blurStyle: BlurStyle.normal,
                         spreadRadius: 0,
-                        color: greyShadeDark),
+                        color: greyShadeLight),
                   ],
                 ),
                 child: Padding(
                   padding: EdgeInsets.only(
                       top: height * 0.02,
                       left: width * 0.02,
-                      right: width * 0.01),
+                      right: width * 0.01,
+                      bottom: height * 0.02),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Housing information',
-                          style: TextStyle(
+                          style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold, fontSize: 12)),
-                      sizedbox(height * 0.01, width),
+                      sizedbox(height * 0.02, width),
                       Text(
                         hotelDetail.description,
-                        style: TextStyle(fontSize: 12),
+                        style: GoogleFonts.montserrat(fontSize: 10),
                       ),
                       sizedbox(height * 0.01, width),
                       GestureDetector(
                           onTap: () {},
                           child: Text(
                             'More about housing',
-                            style: TextStyle(color: Colors.blue, fontSize: 12),
+                            style: GoogleFonts.montserrat(
+                                color: Color.fromARGB(255, 67, 1, 79),
+                                fontSize: 10),
                           )),
                     ],
                   ),
@@ -196,7 +240,6 @@ class HotelDetailScreen extends StatelessWidget {
               padding: EdgeInsets.only(
                   top: height * 0.02, left: width * 0.02, right: width * 0.02),
               child: Container(
-                height: height * 0.18,
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   borderRadius: BorderRadius.circular(15),
@@ -206,7 +249,7 @@ class HotelDetailScreen extends StatelessWidget {
                         blurRadius: 2,
                         blurStyle: BlurStyle.normal,
                         spreadRadius: 0,
-                        color: greyShadeDark
+                        color: greyShadeLight
                         // color: darktheme
                         //     ? Color.fromARGB(255, 165, 223, 254)
                         //     : Color.fromARGB(255, 248, 248, 248),
@@ -217,14 +260,15 @@ class HotelDetailScreen extends StatelessWidget {
                   padding: EdgeInsets.only(
                       top: height * 0.02,
                       left: width * 0.02,
-                      right: width * 0.01),
+                      right: width * 0.01,
+                      bottom: height * 0.02),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Popular services and amenities',
-                          style: TextStyle(
+                          style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold, fontSize: 12)),
-                      sizedbox(height * 0.01, width),
+                      sizedbox(height * 0.02, width),
                       _buildAmenityItem(
                           Icons.wifi, 'Free Wi-Fi', height, width),
                       _buildAmenityItem(
@@ -234,7 +278,9 @@ class HotelDetailScreen extends StatelessWidget {
                           onTap: () {},
                           child: Text(
                             'View all',
-                            style: TextStyle(color: Colors.blue, fontSize: 12),
+                            style: GoogleFonts.montserrat(
+                                color: Color.fromARGB(255, 67, 1, 79),
+                                fontSize: 10),
                           )),
                     ],
                   ),
@@ -245,9 +291,11 @@ class HotelDetailScreen extends StatelessWidget {
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>What's Nearby>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             Padding(
               padding: EdgeInsets.only(
-                  top: height * 0.02, left: width * 0.02, right: width * 0.02),
+                top: height * 0.02,
+                left: width * 0.02,
+                right: width * 0.02,
+              ),
               child: Container(
-                height: height * 0.18,
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   borderRadius: BorderRadius.circular(15),
@@ -257,7 +305,7 @@ class HotelDetailScreen extends StatelessWidget {
                         blurRadius: 2,
                         blurStyle: BlurStyle.normal,
                         spreadRadius: 0,
-                        color: greyShadeDark
+                        color: greyShadeLight
                         // color: darktheme
                         //     ? Color.fromARGB(255, 165, 223, 254)
                         //     : Color.fromARGB(255, 248, 248, 248),
@@ -268,14 +316,15 @@ class HotelDetailScreen extends StatelessWidget {
                   padding: EdgeInsets.only(
                       top: height * 0.02,
                       left: width * 0.02,
-                      right: width * 0.02),
+                      right: width * 0.02,
+                      bottom: height * 0.02),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('What\'s nearby',
-                          style: TextStyle(
+                          style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold, fontSize: 12)),
-                      sizedbox(height * 0.01, width),
+                      sizedbox(height * 0.02, width),
                       _buildNearbyItem(
                           'Souk Madinat Jumeirah', '110 m', height, width),
                       _buildNearbyItem(
@@ -285,7 +334,9 @@ class HotelDetailScreen extends StatelessWidget {
                           onTap: () {},
                           child: Text(
                             'View all',
-                            style: TextStyle(color: Colors.blue, fontSize: 12),
+                            style: GoogleFonts.montserrat(
+                                color: Color.fromARGB(255, 67, 1, 79),
+                                fontSize: 10),
                           )),
                     ],
                   ),
@@ -298,7 +349,6 @@ class HotelDetailScreen extends StatelessWidget {
               padding: EdgeInsets.only(
                   top: height * 0.02, left: width * 0.02, right: width * 0.02),
               child: Container(
-                height: height * 0.20,
                 width: width,
                 decoration: BoxDecoration(
                   color: backgroundColor,
@@ -309,7 +359,7 @@ class HotelDetailScreen extends StatelessWidget {
                         blurRadius: 2,
                         blurStyle: BlurStyle.normal,
                         spreadRadius: 0,
-                        color: greyShadeDark
+                        color: greyShadeLight
                         // color: darktheme
                         //     ? Color.fromARGB(255, 165, 223, 254)
                         //     : Color.fromARGB(255, 248, 248, 248),
@@ -320,14 +370,16 @@ class HotelDetailScreen extends StatelessWidget {
                   padding: EdgeInsets.only(
                       top: height * 0.02,
                       left: width * 0.02,
-                      right: width * 0.02),
+                      right: width * 0.02,
+                      bottom: height * 0.02),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'June 21 -22,2 guests,1 room ',
                         // '${featuresProvider.checkingDate} - ${featuresProvider.checkoutDate}  ${featuresProvider.selectedDates.length - 1} Night',
-                        style: TextStyle(fontSize: 12, color: greyShadeMedium),
+                        style: GoogleFonts.montserrat(
+                            fontSize: 12, color: greyShadeMedium),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -338,34 +390,41 @@ class HotelDetailScreen extends StatelessWidget {
                         },
                         child: Text(
                           'Change',
-                          style: TextStyle(color: Colors.blue, fontSize: 12),
+                          style: GoogleFonts.montserrat(
+                              color: Color.fromARGB(255, 67, 1, 79),
+                              fontSize: 12),
                         ),
                       ),
-                      Text(
-                        'Late check- out',
+                      DropdownButton<String>(
+                        value: 'Late check-out',
+                        icon: Icon(
+                          Icons.keyboard_arrow_down_outlined,
+                          size: 12,
+                        ),
                         style: TextStyle(fontSize: 12),
+                        onChanged: (String? newValue) {},
+                        items: <String>['Late check-out', 'Early check-in']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          );
+                        }).toList(),
+                        underline: Container(), // This removes the underline
                       ),
-                      // DropdownButton<String>(
-                      //   value: 'Late check-out',
-                      //   onChanged: (String? newValue) {},
-                      //   items: <String>['Late check-out', 'Early check-in']
-                      //       .map<DropdownMenuItem<String>>((String value) {
-                      //     return DropdownMenuItem<String>(
-                      //       value: value,
-                      //       child: Text(value),
-                      //     );
-                      //   }).toList(),
-                      // ),
                       sizedbox(height * 0.02, width),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          _buildFilterButton('All', isSelected: true),
-                          // _buildFilterButton('Any payment option'),
-                          _buildFilterButton('Any board type'),
-                          _buildFilterButton('Any bed type'),
-                        ],
-                      )
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     _buildFilterButton('All', isSelected: true),
+                      //     // _buildFilterButton('Any payment option'),
+                      //     _buildFilterButton('Any board type'),
+                      //     _buildFilterButton('Any bed type'),
+                      //   ],
+                      // )
                     ],
                   ),
                 ),
@@ -383,7 +442,7 @@ class HotelDetailScreen extends StatelessWidget {
             //......................................................................................................................................................
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Guest reviews>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             Padding(
-              padding: EdgeInsets.only(left: width * 0.04, top: height * 0.02),
+              padding: EdgeInsets.only(left: width * 0.02, top: height * 0.02),
               child: Text(
                 'Guest reviews',
                 style: GoogleFonts.montserrat(
@@ -406,6 +465,7 @@ class HotelDetailScreen extends StatelessWidget {
               },
             ),
             //>.............................................................................................................................................................
+            //............................................... services and a,menities .......................... sery lists of amenities like category wise ........................
             Padding(
               padding: EdgeInsets.only(
                 top: height * 0.03,
@@ -422,7 +482,7 @@ class HotelDetailScreen extends StatelessWidget {
                         blurRadius: 2,
                         blurStyle: BlurStyle.normal,
                         spreadRadius: 0,
-                        color: greyShadeDark),
+                        color: greyShadeLight),
                   ],
                 ),
                 child: Padding(
@@ -434,64 +494,86 @@ class HotelDetailScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Services and amenities',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 12)),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: width * 0.03, top: height * 0.01),
+                        child: Text('Services and amenities',
+                            style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.bold, fontSize: 12)),
+                      ),
                       sizedbox(height * 0.01, width),
                       ...hotelDetail.services.map((amenity) => ListTile(
+                            minTileHeight: height / 99,
                             leading: Icon(
                               Icons.check_circle_outline,
                               size: 12,
                             ),
                             title: Text(
                               amenity,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.montserrat(fontSize: 10),
                             ),
                           )),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: width * 0.03, top: height * 0.01),
+                        child: Text(
+                          'General',
+                          style: GoogleFonts.montserrat(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
+                      ),
                       sizedbox(height * 0.01, width),
-                      Text(
-                        'General',
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.bold),
-                      ),
                       ...hotelDetail.General.map((amenity) => ListTile(
+                            minTileHeight: height / 65,
                             leading: Icon(
                               Icons.check_circle_outline,
                               size: 13,
                             ),
                             title: Text(
                               amenity,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.montserrat(fontSize: 10),
                             ),
                           )),
-                      Text(
-                        'Activities and Recreation',
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: width * 0.03, top: height * 0.01),
+                        child: Text(
+                          'Activities and Recreation',
+                          style: GoogleFonts.montserrat(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
                       ),
+                      sizedbox(height * 0.01, width),
                       ...hotelDetail.activities.map((amenity) => ListTile(
+                            minTileHeight: height / 65,
                             leading: Icon(
                               Icons.check_circle_outline,
                               size: 13,
                             ),
                             title: Text(
                               amenity,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.montserrat(fontSize: 10),
                             ),
                           )),
-                      Text(
-                        'Food and Drinks',
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: width * 0.03, top: height * 0.01),
+                        child: Text(
+                          'Food and Drinks',
+                          style: GoogleFonts.montserrat(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
                       ),
+                      sizedbox(height * 0.01, width),
                       ...hotelDetail.foodanddrinks.map((amenity) => ListTile(
+                            minTileHeight: height / 65,
                             leading: Icon(
                               Icons.check_circle_outline,
                               size: 13,
                             ),
                             title: Text(
                               amenity,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.montserrat(fontSize: 10),
                             ),
                           )),
                     ],
@@ -499,24 +581,31 @@ class HotelDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
+            //.............................................................................................................................................................
+            Padding(
+              padding: EdgeInsets.only(
+                  left: width * 0.03, right: width * 0.02, top: height * 0.01),
+              child: Text(
+                'Information about amenities, level of service, description and room pictures are provided by Jumeirah Al Qasr hotel.',
+                style: GoogleFonts.montserrat(
+                    fontSize: 10, color: greyShadeMedium),
+              ),
+            ),
+            //.............................................................................................................................................................
 
             Padding(
               padding: EdgeInsets.only(
-                  left: width * 0.02, right: width * 0.02, top: height * 0.01),
-              child: Text(
-                'Information about amenities, level of service, description and room pictures are provided by Jumeirah Al Qasr hotel.',
-                style: TextStyle(fontSize: 10, color: greyShadeMedium),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: width * 0.02, right: width * 0.02, top: height * 0.01),
+                  left: width * 0.03, right: width * 0.02, top: height * 0.01),
               child: Text(
                 'We always do our best to verify this information, however, we accept no responsibility for the provision of incorrect or incomplete information by the hotel.',
-                style: TextStyle(fontSize: 10, color: greyShadeMedium),
+                style: GoogleFonts.montserrat(
+                    fontSize: 10, color: greyShadeMedium),
               ),
             ),
-            sizedbox(height * 0.02, width),
+            //.............................................................................................................................................................
+
+            sizedbox(height * 0.04, width),
+            //....................................more about hotel details ..........................................................
 
             Padding(
               padding: EdgeInsets.only(
@@ -551,7 +640,7 @@ class HotelDetailScreen extends StatelessWidget {
                             blurRadius: 2,
                             blurStyle: BlurStyle.normal,
                             spreadRadius: 0,
-                            color: greyShadeDark
+                            color: greyShadeLight
                             // color: darktheme
                             //     ? Color.fromARGB(255, 165, 223, 254)
                             //     : Color.fromARGB(255, 248, 248, 248),
@@ -572,12 +661,12 @@ class HotelDetailScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Year built',
-                                    style: TextStyle(
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 12, color: greyShadeMedium),
                                   ),
                                   Text(
                                     '2004',
-                                    style: TextStyle(
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600),
                                   )
@@ -588,12 +677,12 @@ class HotelDetailScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Floors',
-                                    style: TextStyle(
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 12, color: greyShadeMedium),
                                   ),
                                   Text(
                                     ' 7',
-                                    style: TextStyle(
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600),
                                   )
@@ -604,12 +693,12 @@ class HotelDetailScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Rooms',
-                                    style: TextStyle(
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 12, color: greyShadeMedium),
                                   ),
                                   Text(
                                     '294',
-                                    style: TextStyle(
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600),
                                   )
@@ -620,7 +709,7 @@ class HotelDetailScreen extends StatelessWidget {
                           sizedbox(height * 0.02, width),
                           Text(
                             'Resort Jumeirah Al Qasr is located in Dubai, United Arab Emirates at Dubai, Jumeirah Beach Road, Madinat Jumeirah Resort 18.5 km from the city center. Check in from 15:00 until 00:00, check out from 07:00 until 12:00. ',
-                            style: TextStyle(
+                            style: GoogleFonts.montserrat(
                               fontSize: 10,
                             ),
                           ),
@@ -628,19 +717,188 @@ class HotelDetailScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text('Property Policies')
+                  //.............................................................................................................................................................
+                  //...............................................................and policies of hotel ..............................................
+                  Padding(
+                    padding: EdgeInsets.only(top: height * 0.05),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Property Policies',
+                          style: GoogleFonts.montserrat(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        PropertyPolicies(),
+                      ],
+                    ),
+                  ),
+                  //.............................................................................................................................................................
+                  //.................................................................Location ...............................................................................
+                  sizedbox(height * 0.03, width),
+                  Container(
+                    width: width,
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(-0.3, 1),
+                            blurRadius: 2,
+                            blurStyle: BlurStyle.normal,
+                            spreadRadius: 0,
+                            color: greyShadeLight
+                            // color: darktheme
+                            //     ? Color.fromARGB(255, 165, 223, 254)
+                            //     : Color.fromARGB(255, 248, 248, 248),
+                            ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: height * 0.02,
+                          left: width * 0.02,
+                          right: width * 0.02,
+                          bottom: height * 0.03),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Location',
+                            style: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Corniche Al hamra,Saudia arabia,jeddha',
+                                style: GoogleFonts.montserrat(fontSize: 12),
+                              ),
+                              Text(
+                                ' 4.08 km from the center',
+                                style: GoogleFonts.montserrat(
+                                    fontSize: 12, color: greyShadeMedium),
+                              )
+                            ],
+                          ),
+                          sizedbox(height * 0.02, width),
+                          Image(
+                            image: AssetImage('assets/images/map.png'),
+                          ),
+                          sizedbox(height * 0.02, width),
+                          Text(
+                            "What's nearby",
+                            style: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              sizedbox(height * 0.02, width * 0.03),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.other_houses_outlined,
+                                    size: 14,
+                                    color: greyShadeDark,
+                                  ),
+                                  sizedbox(height * 0.02, width * 0.03),
+                                  Text(
+                                    'Attractions',
+                                    style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: width * 0.06, top: height * 0.01),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "King Fahadh's Fountain  1.2 km",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    sizedbox(height * 0.01, width),
+                                    Text("King Fahadh's Fountain  1.2 km",
+                                        style: GoogleFonts.montserrat(
+                                          fontSize: 12,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              sizedbox(height * 0.03, width),
+                              Text(
+                                'All distances are measured in straight lines.Actual distances\n may vary',
+                                style: GoogleFonts.montserrat(
+                                    fontSize: 12, color: greyShadeMedium),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  sizedbox(height * 0.06, width),
+                  Text(
+                    'Similar hotels',
+                    style: GoogleFonts.montserrat(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    'Popular with our customers',
+                    style: GoogleFonts.montserrat(fontSize: 12),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: hoteldetail.length,
+                    itemBuilder: (context, index) {
+                      return HotelCards(
+                        hotel: hoteldetail[index],
+                      );
+                    },
+                  ),
+                  sizedbox(height * 0.02, width),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        // Handle view all offers action
+                      },
+                      child: Text(
+                        'View all offers',
+                        style: GoogleFonts.montserrat(
+                            color: Color.fromARGB(255, 67, 1, 79)),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
 
-            sizedbox(height * 0.06, width),
-            Footer(),
+            sizedbox(height * 0.20, width),
+            TabFooter(),
           ],
         ),
       ),
     );
   }
 
+//***********************************************************************************FINAL************************************************************************************** */
   //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Rating star
   Widget ratingStarIcon(height) {
@@ -661,7 +919,7 @@ class HotelDetailScreen extends StatelessWidget {
         sizedbox(height * 0.01, width * 0.02),
         Text(
           title,
-          style: TextStyle(fontSize: 12),
+          style: GoogleFonts.montserrat(fontSize: 10),
         ),
       ],
     );
@@ -672,17 +930,17 @@ class HotelDetailScreen extends StatelessWidget {
       children: [
         Icon(
           Icons.place,
-          size: 12,
+          size: 10,
         ),
         sizedbox(height * 0.01, width * 0.02),
         Text(
           place,
-          style: TextStyle(fontSize: 12),
+          style: GoogleFonts.montserrat(fontSize: 10),
         ),
         Spacer(),
         Text(
           distance,
-          style: TextStyle(fontSize: 12),
+          style: GoogleFonts.montserrat(fontSize: 10),
         ),
       ],
     );
@@ -694,10 +952,135 @@ class HotelDetailScreen extends StatelessWidget {
       selectedColor: Colors.black,
       label: Text(
         label,
-        style: TextStyle(fontSize: 12, color: backgroundColor),
+        style: GoogleFonts.montserrat(fontSize: 12, color: backgroundColor),
       ),
       selected: isSelected,
       onSelected: (bool selected) {},
+    );
+  }
+}
+
+//******************************************************************* THE END ************************************************************************************************ */
+class PropertyPolicies extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        PolicySection(
+          icon: Icons.access_time,
+          title: 'Check-in & Check-out',
+          content:
+              'Check-in from 15:00 until 23:00. Check-out from 07:00 until 15:00.',
+        ),
+        PolicySection(
+          icon: Icons.room_service,
+          title: 'Front Desk',
+          content: '24 Hour Front Desk.',
+        ),
+        PolicySection(
+          icon: Icons.child_care,
+          title: 'Children and extra beds',
+          content: 'Children are welcome (all ages).\n\n'
+              'Children of 13 y.o. and above are considered adults at this property.\n\n'
+              'Crib and extra bed policies:\n'
+              '0 years old or over — extra bed upon request SAR 150 per night.\n'
+              '0 - 2 years old — crib upon request for free.\n\n'
+              'The number of cribs allowed depends on the room type you choose. '
+              'Please check the maximum capacity of the room you have selected. '
+              'All cribs and extra beds are subject to availability.',
+        ),
+        PolicySection(
+          icon: Icons.pets,
+          title: 'Pets',
+          content: 'Pets not allowed.',
+        ),
+        PolicySection(
+          icon: Icons.payment,
+          title: 'Payment method',
+          content: 'Cards accepted: American Express, Visa, Mastercard. '
+              'Cash payments are not available.',
+          paymentIcons: [
+            "assets/images/gpay.png",
+            "assets/images/visa.jpg",
+            "assets/images/Google_Pay_GPay_Logo-512.webp"
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class PolicySection extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String content;
+  final List<String>? paymentIcons;
+
+  PolicySection({
+    required this.icon,
+    required this.title,
+    required this.content,
+    this.paymentIcons,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
+    return Padding(
+      padding: EdgeInsets.only(top: height * 0.03),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                icon,
+                color: greyShadeLight,
+                size: 14,
+              ),
+              sizedbox(height * 0.01, width * 0.03),
+              Text(
+                title,
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: width * 0.05, top: height * 0.01),
+            child: Text(
+              content,
+              style: GoogleFonts.montserrat(fontSize: 10),
+            ),
+          ),
+          if (paymentIcons != null)
+            Padding(
+              padding: EdgeInsets.only(
+                  right: width * 0.07, left: width * 0.04, top: height * 0.02),
+              child: Row(
+                children: paymentIcons!
+                    .map((Image) => Padding(
+                          padding: const EdgeInsets.only(right: 2.0),
+                          child: Container(
+                            height: height * 0.05,
+                            width: width * 0.08,
+                            decoration: BoxDecoration(
+                                image:
+                                    DecorationImage(image: AssetImage(Image)),
+                                border: Border.all(
+                                  color: greyShadeLight,
+                                ),
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                        ))
+                    .toList(),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
@@ -712,17 +1095,14 @@ class RoomWidget extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.only(left: width * 0.03, top: height * 0.03),
+      padding: EdgeInsets.only(left: width * 0.02, top: height * 0.03),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               InkWell(
-                onTap: () {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => BookingScreen()));
-                },
+                onTap: () {},
                 child: Container(
                   height: height * 0.15,
                   width: width * 0.25,
@@ -741,7 +1121,7 @@ class RoomWidget extends StatelessWidget {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   Text(
                     '4 Rooms Photos',
-                    style: TextStyle(color: Colors.blue),
+                    style: TextStyle(color: Color.fromARGB(255, 67, 1, 79)),
                   )
                 ],
               ),
@@ -774,7 +1154,7 @@ class RoomOptionWidget extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => BookingScreen()));
+              MaterialPageRoute(builder: (context) => BookingTabview()));
         },
         child: Container(
           height: height * 0.30,
@@ -788,7 +1168,7 @@ class RoomOptionWidget extends StatelessWidget {
                   blurRadius: 2,
                   blurStyle: BlurStyle.normal,
                   spreadRadius: 0,
-                  color: greyShadeDark
+                  color: greyShadeLight
                   // color: darktheme
                   //     ? Color.fromARGB(255, 165, 223, 254)
                   //     : Color.fromARGB(255, 248, 248, 248),
@@ -809,7 +1189,7 @@ class RoomOptionWidget extends StatelessWidget {
                     ),
                     Text(
                       'Queen bed',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 10),
                     )
                   ],
                 ),
@@ -824,7 +1204,7 @@ class RoomOptionWidget extends StatelessWidget {
                       option.breakfastIncluded
                           ? "Breakfast included"
                           : "Room only",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 10),
                     )
                   ],
                 ),
@@ -837,7 +1217,7 @@ class RoomOptionWidget extends StatelessWidget {
                     ),
                     Text(
                       'No free cancellation',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 10),
                     )
                   ],
                 ),
@@ -850,11 +1230,11 @@ class RoomOptionWidget extends StatelessWidget {
                     ),
                     Text(
                       'Pay Now',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 10),
                     ),
                     Text(
                       '(Use bonus promo codes) ',
-                      style: TextStyle(color: Colors.green, fontSize: 12),
+                      style: TextStyle(color: Colors.green, fontSize: 10),
                     )
                   ],
                 ),
@@ -868,15 +1248,17 @@ class RoomOptionWidget extends StatelessWidget {
                         Text(
                           'For 1 night,\ntaxes included',
                           style:
-                              TextStyle(fontSize: 12, color: greyShadeMedium),
+                              TextStyle(fontSize: 10, color: greyShadeMedium),
                         ),
                         Text(
                           "Cashback in bonus point: \$${option.cashback.toStringAsFixed(2)}",
-                          style: TextStyle(color: Colors.green, fontSize: 12),
+                          style: TextStyle(color: Colors.green, fontSize: 10),
                         ),
                         Text(
                           'More details',
-                          style: TextStyle(color: Colors.blue, fontSize: 12),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 67, 1, 79),
+                              fontSize: 10),
                         ),
                       ],
                     ),
@@ -886,7 +1268,7 @@ class RoomOptionWidget extends StatelessWidget {
                         Text(
                           "\$${option.price.toStringAsFixed(2)}",
                           style: TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold),
+                              fontSize: 10, fontWeight: FontWeight.bold),
                         ),
                       ],
                     )
@@ -931,7 +1313,7 @@ class ReviewWidget extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-          right: width * 0.04, top: height * 0.03, left: width * 0.04),
+          right: width * 0.04, top: height * 0.03, left: width * 0.02),
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -942,7 +1324,7 @@ class ReviewWidget extends StatelessWidget {
                 blurRadius: 2,
                 blurStyle: BlurStyle.normal,
                 spreadRadius: 0,
-                color: greyShadeDark),
+                color: greyShadeLight),
           ],
         ),
         child: Padding(
@@ -957,16 +1339,16 @@ class ReviewWidget extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    height: height * 0.03,
+                    height: height * 0.04,
                     width: width * 0.05,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(07),
+                      borderRadius: BorderRadius.circular(05),
                       color: Colors.yellow,
                     ),
                     child: Center(
                       child: Text(
                         review.rating.toString(),
-                        style: TextStyle(
+                        style: GoogleFonts.montserrat(
                             fontWeight: FontWeight.w600, fontSize: 12),
                       ),
                     ),
@@ -974,14 +1356,14 @@ class ReviewWidget extends StatelessWidget {
                   sizedbox(height * 0.01, width * 0.02),
                   Text(
                     review.title,
-                    style: TextStyle(fontSize: 12),
+                    style: GoogleFonts.montserrat(fontSize: 10),
                   ),
                 ],
               ),
               sizedbox(height * 0.02, width),
               Text(
                 review.body,
-                style: TextStyle(fontSize: 12),
+                style: GoogleFonts.montserrat(fontSize: 10),
               ),
               sizedbox(height * 0.02, width),
               Container(
@@ -990,10 +1372,10 @@ class ReviewWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(08)),
                 child: Padding(
                   padding: EdgeInsets.only(
-                    top: height * 0.01,
-                    left: width * 0.02,
-                    right: width * 0.02,
-                  ),
+                      top: height * 0.02,
+                      left: width * 0.02,
+                      right: width * 0.02,
+                      bottom: height * 0.02),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1004,45 +1386,45 @@ class ReviewWidget extends StatelessWidget {
                             backgroundColor: greyShadeLight,
                             child: Text(
                               review.userName[0],
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 10, color: backgroundColor),
                             ),
                           ),
                           sizedbox(height * 0.01, width * 0.02),
                           Text(
                             review.userName,
-                            style: TextStyle(
-                              fontSize: 12,
+                            style: GoogleFonts.montserrat(
+                              fontSize: 11,
                             ),
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.person_2_outlined,
-                            size: 12,
-                          ),
-                          Text(
-                            review.userType,
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
+                      sizedbox(height * 0.02, width),
+                      // Row(
+                      //   children: [
+                      //     Icon(
+                      //       Icons.person_2_outlined,
+                      //       size: 12,
+                      //     ),
+                      //     // Text(
+                      //     //   review.userType,
+                      //     //   style: TextStyle(
+                      //     //     fontSize: 12,
+                      //     //   ),
+                      //     // ),
+                      //   ],
+                      // ),
                       Row(
                         children: [
                           Icon(
                             Icons.calendar_month_outlined,
-                            size: 12,
+                            size: 10,
+                            color: greyShadeMedium,
                           ),
                           Text(
                             review.date,
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
+                            style: GoogleFonts.montserrat(
+                                fontSize: 10, color: greyShadeMedium),
                           ),
                         ],
                       ),
@@ -1057,3 +1439,140 @@ class ReviewWidget extends StatelessWidget {
     );
   }
 }
+
+class HotelDetails {
+  final String name;
+  final String category;
+  final int rating;
+  final String imageUrl;
+  final double? originalPrice;
+  final double currentPrice;
+
+  HotelDetails({
+    required this.name,
+    required this.category,
+    required this.rating,
+    required this.imageUrl,
+    this.originalPrice,
+    required this.currentPrice,
+  });
+}
+
+class HotelCards extends StatelessWidget {
+  final HotelDetails hotel;
+
+  HotelCards({required this.hotel});
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
+    return Padding(
+      padding: EdgeInsets.only(
+        // left: width * 0.01,
+        // right: width * 0.01,
+        top: height * 0.02,
+      ),
+      child: Container(
+        width: width * 0.860,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(-0.3, 1),
+                  blurRadius: 2,
+                  blurStyle: BlurStyle.normal,
+                  spreadRadius: 0,
+                  color: greyShadeLight
+                  // color: darktheme
+                  //     ? Color.fromARGB(255, 165, 223, 254)
+                  //     : Color.fromARGB(255, 248, 248, 248),
+                  ),
+            ],
+            color: backgroundColor),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: width,
+              height: height * 0.20,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)),
+                image: DecorationImage(
+                    image: AssetImage(
+                      hotel.imageUrl,
+                    ),
+                    fit: BoxFit.fill),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: height * 0.01,
+                  left: width * 0.02,
+                  right: width * 0.02,
+                  bottom: height * 0.02),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Row(
+                            children: List.generate(
+                              hotel.rating,
+                              (index) => Icon(Icons.star,
+                                  color: Colors.orange, size: 12),
+                            ),
+                          ),
+                          Text(
+                            hotel.category,
+                            style: GoogleFonts.montserrat(fontSize: 10),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        hotel.name,
+                        style: GoogleFonts.montserrat(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (hotel.originalPrice != null)
+                        Text(
+                          '\$${hotel.originalPrice}',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 12,
+                            decoration: TextDecoration.lineThrough,
+                            color: Colors.red,
+                          ),
+                        ),
+                      sizedbox(height * 0.01, width),
+                      Text(
+                        '\$${hotel.currentPrice}',
+                        style: GoogleFonts.montserrat(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'For 1 night',
+                        style: GoogleFonts.montserrat(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+//................................................................................................................................................................

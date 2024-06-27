@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
-import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
@@ -28,13 +27,8 @@ class CookiesPolicy extends StatelessWidget {
         title: Text('Tuch Trip', style: heading),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle, color: Colors.white),
+            icon: Icon(Icons.person_2_outlined, color: Colors.white),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Profile(),
-                  ));
             },
           ),
         ],

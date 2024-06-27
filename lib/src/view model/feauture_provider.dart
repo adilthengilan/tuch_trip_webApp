@@ -5,6 +5,43 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:tuch/src/view%20model/location_searching_provider.dart';
 
+
+
+import 'package:flutter/foundation.dart';
+
+class SearchBarProvider extends ChangeNotifier {
+  bool _locationSearchingList = false;
+  bool _calendarPicker = false;
+  bool _roomsCounter = false;
+
+  bool get locationSearchingList => _locationSearchingList;
+  bool get calendarPicker => _calendarPicker;
+  bool get roomsCounter => _roomsCounter;
+
+  void toggleLocationSearchingList() {
+    _locationSearchingList = !_locationSearchingList;
+    _calendarPicker = false;
+    _roomsCounter = false;
+    notifyListeners();
+  }
+
+  void toggleCalendarPicker() {
+    _calendarPicker = !_calendarPicker;
+    _locationSearchingList = false;
+    _roomsCounter = false;
+    notifyListeners();
+  }
+
+  void toggleRoomsCounter() {
+    _roomsCounter = !_roomsCounter;
+    _locationSearchingList = false;
+    _calendarPicker = false;
+    notifyListeners();
+  }
+}
+
+
+
 class FeaturesProvider extends ChangeNotifier {
   List<DateTime?> rangeDatePickerValueWithDefaultValue = [null, null];
   List<DateTime?> selectedDates = [null, null];
@@ -224,4 +261,38 @@ class FeaturesProvider extends ChangeNotifier {
     childrenAges[i] = newvalue ?? 0;
     notifyListeners();
   }
+}
+
+
+class FeaturesProviders extends ChangeNotifier {
+  bool _locationSearchingList = false;
+  bool _calendarPicker = false;
+  bool _roomsCounter = false;
+
+  bool get locationSearchingList => _locationSearchingList;
+  bool get calendarPicker => _calendarPicker;
+  bool get roomsCounter => _roomsCounter;
+
+  void toggleLocationSearchingList() {
+    _locationSearchingList = !_locationSearchingList;
+    _calendarPicker = false;
+    _roomsCounter = false;
+    notifyListeners();
+  }
+
+  void toggleCalendarPicker() {
+    _calendarPicker = !_calendarPicker;
+    _locationSearchingList = false;
+    _roomsCounter = false;
+    notifyListeners();
+  }
+
+  void toggleRoomsCounter() {
+    _roomsCounter = !_roomsCounter;
+    _locationSearchingList = false;
+    _calendarPicker = false;
+    notifyListeners();
+  }
+
+  // Other methods and variables (e.g., searchLocations, setRoomCount, etc.) ...
 }

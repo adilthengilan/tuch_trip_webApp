@@ -14,6 +14,18 @@ final largeHeadings = GoogleFonts.poppins(
       fontWeight: FontWeight.w600,
       color: Colors.white),
 );
+final largeHeadingsmv = GoogleFonts.poppins(
+  textStyle: TextStyle(
+      fontSize: 35,
+      fontWeight: FontWeight.w600,
+      color: Colors.white),
+);
+final largeHeadingsmvlight = GoogleFonts.poppins(
+  textStyle: TextStyle(
+      fontSize: 35,
+      fontWeight: FontWeight.w300,
+      color: Colors.white),
+);
 
 final TextStyle whiteSmallTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
@@ -69,10 +81,16 @@ final TextStyle mediumtextstyle = GoogleFonts.montserrat(
   color: Colors.white,
 );
 final TextStyle smallTextstylewhite = GoogleFonts.montserrat(
-  fontSize: 14,
+  fontSize: 11,
   fontWeight: FontWeight.normal,
   color: Colors.white,
 );
+final TextStyle lightsmalltext = GoogleFonts.montserrat(
+  fontSize: 10,
+  fontWeight: FontWeight.w300,
+  color: Colors.white,
+);
+
 final TextStyle smallTextstylelight = GoogleFonts.montserrat(
   fontSize: 14,
   fontWeight: FontWeight.w300,

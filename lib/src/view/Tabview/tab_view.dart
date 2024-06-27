@@ -11,6 +11,6 @@ class TabView extends StatefulWidget {
 class _TabViewState extends State<TabView> {
   @override
   Widget build(BuildContext context) {
-    return TabViewHome();
+    return TabviewHome();
   }
 }

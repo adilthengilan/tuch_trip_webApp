@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:tuch/src/view%20model/calender_provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
+import 'package:tuch/src/view/Common%20widget/footer.dart';
+import 'package:tuch/src/view/Mobile/Home/Booking/booking.dart';
 import 'package:tuch/src/view/Mobile/Search/hotel_lists.dart';
 import 'package:tuch/src/view/Mobile/Search/search_screen.dart';
-import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
 import 'package:tuch/src/view/constants/aboutus.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
-import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
+import 'package:tuch/src/view/constants/b2b_solutions.dart';
 import 'package:tuch/src/view/constants/calender_screen.dart';
 import 'package:tuch/src/view/constants/contact_details.dart';
 import 'package:tuch/src/view/constants/cookies.dart';
 import 'package:tuch/src/view/constants/faq.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
-import '../../../view model/feauture_provider.dart';
 
 class MobileViewBody extends StatelessWidget {
   const MobileViewBody({super.key});
@@ -40,29 +42,38 @@ class MobileViewBody extends StatelessWidget {
                 color: backgroundColor,
               ));
         }),
-        title: Text('Tuch Trip', style: heading),
+        title: Text(
+          'Tuch Trip',
+          style: GoogleFonts.montserrat(
+            fontSize: 24,
+            color: const Color.fromARGB(255, 255, 255, 255),
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle, color: Colors.white),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profile()));
-            },
+            icon: Icon(Icons.person_2_outlined, color: Colors.white),
+            onPressed: () {},
           ),
         ],
       ),
       //________________________________________________________________________________________________________________________________
       body: SingleChildScrollView(
-        child: Column(children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           //--------------------------------------------------------------------------------------------------------------------------------
           //--------------------------------------------------Headline-----------------------------------------------------------------------
-          sizedbox(height * 0.09, width),
           // Title
-          SizedBox(
-            width: width * 0.900,
-            child: Text(
-                'Explore Hundreds of Premium Hotels : \nFind Your Perfect Stay',
-                style: heading2),
+          sizedbox(height * 0.15, width),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Tuchtrip', style: largeHeadingsmv),
+              Text(
+                'Travel Service',
+                style: largeHeadingsmvlight,
+              )
+            ],
           ),
           //------------------------------------------------------------------------------------------------------------------------------------
           sizedbox(height * 0.09, width),
@@ -77,6 +88,7 @@ class MobileViewBody extends StatelessWidget {
           //       TextStyle(color: Colors.black, fontFamily: 'Montserrat'),
           // ),
           //-----------------------------------------------Location search and rooms ,guests.calender widget-----------------------------------------
+          sizedbox(height * 0.02, width),
           LocationDatePersonCountBox(height, width, context),
           sizedbox(height * 0.29, width),
           //_______________________________________________________ an ad of our  quality of booking __________________________________________
@@ -164,8 +176,8 @@ class MobileViewBody extends StatelessWidget {
             ],
           ),
           //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-          sizedbox(height * 0.18, width),
-          Footerlink(),
+          sizedbox(height * 0.25, width),
+          Footer(),
         ]),
       ),
     );
@@ -241,12 +253,15 @@ class MobileViewBody extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: width * 0.04),
-                  child: ClipOval(
-                    child: Image.asset(
-                      image,
-                      height: height * 0.40,
-                      width: height * 0.36,
-                      fit: BoxFit.cover,
+                  child: InkWell(
+                    onTap: onPressed,
+                    child: ClipOval(
+                      child: Image.asset(
+                        image,
+                        height: height * 0.40,
+                        width: height * 0.36,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -263,14 +278,6 @@ class MobileViewBody extends StatelessWidget {
 //In the Column Has 3 Containers and a AppTextButton
 //The Three container are indicates, Location searcher, Choosing Dates, Room Count and Persons Count
   Widget LocationDatePersonCountBox(height, width, context) {
-    final bottomProvider =
-        Provider.of<DashBoardProvider>(context, listen: false);
-    bottomProvider.loadRoomsAndGuestCount();
-
-    // Define the list of locations and initialize the selected location to null
-    List<String> locations = ['Dubai', 'Jeddhah', 'London'];
-    String? selectedLocation;
-
     return Container(
       width: width,
       margin: EdgeInsets.symmetric(horizontal: width * 0.04),
@@ -298,117 +305,83 @@ class MobileViewBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Consumer2<DashBoardProvider, FeaturesProvider>(
-            builder: (context, dashBoardProvider, featuresProvider, child) {
-              return Column(
-                children: List.generate(
-                  3,
-                  (index) {
-                    IconData icon = Icons.circle;
-                    String text = "";
-                    Color iconColor = Colors.black;
-                    Widget childWidget = Container();
-                    VoidCallback onpressed = () {};
-                    switch (index) {
-                      case 0:
-                        icon = Icons.search;
-                        iconColor = Colors.blueAccent;
-                        childWidget = DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            hint: Text('Where would you like to go?'),
-                            value: selectedLocation,
-                            onChanged: (String? newValue) {
-                              if (newValue != null) {
-                                selectedLocation = newValue;
-                                (context as Element).markNeedsBuild();
-                              }
-                            },
-                            items: locations
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            icon: SizedBox
-                                .shrink(), // This removes the dropdown icon
-                          ),
-                        );
-                        onpressed = () {};
-                        break;
-                      case 1:
-                        icon = Icons.calendar_today_outlined;
-                        text = featuresProvider.selectedDates.isEmpty
-                            ? 'Choose Your Dates'
-                            : '${featuresProvider.checkingDate} - ${featuresProvider.checkoutDate}  ${featuresProvider.selectedDates.length - 1} Night';
-                        iconColor = Colors.pinkAccent;
-                        onpressed = () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BookingCalendarPage(),
-                            ),
-                          );
-                        };
-                        childWidget = Text(
-                          text,
-                          style: smallTextStyle,
-                          maxLines: 1,
-                        );
-                        break;
-                      case 2:
-                        icon = Icons.person_outline_outlined;
-                        text =
-                            '${dashBoardProvider.rooms} Rooms, ${dashBoardProvider.adults} Adults, ${dashBoardProvider.children} children';
-                        iconColor = Colors.black54;
-                        onpressed = () {
-                          showBottomSheet(context, height, width);
-                        };
-                        childWidget = Text(
-                          text,
-                          style: smallTextStyle,
-                          maxLines: 1,
-                        );
-                        break;
-                      default:
-                    }
-                    return InkWell(
-                      onTap: onpressed,
-                      child: Container(
-                        height: height * 0.083,
-                        width: width,
-                        padding: EdgeInsets.only(
-                            left: width * 0.05, right: width * 0.02),
-                        decoration: BoxDecoration(
-                          borderRadius: index == 2
-                              ? BorderRadius.vertical(
-                                  bottom: Radius.circular(10))
-                              : BorderRadius.zero,
-                          border:
-                              Border(bottom: BorderSide(color: Colors.grey)),
-                          color: Colors.transparent,
+          Column(
+            children: List.generate(
+              3,
+              (index) {
+                final calendarProvider = Provider.of<CalendarProvider>(context);
+                final bottomSheet =
+                    Provider.of<DashBoardProvider>(context, listen: false);
+                IconData icon = Icons.circle;
+                String text = "";
+                Color iconColor = Colors.black;
+                VoidCallback onpressed = () {};
+                switch (index) {
+                  case 0:
+                    icon = Icons.search;
+                    text = 'Where would you like to go?';
+                    iconColor = Colors.blueAccent;
+                    onpressed = () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchScreen(),
                         ),
-                        child: Row(
-                          children: [
-                            AppIcon(
-                              iconData: icon,
-                              color: iconColor,
-                              height: height * 0.04,
-                            ),
-                            sizedbox(0.0, width * 0.04),
-                            SizedBox(
-                              width: width * 0.7,
-                              child: childWidget,
-                            ),
-                          ],
+                      );
+                    };
+                  case 1:
+                    icon = Icons.calendar_today_outlined;
+                    text = calendarProvider.selectedDates.isEmpty
+                        ? 'Choose Your Dates'
+                        : '${calendarProvider.checkingDate} - ${calendarProvider.checkoutDate}  ${calendarProvider.selectedDates.length - 1} Night';
+                    iconColor = Colors.pinkAccent;
+                    onpressed = () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookingCalendarPage(),
                         ),
+                      );
+                    };
+                  case 2:
+                    icon = Icons.person_outline_outlined;
+                    text =
+                        '${bottomSheet.rooms} Rooms, ${bottomSheet.adults} Adults, ${bottomSheet.children} children';
+                    iconColor = Colors.black54;
+                    onpressed = () {
+                      showBottomSheet(context, height, width);
+                    };
+                    break;
+                  default:
+                }
+                return InkWell(
+                  onTap: onpressed,
+                  child: Container(
+                    height: height * 0.083,
+                    width: width,
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(10),
                       ),
-                    );
-                  },
-                ),
-              );
-            },
+                      border: Border(bottom: BorderSide(color: Colors.grey)),
+                      color: Colors.transparent,
+                    ),
+                    child: Row(
+                      children: [
+                        AppIcon(
+                          iconData: icon,
+                          color: iconColor,
+                          height: height * 0.04,
+                        ),
+                        sizedbox(0.0, width * 0.04),
+                        Text(text, style: smallTextStyle),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
           Padding(
             padding: EdgeInsets.all(height * 0.02),
@@ -417,16 +390,14 @@ class MobileViewBody extends StatelessWidget {
                 text: "Search",
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HotelListScreen(),
-                    ),
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HotelListScreen()));
                 },
                 gradient: LinearGradient(
                   colors: [
                     Color.fromARGB(255, 51, 192, 252),
-                    Color.fromARGB(255, 22, 228, 251),
+                    Color.fromARGB(255, 22, 228, 251)
                   ],
                 ),
                 height: height,
@@ -487,7 +458,8 @@ class BottomSheetContent extends StatelessWidget {
                 children: [
                   Text(
                     'Select Rooms and Guests',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
                     icon: Icon(Icons.close),
@@ -521,7 +493,8 @@ class BottomSheetContent extends StatelessWidget {
               sizedbox(height * 0.02, 0.0),
               Text(
                 'To get the best prices and options, please tell us how many children you have and how old they are.',
-                style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                style:
+                    GoogleFonts.montserrat(fontSize: 14.0, color: Colors.grey),
               ),
               sizedbox(height * 0.02, 0.0),
               Consumer<DashBoardProvider>(
@@ -630,6 +603,9 @@ class BottomSheetContent extends StatelessWidget {
     return childrenAgesWidgets;
   }
 }
+//===========================================================================================================================================================
+//===========================================================================================================================================================
+//===========================================================================================================================================================
 
 // Section for advertisement
 class AdSection extends StatelessWidget {
@@ -670,6 +646,7 @@ class AdSection extends StatelessWidget {
   }
 }
 
+//..........................................................................................................................................................
 // Section for loyalty program
 class LoyaltyProgramSection extends StatelessWidget {
   const LoyaltyProgramSection({
@@ -777,106 +754,779 @@ class InviteFriendsButton extends StatelessWidget {
   }
 }
 
-//********************************************************************************************************************************************************** */
-class Footerlink extends StatelessWidget {
-  const Footerlink({super.key});
+// class SearchingAppBarView extends StatelessWidget {
+//   const SearchingAppBarView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    return Column(
-      children: [
-        // Logo
-        Text('Tuch Trip', style: heading),
-        sizedbox(height * 0.03, width),
+//   @override
+//   Widget build(BuildContext context) {
+//     final height = MediaQuery.of(context).size.height;
+//     final width = MediaQuery.of(context).size.width;
+//     return Column(
+//       children: [
+//         Row(
+//           children: [
+//             Container(
+//               height: height * 0.45,
+//               width: width * 0.905,
+//               margin: EdgeInsets.symmetric(horizontal: width * 0.04),
+//               decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.circular(10),
+//                 gradient: LinearGradient(
+//                   colors: [
+//                     Color.fromARGB(255, 163, 238, 255),
+//                     Color.fromARGB(255, 252, 215, 249),
+//                   ],
+//                 ),
+//                 boxShadow: [
+//                   BoxShadow(
+//                     offset: Offset(3, 2),
+//                     blurRadius: 4,
+//                     color: Color.fromARGB(47, 80, 79, 79),
+//                   ),
+//                   BoxShadow(
+//                     offset: Offset(-2, -0),
+//                     blurRadius: 4,
+//                     color: Color.fromARGB(255, 216, 216, 216),
+//                   ),
+//                 ],
+//               ),
+//               child: Column(
+//                 children: [
+//                   //===================================================== Location searcher =====================================================
+//                   Padding(
+//                     padding: EdgeInsets.only(
+//                         left: width * 0.04,
+//                         top: height * 0.02,
+//                         bottom: height * 0.02),
+//                     child: Container(
+//                       child: Row(
+//                         children: [
+//                           AppIcon(
+//                             iconData: Icons.search,
+//                             color: Colors.blueAccent,
+//                             height: height * 0.04,
+//                           ),
+//                           sizedbox(0.0, width * 0.04),
+//                           SizedBox(
+//                             width: width * 0.7,
+//                             child: Text('Where would you like to go?'),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   Divider(),
+//                   //===================================================== Calendar for Date picking =====================================================
+//                   Padding(
+//                     padding: EdgeInsets.only(
+//                         left: width * 0.04,
+//                         top: height * 0.02,
+//                         bottom: height * 0.02),
+//                     child: Container(
+//                       child: Row(
+//                         children: [
+//                           AppIcon(
+//                             iconData: Icons.calendar_month_outlined,
+//                             color: Colors.pinkAccent,
+//                             height: height * 0.04,
+//                           ),
+//                           sizedbox(0.0, width * 0.04),
+//                           SizedBox(
+//                             width: width * 0.7,
+//                             child: Text('Choose your dates'),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   Divider(),
+//                   Padding(
+//                     padding: EdgeInsets.only(
+//                         left: width * 0.04,
+//                         top: height * 0.02,
+//                         bottom: height * 0.02),
+//                     child: Container(
+//                       child: Row(
+//                         children: [
+//                           AppIcon(
+//                             iconData: Icons.person_2_outlined,
+//                             color: Colors.black54,
+//                             height: height * 0.04,
+//                           ),
+//                           sizedbox(0.0, width * 0.04),
+//                           SizedBox(
+//                             width: width * 0.7,
+//                             child: Text('Rooms/guests'),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   Divider(),
 
-        // About Us section
-        TextButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Aboutus()));
-          },
-          child: Text('About Us', style: smallTextstylewhite),
-        ),
-        // B2B Solutions section
-        TextButton(
-          onPressed: () {},
-          child: Text('B2B Solutions', style: smallTextstylewhite),
-        ),
-        // Contacts section
-        TextButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Contact()));
-          },
-          child: Text('Contacts', style: smallTextstylewhite),
-        ),
-        // FAQ section
-        TextButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Faq()));
-          },
-          child: Text('FAQ', style: smallTextstylewhite),
-        ),
-        //User Agreement
-        TextButton(
-          onPressed: () {},
-          child: Text('User Agreement', style: smallTextstylewhite),
-        ),
-        //Privacy Policy
-        TextButton(
-          onPressed: () {},
-          child: Text('Privacy Policy', style: smallTextstylewhite),
-        ),
-        //Cookies Policy
-        TextButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CookiesPolicy()));
-          },
-          child: Text('Cookies Policy', style: smallTextstylewhite),
-        ),
+//                   Consumer<DashBoardProvider>(
+//                     builder: (context, value, child) => AppTextButton(
+//                       text: "Search",
+//                       onPressed: () {
+//                         Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (context) => HotelListScreen(),
+//                           ),
+//                         );
+//                       },
+//                       gradient: LinearGradient(
+//                         colors: [
+//                           Color.fromARGB(255, 51, 192, 252),
+//                           Color.fromARGB(255, 22, 228, 251),
+//                         ],
+//                       ),
+//                       height: height,
+//                       width: width,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+// }
 
-        sizedbox(height * 0.02, width),
+// ======================================================== Search Bar ==========================================================
 
-        accounts(),
-        sizedbox(height * 0.02, width),
-        SizedBox(
-          width: width * 0.900,
-          height: height * 0.25,
-          child: Text(
-            'The contents of this website are subject to copyright protection. ©2024 ONLINE TRAVEL SOLUTIONS - FZCO. All rights reserved. No contents of this website may be copied, used, distributed or modified. Solartrip shall not be held liable for the content of any external websites.',
-            style: smallTextstylelight,
-            textAlign: TextAlign.center,
-          ),
-        )
-      ],
-    );
-  }
+// class SearchingAppBar extends StatefulWidget {
+//   final double height;
+//   final double width;
 
-  Widget accounts() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-            height: 60,
-            width: 60,
-            child: Image(
-                image:
-                    AssetImage('assets/images/facebk-removebg-preview.png'))),
-        Container(
-            height: 50,
-            width: 50,
-            child: Image(
-                image: AssetImage('assets/images/insta-removebg-preview.png'))),
-        Container(
-            height: 60,
-            width: 60,
-            child: Image(
-                image: AssetImage('assets/images/xtw-removebg-preview.png'))),
-      ],
-    );
-  }
-}
+//   const SearchingAppBar({
+//     super.key,
+//     required this.height,
+//     required this.width,
+//   });
+
+//   @override
+//   State<SearchingAppBar> createState() => _SearchBarState();
+// }
+
+// class _SearchBarState extends State<SearchingAppBar> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return ChangeNotifierProvider(
+//       create: (_) => SearchBarProvider(),
+//       child: Consumer<SearchBarProvider>(
+//         builder: (context, searchBarProvider, child) => Container(
+//           height: searchBarProvider.locationSearchingList ||
+//                   searchBarProvider.calendarPicker ||
+//                   searchBarProvider.roomsCounter
+//               ? widget.height * 0.6
+//               : widget.height * 0.08,
+//           padding: EdgeInsets.symmetric(horizontal: widget.width * 0.005),
+//           child: Column(
+//             children: [
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   Container(
+//                     height: widget.height * 0.065,
+//                     width: widget.width * 0.65,
+//                     padding: EdgeInsets.only(left: widget.width * 0.005),
+//                     decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(10),
+//                       gradient: const LinearGradient(
+//                         colors: [
+//                           Color.fromARGB(255, 163, 238, 255),
+//                           Color.fromARGB(255, 252, 215, 249),
+//                         ],
+//                       ),
+//                     ),
+//                     child: Row(
+//                       children: [
+//                         //===================================================== Location searcher =====================================================
+//                         Container(
+//                           width: widget.width * 0.23,
+//                           child: Consumer<FeaturesProvider>(
+//                             builder: (context, feature, child) => TextField(
+//                               onTap: () {
+//                                 searchBarProvider.toggleLocationSearchingList();
+//                               },
+//                               onChanged: (value) =>
+//                                   feature.searchLocations(value),
+//                               decoration: InputDecoration(
+//                                 border: InputBorder.none,
+//                                 hintText: 'Where would you like to go?',
+//                                 hintStyle: smallTextStyle,
+//                                 contentPadding:
+//                                     EdgeInsets.only(left: widget.width * 0.01),
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                         const VerticalDivider(),
+//                         //===================================================== Calendar for Date picking =====================================================
+//                         InkWell(
+//                           onTap: () {
+//                             searchBarProvider.toggleCalendarPicker();
+//                           },
+//                           child: Container(
+//                             height: widget.height * 0.5,
+//                             width: widget.width * 0.2,
+//                             padding: EdgeInsets.only(left: widget.width * 0.01),
+//                             decoration: BoxDecoration(
+//                               border: Border(
+//                                 right: BorderSide(
+//                                   color: Colors.grey.shade400,
+//                                 ),
+//                               ),
+//                             ),
+//                             child: Align(
+//                               alignment: Alignment.centerLeft,
+//                               child: Consumer<FeaturesProvider>(
+//                                 builder: (context, calendar, child) => Text(
+//                                     calendar.checkingDate != '' &&
+//                                             calendar.checkoutDate != ''
+//                                         ? '${calendar.checkingDate} - ${calendar.checkoutDate}'
+//                                         : 'Choose Your Date',
+//                                     style: smallTextStyle),
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                         InkWell(
+//                           onTap: () {
+//                             searchBarProvider.toggleRoomsCounter();
+//                           },
+//                           child: Container(
+//                             height: widget.height * 0.5,
+//                             width: widget.width * 0.18,
+//                             padding: EdgeInsets.only(left: widget.width * 0.01),
+//                             child: Align(
+//                               alignment: Alignment.centerLeft,
+//                               child: Consumer<FeaturesProvider>(
+//                                 builder: (context, searchbar, child) => Text(
+//                                   '${searchbar.rooms} Rooms, ${searchbar.adults} Adults, ${searchbar.children} children',
+//                                   style: smallTextStyle,
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   sizedbox(0.0, widget.width * 0.01),
+//                   Consumer<FeaturesProvider>(
+//                     builder: (context, searchbar, child) => InkWell(
+//                       borderRadius: BorderRadius.circular(15),
+//                       onTap: () {
+//                         // if (searchbar.locationText == '' && searchbar.checkingDate != ''&& searchbar.checkoutDate != '') {
+//                         Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => SearchPageDeskTop(),
+//                             ));
+//                         // }
+//                         // else{
+//                         // implement toast message
+//                         // }
+//                       },
+//                       child: Container(
+//                         height: widget.height * 0.065,
+//                         width: widget.width * 0.075,
+//                         decoration: BoxDecoration(
+//                           gradient: const LinearGradient(
+//                             colors: [
+//                               Color.fromARGB(255, 125, 217, 248),
+//                               Color.fromARGB(255, 28, 198, 255),
+//                             ],
+//                           ),
+//                           borderRadius: BorderRadius.circular(15),
+//                         ),
+//                         child: Center(
+//                           child: Text(
+//                             'Search',
+//                             style: smallTextStyle,
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               sizedbox(widget.height * 0.005, 0.0),
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.start,
+//                 children: [
+//                   sizedbox(0.0, widget.width * 0.004),
+//                   searchBarProvider.locationSearchingList
+//                       ? Container(
+//                           height: widget.height * 0.5,
+//                           width: widget.width * 0.3,
+//                           decoration: const BoxDecoration(
+//                             borderRadius: BorderRadius.only(
+//                               bottomLeft: Radius.circular(10),
+//                               bottomRight: Radius.circular(10),
+//                               topLeft: Radius.circular(5),
+//                             ),
+//                             color: Colors.white,
+//                           ),
+//                           child: Consumer<FeaturesProvider>(
+//                             builder: (context, locationProvider, child) =>
+//                                 ListView.builder(
+//                               itemCount: locationProvider.searchResults.length,
+//                               padding: EdgeInsets.symmetric(
+//                                 horizontal: widget.width * 0.00,
+//                                 vertical: widget.height * 0.005,
+//                               ),
+//                               itemBuilder: (context, index) {
+//                                 final location =
+//                                     locationProvider.searchResults[index];
+//                                 return TextButton(
+//                                   style: TextButton.styleFrom(
+//                                     overlayColor: Colors.black,
+//                                     shape: RoundedRectangleBorder(
+//                                       borderRadius: BorderRadius.circular(0),
+//                                     ),
+//                                   ),
+//                                   onPressed: () {
+//                                     locationProvider.setLocationText(
+//                                         location['display_name']);
+//                                     Navigator.pop(context);
+//                                   },
+//                                   child: ListTile(
+//                                     leading: Icon(Icons.location_on_outlined),
+//                                     title: Text(location['display_name']),
+//                                   ),
+//                                 );
+//                               },
+//                             ),
+//                           ),
+//                         )
+//                       : SizedBox(width: widget.width * 0.305),
+//                   searchBarProvider.calendarPicker
+//                       ? CalendarDatePicker(
+//                           height: widget.height,
+//                           width: widget.width,
+//                         )
+//                       : SizedBox(width: widget.width * 0.19),
+//                   searchBarProvider.roomsCounter
+//                       ? RoomsCountDropDownSheet(
+//                           height: widget.height,
+//                           width: widget.width,
+//                         )
+//                       : const SizedBox(),
+//                 ],
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class CalendarDatePicker extends StatefulWidget {
+//   final double height;
+//   final double width;
+//   const CalendarDatePicker({
+//     super.key,
+//     required this.height,
+//     required this.width,
+//   });
+
+//   @override
+//   State<CalendarDatePicker> createState() => _CalendarDatePickerState();
+// }
+
+// class _CalendarDatePickerState extends State<CalendarDatePicker> {
+//   @override
+//   Widget build(BuildContext context) {
+//     final config = CalendarDatePicker2Config(
+//       centerAlignModePicker: true,
+//       calendarType: CalendarDatePicker2Type.range,
+//       calendarViewMode: CalendarDatePicker2Mode.scroll,
+//       rangeBidirectional: true,
+//       selectedDayHighlightColor: Color.fromARGB(255, 0, 238, 210),
+//       dayBorderRadius: BorderRadius.circular(10),
+//       firstDate: DateTime.now(),
+//       currentDate: DateTime.now(),
+//       lastDate: DateTime(DateTime.now().year + 1),
+//       disabledDayTextStyle: TextStyle(fontSize: 16, color: Colors.grey),
+//       hideScrollViewTopHeader: false,
+//       dayTextStyle: TextStyle(color: Colors.black),
+//       selectableYearPredicate: (year) => true,
+//       selectableDayPredicate: (day) => true,
+//       controlsTextStyle: const TextStyle(
+//         color: Colors.black,
+//         fontSize: 15,
+//         fontWeight: FontWeight.bold,
+//       ),
+//     );
+//     return Container(
+//       height: widget.height * 0.5,
+//       width: widget.width * 0.28,
+//       decoration: const BoxDecoration(
+//         borderRadius: BorderRadius.only(
+//           bottomLeft: Radius.circular(10),
+//           bottomRight: Radius.circular(10),
+//           topLeft: Radius.circular(5),
+//         ),
+//         color: Colors.white,
+//       ),
+//       child: Center(
+//         child: Consumer<FeaturesProvider>(
+//           builder: (context, value, child) => CalendarDatePicker2(
+//             config: config,
+//             value: value.rangeDatePickerValueWithDefaultValue,
+//             onValueChanged: (dates) {
+//               value.setSelectDates(dates);
+//             },
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// //==================================== How Many Guests are Booking and they need How many Roooms ====================================================
+// //===================================================================================================================================================
+// //================================================= Rooms Guest and childrens count =================================================================
+// //===================================================================================================================================================
+// //===================================================================================================================================================
+// class RoomsCountDropDownSheet extends StatelessWidget {
+//   final double height;
+//   final double width;
+//   const RoomsCountDropDownSheet({
+//     super.key,
+//     required this.height,
+//     required this.width,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final bottomSheet = Provider.of<FeaturesProvider>(context);
+//     return Container(
+//       height: height * 0.5,
+//       width: width * 0.2,
+//       padding: EdgeInsets.symmetric(horizontal: width * 0.00),
+//       decoration: const BoxDecoration(
+//         borderRadius: BorderRadius.only(
+//           bottomLeft: Radius.circular(10),
+//           bottomRight: Radius.circular(10),
+//           topRight: Radius.circular(5),
+//         ),
+//         color: Colors.white,
+//       ),
+//       child: SingleChildScrollView(
+//         child: Padding(
+//           padding: EdgeInsets.symmetric(horizontal: width * 0.01),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Consumer<FeaturesProvider>(
+//                 builder: (context, bottomsheet, child) =>
+//                     _buildDropdown('Rooms', bottomsheet.rooms, (value) {
+//                   bottomsheet.setRoomCount(value);
+//                 }),
+//               ),
+//               Consumer<FeaturesProvider>(
+//                 builder: (context, bottomSheet, child) =>
+//                     _buildDropdown('Adults', bottomSheet.adults, (value) {
+//                   bottomSheet.setAdultsCount(value);
+//                 }),
+//               ),
+//               Consumer<FeaturesProvider>(
+//                 builder: (context, bottomSheet, child) =>
+//                     _buildDropdown('Children', bottomSheet.children, (value) {
+//                   bottomSheet.setChildrenCount(value);
+//                 }),
+//               ),
+//               sizedbox(height * 0.02, 0.0),
+//               if (bottomSheet.children > 0) ..._buildChildrenAges(context),
+//               sizedbox(height * 0.02, 0.0),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _buildDropdown(String label, int value, ValueChanged onChanged) {
+//     return Padding(
+//       padding: EdgeInsets.symmetric(vertical: 8.0),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: [
+//           Text(
+//             label,
+//             style: TextStyle(fontSize: 18.0),
+//           ),
+//           Container(
+//             padding: EdgeInsets.symmetric(horizontal: 15),
+//             decoration: BoxDecoration(
+//               color: Colors.white54,
+//               borderRadius: BorderRadius.circular(10),
+//               border: Border.all(color: Colors.grey),
+//             ),
+//             child: Center(
+//               child: DropdownButton<int>(
+//                 value: value,
+//                 onChanged: onChanged,
+//                 items: List.generate(60, (index) => index)
+//                     .map<DropdownMenuItem<int>>((int value) {
+//                   return DropdownMenuItem<int>(
+//                     value: value,
+//                     child: Text(value.toString().padLeft(2, '0')),
+//                   );
+//                 }).toList(),
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   List<Widget> _buildChildrenAges(context) {
+//     final bottomSheet = Provider.of<FeaturesProvider>(context, listen: false);
+//     List<Widget> childrenAgesWidgets = [];
+//     for (int i = 0; i < bottomSheet.children; i++) {
+//       childrenAgesWidgets.add(
+//         Container(
+//           decoration: BoxDecoration(
+//               border: Border.all(color: Colors.grey),
+//               borderRadius: BorderRadius.circular(10)),
+//           margin: EdgeInsets.symmetric(vertical: 8.0),
+//           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Text(
+//                 'Child ${i + 1} Age',
+//                 style: TextStyle(fontSize: 18.0),
+//               ),
+//               Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 15),
+//                 decoration: BoxDecoration(
+//                   border: Border.all(color: Colors.grey),
+//                   borderRadius: BorderRadius.circular(15),
+//                 ),
+//                 child: Consumer<FeaturesProvider>(
+//                   builder: (context, guest, child) => DropdownButton<int>(
+//                       value: guest.childrenAges[i],
+//                       onChanged: (int? newValue) {
+//                         guest.setChildrenAges(newValue, i);
+//                       },
+//                       items: List.generate(18, (index) => index)
+//                           .map<DropdownMenuItem<int>>((int value) {
+//                         return DropdownMenuItem<int>(
+//                           value: value,
+//                           child: Text(value.toString().padLeft(2, '0')),
+//                         );
+//                       }).toList()),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+//     }
+//     return childrenAgesWidgets;
+//   }
+// }
+
+// class SearchingAppBarView extends StatelessWidget {
+//   const SearchingAppBarView({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final height = MediaQuery.of(context).size.height;
+//     final width = MediaQuery.of(context).size.width;
+//     return ChangeNotifierProvider(
+//       create: (_) => SearchBarProvider(),
+//       child: Consumer<SearchBarProvider>(
+//         builder: (context, searchBarProvider, child) => Container(
+//           height: searchBarProvider.locationSearchingList ||
+//                   searchBarProvider.calendarPicker ||
+//                   searchBarProvider.roomsCounter
+//               ? height * 0.60
+//               : height * 0.48,
+//           child: Column(
+//             children: [
+//               Container(
+//                 // height: height * 0.45,
+//                 width: width * 0.905,
+//                 margin: EdgeInsets.symmetric(horizontal: width * 0.04),
+//                 decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(10),
+//                   gradient: LinearGradient(
+//                     colors: [
+//                       Color.fromARGB(255, 163, 238, 255),
+//                       Color.fromARGB(255, 252, 215, 249),
+//                     ],
+//                   ),
+//                   boxShadow: [
+//                     BoxShadow(
+//                       offset: Offset(3, 2),
+//                       blurRadius: 4,
+//                       color: Color.fromARGB(47, 80, 79, 79),
+//                     ),
+//                     BoxShadow(
+//                       offset: Offset(-2, -0),
+//                       blurRadius: 4,
+//                       color: Color.fromARGB(255, 216, 216, 216),
+//                     ),
+//                   ],
+//                 ),
+//                 child: Column(
+//                   children: [
+//                     //===================================================== Location searcher =====================================================
+//                     Container(
+//                       width: width,
+//                       child: Consumer<FeaturesProvider>(
+//                         builder: (context, feature, child) => TextField(
+//                           onTap: () {
+//                             searchBarProvider.toggleLocationSearchingList();
+//                           },
+//                           onChanged: (value) => feature.searchLocations(value),
+//                           decoration: InputDecoration(
+//                             border: InputBorder.none,
+//                             hintText: 'Where would you like to go?',
+//                             hintStyle: smallTextStyle,
+//                             contentPadding: EdgeInsets.only(left: width * 0.01),
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+
+//                     // Location searcher
+//                     // Padding(
+//                     //   padding: EdgeInsets.only(
+//                     //       left: width * 0.04,
+//                     //       top: height * 0.02,
+//                     //       bottom: height * 0.02),
+//                     //   child: Row(
+//                     //     children: [
+//                     //       AppIcon(
+//                     //         iconData: Icons.search,
+//                     //         color: Colors.blueAccent,
+//                     //         height: height * 0.04,
+//                     //       ),
+//                     //       sizedbox(0.0, width * 0.04),
+//                     //       SizedBox(
+//                     //         width: width * 0.7,
+//                     //         child: Text('Where would you like to go?'),
+//                     //       ),
+//                     //     ],
+//                     //   ),
+//                     // ),
+//                     searchBarProvider.locationSearchingList
+//                         ? Container(
+//                             height: height * 0.2,
+//                             color: Colors.white,
+//                             child: Center(child: Text('Location List Here')),
+//                           )
+//                         : SizedBox.shrink(),
+//                     Divider(),
+//                     // Calendar for Date picking
+//                     InkWell(
+//                       onTap: () {
+//                         searchBarProvider.toggleCalendarPicker();
+//                       },
+//                       child: Padding(
+//                         padding: EdgeInsets.only(
+//                             left: width * 0.04,
+//                             top: height * 0.02,
+//                             bottom: height * 0.02),
+//                         child: Row(
+//                           children: [
+//                             AppIcon(
+//                               iconData: Icons.calendar_month_outlined,
+//                               color: Colors.pinkAccent,
+//                               height: height * 0.04,
+//                             ),
+//                             sizedbox(0.0, width * 0.04),
+//                             SizedBox(
+//                               width: width * 0.7,
+//                               child: Text('Choose your dates'),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                     searchBarProvider.calendarPicker
+//                         ? Container(
+//                             height: height * 0.2,
+//                             color: Colors.white,
+//                             child: Center(child: Text('Calendar Picker Here')),
+//                           )
+//                         : SizedBox.shrink(),
+//                     Divider(),
+//                     // Rooms/guests
+//                     InkWell(
+//                       onTap: () {
+//                         searchBarProvider.toggleRoomsCounter();
+//                       },
+//                       child: Padding(
+//                         padding: EdgeInsets.only(
+//                             left: width * 0.04,
+//                             top: height * 0.02,
+//                             bottom: height * 0.02),
+//                         child: Row(
+//                           children: [
+//                             AppIcon(
+//                               iconData: Icons.person_2_outlined,
+//                               color: Colors.black54,
+//                               height: height * 0.04,
+//                             ),
+//                             sizedbox(0.0, width * 0.04),
+//                             SizedBox(
+//                               width: width * 0.7,
+//                               child: Text('Rooms/guests'),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                     searchBarProvider.roomsCounter
+//                         ? Container(
+//                             height: height * 0.2,
+//                             color: Colors.white,
+//                             child: Center(child: Text('Rooms Counter Here')),
+//                           )
+//                         : SizedBox.shrink(),
+//                     Divider(),
+//                     Consumer<DashBoardProvider>(
+//                       builder: (context, value, child) => AppTextButton(
+//                         text: "Search",
+//                         onPressed: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => HotelListScreen(),
+//                             ),
+//                           );
+//                         },
+//                         gradient: LinearGradient(
+//                           colors: [
+//                             Color.fromARGB(255, 51, 192, 252),
+//                             Color.fromARGB(255, 22, 228, 251),
+//                           ],
+//                         ),
+//                         height: height,
+//                         width: width,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
