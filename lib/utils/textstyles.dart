@@ -8,7 +8,6 @@ final TextStyle smallTextStyle = GoogleFonts.montserrat(
     color: Colors.black,
   ),
 );
-
 final largeHeadings = GoogleFonts.poppins(
   textStyle: TextStyle(
       fontSize: 54,
@@ -16,6 +15,21 @@ final largeHeadings = GoogleFonts.poppins(
       color: Colors.white),
 );
 
+final TextStyle whiteSmallTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 12,
+    color: Colors.white,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
+final TextStyle whitelargeTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  ),
+);
 
 final TextStyle buttonTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
@@ -31,6 +45,11 @@ final TextStyle heading = GoogleFonts.montserrat(
 );
 final TextStyle heading2 = GoogleFonts.montserrat(
   color: Colors.white,
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+);
+final TextStyle headingblack = GoogleFonts.montserrat(
+  color: Colors.black,
   fontSize: 24,
   fontWeight: FontWeight.bold,
 );
@@ -69,5 +88,19 @@ final TextStyle smallboldTextStyle = GoogleFonts.poppins(
     fontSize: 14,
     fontWeight: FontWeight.bold,
     color: Colors.black,
+  ),
+);
+final TextStyle whiteMediumTextStyle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 20,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  ),
+);
+final TextStyle mediumTextStyleLight = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 20,
+    color: Color.fromARGB(255, 75, 75, 75),
+    fontWeight: FontWeight.w500,
   ),
 );
