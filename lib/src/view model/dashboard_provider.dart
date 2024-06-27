@@ -18,49 +18,28 @@ class DashBoardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setLocationAddress(LocationDataAddress) {
-    locationText = LocationDataAddress;
+  void setLocationAddress(locationDataAddress) {
+    locationText = locationDataAddress;
     notifyListeners();
   }
 
-  int seconds = 22 * 60 * 60; // 22 hours in seconds
-  Timer? timer;
-// Booking CountDown Timer
-  void startTimer(int Hour, int minute) {
-    DateTime now = DateTime.now();
-    if (now.hour == Hour && now.minute == minute) {
-      if (timer != null) {
-        timer!.cancel();
-        isTimeStarted = true;
-        notifyListeners();
-        print("first ${isTimeStarted}");
-        print("Hours${now.hour} minutes ${now.minute}");
-      }
+  //========================================================================================================================
+  final ScrollController scrollController = ScrollController();
 
-      seconds = 22 * 60 * 60; // Reset to 22 hours is the Hotel Chekout Time
-      timer = Timer.periodic(Duration(seconds: 1), (timer) {
-        if (seconds > 0) {
-          seconds--;
-        } else {
-          timer.cancel();
-          isTimeStarted = false;
-          notifyListeners();
-          print("last ${isTimeStarted}");
-        }
-      });
+  void scrollToDownr(double number) {
+    if (scrollController.hasClients) {
+      final position = scrollController.position;
+      scrollController.animateTo(
+        number,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+      );
     }
-  }
-
-  String formatTime(int seconds) {
-    int hours = seconds ~/ 3600;
-    int minutes = (seconds % 3600) ~/ 60;
-    int secs = seconds % 60;
-    return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}";
   }
 
   @override
   void dispose() {
-    timer?.cancel();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -234,6 +213,6 @@ class DashBoardProvider extends ChangeNotifier {
         above3000 = newValue;
         break;
     }
-    notifyListeners(); // Notify listeners to update the UI
+    notifyListeners();
   }
 }

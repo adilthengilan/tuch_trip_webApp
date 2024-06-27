@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Desktop/booking_page/booking_page.dart';
@@ -20,10 +21,13 @@ class DetailePageDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final dashboardProvider =
+        Provider.of<DashBoardProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: CustomAppBar(height: height, width: width),
       body: SingleChildScrollView(
+        controller: dashboardProvider.scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -71,7 +75,10 @@ class DetailePageDesktop extends StatelessWidget {
                       GradiantButton(
                         height: height * 0.05,
                         width: width * 0.07,
-                        onpressed: () {},
+                        text: 'Offers',
+                        onpressed: () {
+                          dashboardProvider.scrollToDownr(900);
+                        },
                       ),
                       sizedbox(0.0, width * 0.012),
                     ],
@@ -161,7 +168,7 @@ class DetailePageDesktop extends StatelessWidget {
                   Text('Popular with our customers', style: smallTextStyle),
                   sizedbox(height * 0.04, width),
                   //////=================================================================== Related Hotels List Indro  ========================================
-                  similarHotelsListRow(width, height),
+                  similarHotelsListRow(width, height, context),
                 ],
               ),
             ),
@@ -491,11 +498,12 @@ class DetailePageDesktop extends StatelessWidget {
                           GradiantButton(
                             height: height * 0.045,
                             width: width * 0.08,
+                            text: 'Select',
                             onpressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => BookingPage(),
+                                  builder: (context) => const BookingPage(),
                                 ),
                               );
                             },
@@ -1355,104 +1363,109 @@ class DetailePageDesktop extends StatelessWidget {
     );
   }
 
-  Row similarHotelsListRow(double width, double height) {
+  Row similarHotelsListRow(double width, double height, context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
         3,
-        (index) => Container(
-          width: width * 0.225,
-          padding: EdgeInsets.only(bottom: height * 0.02),
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 4,
-                color: Colors.grey.shade300,
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                height: height * 0.2,
-                width: width,
-                decoration: BoxDecoration(
+        (index) => InkWell(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailePageDesktop(),));
+          },
+          child: Container(
+            width: width * 0.225,
+            padding: EdgeInsets.only(bottom: height * 0.02),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 4,
                   color: Colors.grey.shade300,
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/images/uk.jpeg'),
-                  ),
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(5),
-                  ),
                 ),
-              ),
-              sizedbox(height * 0.01, 0.0),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.01),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    StarRating(
-                      height: height * 0.018,
-                      color: Colors.black,
-                      rating: 5,
-                      starCount: 5,
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: height * 0.2,
+                  width: width,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage('assets/images/uk.jpeg'),
                     ),
-                    sizedbox(0.0, width * 0.006),
-                    Text('Resorts', style: smallTextStyle),
-                  ],
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(5),
+                    ),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.01),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: width * 0.135,
-                      child: Text(
-                        'Burj Al Arab Jumeirah',
-                        style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                sizedbox(height * 0.01, 0.0),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.01),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      StarRating(
+                        height: height * 0.018,
+                        color: Colors.black,
+                        rating: 5,
+                        starCount: 5,
                       ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          '\$1,857',
+                      sizedbox(0.0, width * 0.006),
+                      Text('Resorts', style: smallTextStyle),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.01),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: width * 0.135,
+                        child: Text(
+                          'Burj Al Arab Jumeirah',
                           style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
-                          ),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        Consumer<FeaturesProvider>(
-                          builder: (context, value, child) => Text(
-                            'For ${value.nights} Night',
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            '\$1,857',
                             style: GoogleFonts.montserrat(
-                              fontSize: 10,
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w300,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              )
-            ],
+                          Consumer<FeaturesProvider>(
+                            builder: (context, value, child) => Text(
+                              'For ${value.nights} Night',
+                              style: GoogleFonts.montserrat(
+                                fontSize: 10,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -1463,12 +1476,14 @@ class DetailePageDesktop extends StatelessWidget {
 class GradiantButton extends StatelessWidget {
   final double height;
   final double width;
+  final String text;
   final VoidCallback onpressed;
   const GradiantButton({
     super.key,
     required this.height,
     required this.width,
     required this.onpressed,
+    required this.text,
   });
 
   @override
@@ -1491,7 +1506,7 @@ class GradiantButton extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Text('Select', style: smallTextStyle),
+          child: Text(text, style: smallTextStyle),
         ),
       ),
     );

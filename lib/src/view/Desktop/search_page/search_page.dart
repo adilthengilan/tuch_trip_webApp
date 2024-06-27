@@ -5,6 +5,7 @@ import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Desktop/desktopview.dart';
 import 'package:tuch/src/view/Desktop/detaile_page/detaile_page.dart';
+import 'package:tuch/src/view/Desktop/features/search_bar.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 

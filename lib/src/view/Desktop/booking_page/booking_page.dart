@@ -9,7 +9,6 @@ import 'package:tuch/src/view/Desktop/search_page/search_page.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
-
 class BookingPage extends StatelessWidget {
   const BookingPage({super.key});
 
@@ -46,7 +45,110 @@ class BookingPage extends StatelessWidget {
                       children: [
                         ///===================================================================================================================================
                         ///======================================================== Contact Informations =====================================================
-                        ContactInformations(width: width, height: height),
+                        // ContactInformations(width: width, height: height),
+                        Column(
+                          children: [
+                            Container(
+                              width: width * 0.3,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: width * 0.02,
+                                vertical: height * 0.025,
+                              ),
+                              decoration: BoxDecoration(
+                                color: backgroundColor,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 4,
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Lead Guest Info',
+                                      style: mediumtextstylelight),
+                                  sizedbox(height * 0.01, width),
+                                  Text(
+                                      'We will send you the receipt and booking details',
+                                      style: smallTextStyle),
+                                  sizedbox(height * 0.04, width),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        height: height * 0.06,
+                                        width: width * 0.124,
+                                        child: CustomTextField(
+                                          controller: emailController,
+                                          labelText: 'Email',
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.06,
+                                        width: width * 0.124,
+                                        child: CustomTextField(
+                                          controller: phoneNumberController,
+                                          labelText: 'Phone Number',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            sizedbox(height * 0.02, 0.0),
+                            Container(
+                              width: width * 0.3,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: width * 0.02,
+                                vertical: height * 0.025,
+                              ),
+                              decoration: BoxDecoration(
+                                color: backgroundColor,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 4,
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Lead Guest',
+                                      style: mediumtextstylelight),
+                                  sizedbox(height * 0.02, width),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        height: height * 0.06,
+                                        width: width * 0.124,
+                                        child: CustomTextField(
+                                          controller: emailController,
+                                          labelText: 'First Name',
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.06,
+                                        width: width * 0.124,
+                                        child: CustomTextField(
+                                          controller: emailController,
+                                          labelText: 'Last Name',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
 
                         ///===================================================================================================================================
                         ///===================================================================================================================================
@@ -62,7 +164,7 @@ class BookingPage extends StatelessWidget {
                             sizedbox(height * 0.02, 0.0),
 
                             ///===================================================================================================================================
-                            ///================================================== Payment Informations =============================================
+                            ///================================================== Payment Informations ===========================================================
                             paymentInformations(width, height),
 
                             ///===================================================================================================================================
@@ -75,6 +177,7 @@ class BookingPage extends StatelessWidget {
                     GradiantButton(
                       height: height * 0.06,
                       width: width * 0.2,
+                      text: 'Continue Booking',
                       onpressed: () {},
                     ),
                   ],
