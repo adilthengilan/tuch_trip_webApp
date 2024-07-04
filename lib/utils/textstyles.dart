@@ -55,6 +55,12 @@ final TextStyle heading = GoogleFonts.montserrat(
   fontSize: 24,
   fontWeight: FontWeight.bold,
 );
+final TextStyle mediumtextstylelight = GoogleFonts.montserrat(
+  fontSize: 20,
+  fontWeight: FontWeight.w500,
+  color: Colors.black,
+);
+
 final TextStyle heading2 = GoogleFonts.montserrat(
   color: Colors.white,
   fontSize: 24,
@@ -85,6 +91,7 @@ final TextStyle smallTextstylewhite = GoogleFonts.montserrat(
   fontWeight: FontWeight.normal,
   color: Colors.white,
 );
+
 final TextStyle lightsmalltext = GoogleFonts.montserrat(
   fontSize: 10,
   fontWeight: FontWeight.w300,
@@ -92,7 +99,7 @@ final TextStyle lightsmalltext = GoogleFonts.montserrat(
 );
 
 final TextStyle smallTextstylelight = GoogleFonts.montserrat(
-  fontSize: 14,
+  fontSize: 12,
   fontWeight: FontWeight.w300,
   color: Colors.white,
 );

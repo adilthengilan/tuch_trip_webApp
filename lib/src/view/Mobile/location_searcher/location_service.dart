@@ -1,7 +1,8 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tuch/src/view%20model/feauture_provider.dart';
+import 'package:tuch/src/view%20model/features_provider.dart';
+import 'package:tuch/src/view%20model/location_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/search_bar.dart';
 import 'package:tuch/utils/app_colors.dart';
@@ -48,7 +49,7 @@ class LocationSearchScreenState extends State<LocationSearchScreen> {
             ),
           ),
           sizedbox(height * 0.02, width),
-          Consumer<FeaturesProvider>(
+          Consumer<LocationProvider>(
             builder: (context, location, child) => Container(
               height: height * 0.07,
               width: width,

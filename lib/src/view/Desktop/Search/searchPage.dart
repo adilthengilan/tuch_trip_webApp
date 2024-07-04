@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Desktop/desktopview.dart';
-import 'package:tuch/src/view/Desktop/detail.dart';
+import 'package:tuch/src/view/Desktop/details/detail_page.dart';
+import 'package:tuch/src/view/Desktop/features/search_bar.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
@@ -23,44 +23,17 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Tuchtrip',
-          style: GoogleFonts.montserrat(
-            fontSize: 24,
-            color: Colors.black,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(IconlyLight.chat),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.person_2_outlined,
-              size: height * 0.035,
-              color: Colors.black,
-            ),
-          ),
-          sizedbox(0.0, width * 0.02),
-        ],
-      ),
+      appBar: CustomAppBar(height: height, width: width),
       body: SingleChildScrollView(
         child: Column(
           children: [
             sizedbox(height * 0.06, width),
-            Center(
-              child: SearchingBar(
-                height: height,
-                width: width,
-              ),
-            ),
+            // Center(
+            //   child: SearchingBar(
+            //     height: height,
+            //     width: width,
+            //   ),
+            // ),
             sizedbox(height * 0.06, width),
             Center(
               child: Row(
@@ -153,7 +126,7 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  fixedSize: Size(width * 0.1, height * 0.028),
+                  fixedSize: Size(width * 0.12, height * 0.028),
                   side: BorderSide(color: Colors.cyan.shade300),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -186,38 +159,41 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
                           bottom: height * 0.015),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          FilterSelections[index],
-                          style: GoogleFonts.montserrat(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        child: SizedBox(
+                          width: width * 0.08,
+                          child: Text(
+                            FilterSelections[index],
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                     )
                   : Consumer<DashBoardProvider>(
                       builder: (context, filter, child) => CheckboxListTile(
-                        activeColor: Colors.cyanAccent,
-                        title: Row(
-                          children: [
-                            //=================================================== Categories ========================================================
-                            Text(
-                              FilterSelections[index],
-                              style: GoogleFonts.montserrat(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
+                          activeColor: Colors.cyanAccent,
+                          title: Row(
+                            children: [
+                              //=================================================== Categories ========================================================
+                              Text(
+                                FilterSelections[index],
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        value: filter.allFilters[index],
-                        onChanged: (newValue) {
-                          filter.updateFilter(index, newValue!);
-                        },
-                        controlAffinity: ListTileControlAffinity.leading,
-                      ),
+                            ],
+                          ),
+                          value: filter.allFilters[index],
+                          onChanged: (newValue) {
+                            filter.updateFilter(index, newValue!);
+                          },
+                          controlAffinity: ListTileControlAffinity.leading),
                     ),
             ),
           ),
@@ -231,7 +207,6 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
     return Column(
       children: [
         SizedBox(
-          height: double.maxFinite,
           width: width * 0.55,
           child: ListView.builder(
             shrinkWrap: true,
@@ -301,6 +276,7 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
                                   height: height * 0.025,
                                   rating: 4.8,
                                   starCount: 5,
+                                  color: Colors.black,
                                 ),
                                 sizedbox(0.0, width * 0.01),
                                 Text(
@@ -360,10 +336,9 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
                       const Spacer(),
                       Padding(
                         padding: EdgeInsets.only(
-                          top: height * 0.07,
-                          right: width * 0.02,
-                          bottom: height * 0.02
-                        ),
+                            top: height * 0.07,
+                            right: width * 0.02,
+                            bottom: height * 0.02),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -376,7 +351,8 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            Text('Including Taxes and Fees',style: GoogleFonts.montserrat()),
+                            Text('Including Taxes and Fees',
+                                style: GoogleFonts.montserrat()),
                             const Text('1 /Night'),
                           ],
                         ),
@@ -388,55 +364,8 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
             ),
           ),
         ),
+        sizedbox(height * 0.1, 0.0),
       ],
-    );
-  }
-}
-
-//===================================================================================================================================
-//===================================================================================================================================
-//======================================================== Map View =================================================================
-//===================================================================================================================================
-//===================================================================================================================================
-//This Class Shows The Map View Of The Hotel, It a button, and it Passing height, width, top, left by Parameter
-class MapViewButton extends StatelessWidget {
-  final double height;
-  final double width;
-  const MapViewButton({
-    super.key,
-    required this.height,
-    required this.width,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height * 0.0505,
-      padding: EdgeInsets.only(right: width * 0.02),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        color: transparantColor,
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(height * 0.0055),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: height * 0.022,
-              backgroundColor: transparantColor,
-              child: Center(
-                child: AppIcon(
-                  iconData: Icons.map_outlined,
-                  color: backgroundColor,
-                  height: height * 0.022,
-                ),
-              ),
-            ),
-            sizedbox(0.0, width * 0.0035),
-            Text("Map", style: mediumTextStyleLight)
-          ],
-        ),
-      ),
     );
   }
 }
@@ -450,11 +379,13 @@ class StarRating extends StatelessWidget {
   final double rating;
   final int starCount;
   final double height;
+  final Color color;
 
   StarRating({
     this.rating = 0.0,
     this.starCount = 5,
     required this.height,
+    required this.color,
   });
 
   Widget buildStar(BuildContext context, int index) {
@@ -473,7 +404,7 @@ class StarRating extends StatelessWidget {
     } else {
       icon = AppIcon(
         iconData: Icons.star,
-        color: Colors.black,
+        color: color,
         height: height,
       );
     }
@@ -485,6 +416,7 @@ class StarRating extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
         starCount,

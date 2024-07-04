@@ -10,6 +10,8 @@ class CalendarProvider extends ChangeNotifier {
   String checkingDate = '';
   String checkoutDate = '';
 
+  get locationText => null;
+
   void onSelected(selectedDay, context) {
     if (selectedDay.isBefore(toDayDate)) return;
 

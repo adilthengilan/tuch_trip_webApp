@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view%20model/hotel_details_provider.dart';
 import 'package:tuch/src/view%20model/room_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
@@ -50,6 +51,9 @@ class HotelDetailScreen extends StatelessWidget {
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final dashboardProvider =
+        Provider.of<DashBoardProvider>(context, listen: false);
+
     final hotelDetail = Provider.of<HotelDetailProvider>(context).hotelDetail;
     final roomProvider = Provider.of<RoomProvider>(context);
     return Scaffold(
@@ -234,7 +238,9 @@ class HotelDetailScreen extends StatelessWidget {
                       ),
                       sizedbox(height * 0.01, width),
                       GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            dashboardProvider.scrollToDownr(900);
+                          },
                           child: Text(
                             'More about housing',
                             style: GoogleFonts.montserrat(
