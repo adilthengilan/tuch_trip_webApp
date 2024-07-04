@@ -101,7 +101,7 @@ class TabViewHome extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25.0),
                       image: DecorationImage(
                           image: AssetImage(
-                            'assets/images/bank cards.png',
+                            'assets/images/Ai powerd.png',
                           ),
                           fit: BoxFit.fill)),
                 ),
@@ -137,18 +137,7 @@ class TabViewHome extends StatelessWidget {
                 LoyaltyProgramSection(),
                 //___________________________________________________________ Our application image like availability appstore/play store..........loading.....................
                 sizedbox(height * 0.06, width),
-                Column(
-                  children: [
-                    Text(
-                      'Ultimate travel app',
-                      style: mediumtextstyle,
-                    ),
-                    Text(
-                      'Change the way you travel',
-                      style: smallTextstylelight,
-                    )
-                  ],
-                ),
+                
               ],
             ),
           ),

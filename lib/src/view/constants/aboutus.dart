@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
+import 'package:tuch/src/view/Common%20widget/footer.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
 import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
 import 'package:tuch/utils/app_colors.dart';

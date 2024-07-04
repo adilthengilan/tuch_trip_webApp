@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:tuch/src/view%20model/dashboard_provider.dart';
+import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view%20model/hotel_details_provider.dart';
 import 'package:tuch/src/view%20model/room_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
+import 'package:tuch/src/view/Common%20widget/footer.dart';
+import 'package:tuch/src/view/Desktop/details/detail_page.dart';
+import 'package:tuch/src/view/Mobile/Home/Booking/booking.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
-import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
-import 'package:tuch/src/view/Tabview/tab_footer.dart';
 import 'package:tuch/src/view/constants/calender_screen.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
-class HotelDetailTab extends StatelessWidget {
+class HotelDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // List of some similiar hotels for temporary
@@ -50,6 +53,9 @@ class HotelDetailTab extends StatelessWidget {
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final dashboardProvider =
+        Provider.of<DashBoardProvider>(context, listen: false);
+
     final hotelDetail = Provider.of<HotelDetailProvider>(context).hotelDetail;
     final roomProvider = Provider.of<RoomProvider>(context);
     return Scaffold(
@@ -69,7 +75,15 @@ class HotelDetailTab extends StatelessWidget {
                 color: blackShadeColor,
               ));
         }),
-        title: Center(child: Text('Tuch Trip', style: headingblack)),
+        title: Center(
+            child: Text(
+          'Tuch Trip',
+          style: GoogleFonts.montserrat(
+            fontSize: 24,
+            color: Colors.black,
+            fontWeight: FontWeight.w800,
+          ),
+        )),
         actions: [
           IconButton(
             icon: Icon(Icons.person_2_outlined, color: blackShadeColor),
@@ -98,12 +112,19 @@ class HotelDetailTab extends StatelessWidget {
                           (index) => ratingStarIcon(height),
                         ),
                       ),
-                      Text('Jumeira minah A`salam - Madinathu Jumeira'),
+                      Text(
+                        'Burj Al Arab Jumeirah',
+                        style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       Row(
                         children: [
                           Text(
                             "Dubai, United Arab Emirates",
-                            style: GoogleFonts.montserrat(color: Colors.grey),
+                            style: GoogleFonts.montserrat(fontSize: 11),
                           ),
                           sizedbox(height * 0.01, width * 0.01),
                           InkWell(
@@ -111,17 +132,30 @@ class HotelDetailTab extends StatelessWidget {
                             child: Text(
                               "Show on map",
                               style: GoogleFonts.montserrat(
-                                  color: Color.fromARGB(255, 67, 1, 79)),
+                                  color: Color.fromARGB(255, 67, 1, 79),
+                                  fontSize: 1),
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  Icon(
-                    Icons.favorite_border_outlined,
-                    size: 17,
-                    color: greyShadeDark,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "\$476",
+                        style: GoogleFonts.montserrat(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
+                      sizedbox(height * 0.01, width * 0.01),
+                      GradiantButton(
+                        height: height * 0.045,
+                        width: width * 0.12,
+                        text: 'Offers',
+                        onpressed: () {},
+                      )
+                    ],
                   )
                 ],
               ),
@@ -146,7 +180,7 @@ class HotelDetailTab extends StatelessWidget {
                           child: Center(
                             child: Text(
                               "8.9",
-                              style: GoogleFonts.montserrat(
+                              style: TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 12),
                             ),
                           ),
@@ -177,7 +211,29 @@ class HotelDetailTab extends StatelessWidget {
                         image: DecorationImage(
                             image: AssetImage(hotelDetail.imageUrl),
                             fit: BoxFit.fill),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    sizedbox(height * 0.01, 0.0),
+                    SizedBox(
+                      height: height * 0.1,
+                      width: width * 0.900,
+                      child: ListView.builder(
+                        itemCount: 15,
+                        physics: AlwaysScrollableScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => Container(
+                          width: width * 0.2,
+                          margin: EdgeInsets.only(right: width * 0.01),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(05),
+                            color: Colors.grey.shade100,
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage('assets/images/thailand.png'),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ]),
@@ -192,7 +248,7 @@ class HotelDetailTab extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: backgroundColor,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
                         offset: Offset(-0.3, 1),
@@ -213,20 +269,22 @@ class HotelDetailTab extends StatelessWidget {
                     children: [
                       Text('Housing information',
                           style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.bold, fontSize: 12)),
+                              fontWeight: FontWeight.bold, fontSize: 13)),
                       sizedbox(height * 0.02, width),
                       Text(
                         hotelDetail.description,
-                        style: GoogleFonts.montserrat(fontSize: 10),
+                        style: GoogleFonts.montserrat(fontSize: 11),
                       ),
                       sizedbox(height * 0.01, width),
                       GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            dashboardProvider.scrollToDownr(900);
+                          },
                           child: Text(
                             'More about housing',
                             style: GoogleFonts.montserrat(
                                 color: Color.fromARGB(255, 67, 1, 79),
-                                fontSize: 10),
+                                fontSize: 11),
                           )),
                     ],
                   ),
@@ -242,7 +300,7 @@ class HotelDetailTab extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: backgroundColor,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
                         offset: Offset(-0.3, 1),
@@ -267,7 +325,7 @@ class HotelDetailTab extends StatelessWidget {
                     children: [
                       Text('Popular services and amenities',
                           style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.bold, fontSize: 12)),
+                              fontWeight: FontWeight.bold, fontSize: 13)),
                       sizedbox(height * 0.02, width),
                       _buildAmenityItem(
                           Icons.wifi, 'Free Wi-Fi', height, width),
@@ -280,7 +338,7 @@ class HotelDetailTab extends StatelessWidget {
                             'View all',
                             style: GoogleFonts.montserrat(
                                 color: Color.fromARGB(255, 67, 1, 79),
-                                fontSize: 10),
+                                fontSize: 11),
                           )),
                     ],
                   ),
@@ -298,7 +356,7 @@ class HotelDetailTab extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: backgroundColor,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
                         offset: Offset(-0.3, 1),
@@ -334,9 +392,9 @@ class HotelDetailTab extends StatelessWidget {
                           onTap: () {},
                           child: Text(
                             'View all',
-                            style: GoogleFonts.montserrat(
+                            style: TextStyle(
                                 color: Color.fromARGB(255, 67, 1, 79),
-                                fontSize: 10),
+                                fontSize: 12),
                           )),
                     ],
                   ),
@@ -352,7 +410,7 @@ class HotelDetailTab extends StatelessWidget {
                 width: width,
                 decoration: BoxDecoration(
                   color: backgroundColor,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
                         offset: Offset(-0.3, 1),
@@ -378,8 +436,7 @@ class HotelDetailTab extends StatelessWidget {
                       Text(
                         'June 21 -22,2 guests,1 room ',
                         // '${featuresProvider.checkingDate} - ${featuresProvider.checkoutDate}  ${featuresProvider.selectedDates.length - 1} Night',
-                        style: GoogleFonts.montserrat(
-                            fontSize: 12, color: greyShadeMedium),
+                        style: TextStyle(fontSize: 12, color: greyShadeMedium),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -390,7 +447,7 @@ class HotelDetailTab extends StatelessWidget {
                         },
                         child: Text(
                           'Change',
-                          style: GoogleFonts.montserrat(
+                          style: TextStyle(
                               color: Color.fromARGB(255, 67, 1, 79),
                               fontSize: 12),
                         ),
@@ -442,27 +499,61 @@ class HotelDetailTab extends StatelessWidget {
             //......................................................................................................................................................
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Guest reviews>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             Padding(
-              padding: EdgeInsets.only(left: width * 0.02, top: height * 0.02),
-              child: Text(
-                'Guest reviews',
-                style: GoogleFonts.montserrat(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
+              padding: EdgeInsets.only(
+                  left: width * 0.02,
+                  top: height * 0.03,
+                  bottom: height * 0.02),
+              child: Text('Guest reviews',
+                  style: GoogleFonts.montserrat(
+                      fontSize: 19, fontWeight: FontWeight.w600)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: width * 0.02),
+              child: Container(
+                width: width * 0.960,
+                decoration: BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 4,
+                      color: Colors.grey.shade300,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Consumer<ReviewProvider>(
+                      builder: (context, reviewProvider, child) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: reviewProvider.reviews.length,
+                          itemBuilder: (context, index) {
+                            return ReviewWidget(
+                                review: reviewProvider.reviews[index]);
+                          },
+                        );
+                      },
+                    ),
+                    sizedbox(height * 0.02, width),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          '${172} More Reviews',
+                          style: GoogleFonts.montserrat(
+                            color: Colors.deepPurple,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                    sizedbox(height * 0.02, width),
+                  ],
                 ),
               ),
-            ),
-            Consumer<ReviewProvider>(
-              builder: (context, reviewProvider, child) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: reviewProvider.reviews.length,
-                  itemBuilder: (context, index) {
-                    return ReviewWidget(review: reviewProvider.reviews[index]);
-                  },
-                );
-              },
             ),
             //>.............................................................................................................................................................
             //............................................... services and a,menities .......................... sery lists of amenities like category wise ........................
@@ -475,7 +566,7 @@ class HotelDetailTab extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: backgroundColor,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
                         offset: Offset(-0.3, 1),
@@ -510,7 +601,7 @@ class HotelDetailTab extends StatelessWidget {
                             ),
                             title: Text(
                               amenity,
-                              style: GoogleFonts.montserrat(fontSize: 10),
+                              style: GoogleFonts.montserrat(fontSize: 11),
                             ),
                           )),
                       Padding(
@@ -531,7 +622,7 @@ class HotelDetailTab extends StatelessWidget {
                             ),
                             title: Text(
                               amenity,
-                              style: GoogleFonts.montserrat(fontSize: 10),
+                              style: GoogleFonts.montserrat(fontSize: 11),
                             ),
                           )),
                       Padding(
@@ -552,7 +643,7 @@ class HotelDetailTab extends StatelessWidget {
                             ),
                             title: Text(
                               amenity,
-                              style: GoogleFonts.montserrat(fontSize: 10),
+                              style: GoogleFonts.montserrat(fontSize: 11),
                             ),
                           )),
                       Padding(
@@ -566,14 +657,14 @@ class HotelDetailTab extends StatelessWidget {
                       ),
                       sizedbox(height * 0.01, width),
                       ...hotelDetail.foodanddrinks.map((amenity) => ListTile(
-                            minTileHeight: height / 65,
+                            minTileHeight: height / 50,
                             leading: Icon(
                               Icons.check_circle_outline,
                               size: 13,
                             ),
                             title: Text(
                               amenity,
-                              style: GoogleFonts.montserrat(fontSize: 10),
+                              style: GoogleFonts.montserrat(fontSize: 11),
                             ),
                           )),
                     ],
@@ -619,21 +710,16 @@ class HotelDetailTab extends StatelessWidget {
                       (index) => ratingStarIcon(height),
                     ),
                   ),
-                  Text(
-                    'Jumeirah al Qasr',
-                    style: GoogleFonts.montserrat(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text('Jumeirah al Qasr',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 19, fontWeight: FontWeight.w600)),
                   sizedbox(height * 0.02, width),
                   Container(
                     height: height * 0.20,
                     width: width,
                     decoration: BoxDecoration(
                       color: backgroundColor,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
                             offset: Offset(-0.3, 1),
@@ -724,14 +810,9 @@ class HotelDetailTab extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Property Policies',
-                          style: GoogleFonts.montserrat(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                        Text('Property Policies',
+                            style: GoogleFonts.montserrat(
+                                fontSize: 19, fontWeight: FontWeight.w600)),
                         PropertyPolicies(),
                       ],
                     ),
@@ -743,7 +824,7 @@ class HotelDetailTab extends StatelessWidget {
                     width: width,
                     decoration: BoxDecoration(
                       color: backgroundColor,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
                             offset: Offset(-0.3, 1),
@@ -766,24 +847,19 @@ class HotelDetailTab extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Location',
-                            style: GoogleFonts.montserrat(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          Text('Location',
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 19, fontWeight: FontWeight.w600)),
                           Row(
                             children: [
                               Text(
                                 'Corniche Al hamra,Saudia arabia,jeddha',
-                                style: GoogleFonts.montserrat(fontSize: 12),
+                                style: GoogleFonts.montserrat(fontSize: 11),
                               ),
                               Text(
                                 ' 4.08 km from the center',
                                 style: GoogleFonts.montserrat(
-                                    fontSize: 12, color: greyShadeMedium),
+                                    fontSize: 11, color: greyShadeMedium),
                               )
                             ],
                           ),
@@ -792,14 +868,9 @@ class HotelDetailTab extends StatelessWidget {
                             image: AssetImage('assets/images/map.png'),
                           ),
                           sizedbox(height * 0.02, width),
-                          Text(
-                            "What's nearby",
-                            style: GoogleFonts.montserrat(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          Text("What's nearby",
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 19, fontWeight: FontWeight.w600)),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -815,7 +886,8 @@ class HotelDetailTab extends StatelessWidget {
                                   Text(
                                     'Attractions',
                                     style: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
                                   ),
                                 ],
                               ),
@@ -828,22 +900,22 @@ class HotelDetailTab extends StatelessWidget {
                                     Text(
                                       "King Fahadh's Fountain  1.2 km",
                                       style: GoogleFonts.montserrat(
-                                        fontSize: 12,
+                                        fontSize: 11,
                                       ),
                                     ),
                                     sizedbox(height * 0.01, width),
                                     Text("King Fahadh's Fountain  1.2 km",
                                         style: GoogleFonts.montserrat(
-                                          fontSize: 12,
+                                          fontSize: 11,
                                         )),
                                   ],
                                 ),
                               ),
                               sizedbox(height * 0.03, width),
                               Text(
-                                'All distances are measured in straight lines.Actual distances\n may vary',
+                                'All distances are measured in straight lines.Actual distances\nmay vary',
                                 style: GoogleFonts.montserrat(
-                                    fontSize: 12, color: greyShadeMedium),
+                                    fontSize: 11, color: greyShadeMedium),
                               )
                             ],
                           )
@@ -852,14 +924,9 @@ class HotelDetailTab extends StatelessWidget {
                     ),
                   ),
                   sizedbox(height * 0.06, width),
-                  Text(
-                    'Similar hotels',
-                    style: GoogleFonts.montserrat(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  Text('Similar hotels',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 19, fontWeight: FontWeight.w600)),
                   Text(
                     'Popular with our customers',
                     style: GoogleFonts.montserrat(fontSize: 12),
@@ -891,9 +958,148 @@ class HotelDetailTab extends StatelessWidget {
             ),
 
             sizedbox(height * 0.20, width),
-            TabFooter(),
+            Footer(),
           ],
         ),
+      ),
+    );
+  }
+
+  Container reviewsList(double width, double height) {
+    return Container(
+      width: width,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 4,
+            color: Colors.grey.shade300,
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          ListView.builder(
+            itemCount: 4,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.02,
+                  vertical: height * 0.02,
+                ),
+                margin: EdgeInsets.only(top: height * 0.01),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey.shade200),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              CircleAvatar(
+                                radius: height * 0.03,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Center(
+                                  child: Text('A', style: mediumtextstyle),
+                                ),
+                              ),
+                              sizedbox(0.0, width * 0.01),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Aloika',
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Text(
+                                    'March 2024',
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          sizedbox(height * 0.01, 0.0),
+                        ],
+                      ),
+                    ),
+                    sizedbox(0.0, width * 0.08),
+                    SizedBox(
+                      width: width * 0.47,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: width * 0.006,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.amber[400],
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child:
+                                      Text('4.6', style: mediumtextstylelight),
+                                ),
+                              ),
+                              sizedbox(0.0, width * 0.01),
+                              Text(
+                                'Exeptional',
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          sizedbox(height * 0.01, 0.0),
+                          Text(
+                            "Lovely hotel staff were excellent and very friendly. Good selection of food and beverage outlets. Comfortable rooms'"
+                            "with all amenities. 'Overall a very pleasant stay. Great place for a winter break, beach and pools were lovely. ",
+                            style: smallTextStyle,
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+          sizedbox(height * 0.02, width),
+          Center(
+            child: TextButton(
+              onPressed: () {},
+              child: Text(
+                '${172} More Reviews',
+                style: GoogleFonts.montserrat(
+                  color: Colors.deepPurple,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+          sizedbox(height * 0.02, width),
+        ],
       ),
     );
   }
@@ -919,7 +1125,7 @@ class HotelDetailTab extends StatelessWidget {
         sizedbox(height * 0.01, width * 0.02),
         Text(
           title,
-          style: GoogleFonts.montserrat(fontSize: 10),
+          style: GoogleFonts.montserrat(fontSize: 11),
         ),
       ],
     );
@@ -930,17 +1136,17 @@ class HotelDetailTab extends StatelessWidget {
       children: [
         Icon(
           Icons.place,
-          size: 10,
+          size: 12,
         ),
         sizedbox(height * 0.01, width * 0.02),
         Text(
           place,
-          style: GoogleFonts.montserrat(fontSize: 10),
+          style: GoogleFonts.montserrat(fontSize: 11),
         ),
         Spacer(),
         Text(
           distance,
-          style: GoogleFonts.montserrat(fontSize: 10),
+          style: GoogleFonts.montserrat(fontSize: 11),
         ),
       ],
     );
@@ -1053,7 +1259,7 @@ class PolicySection extends StatelessWidget {
             padding: EdgeInsets.only(left: width * 0.05, top: height * 0.01),
             child: Text(
               content,
-              style: GoogleFonts.montserrat(fontSize: 10),
+              style: GoogleFonts.montserrat(fontSize: 11),
             ),
           ),
           if (paymentIcons != null)
@@ -1063,7 +1269,7 @@ class PolicySection extends StatelessWidget {
               child: Row(
                 children: paymentIcons!
                     .map((Image) => Padding(
-                          padding: const EdgeInsets.only(right: 2.0),
+                          padding: EdgeInsets.only(right: 2.0),
                           child: Container(
                             height: height * 0.05,
                             width: width * 0.08,
@@ -1106,10 +1312,29 @@ class RoomWidget extends StatelessWidget {
                 child: Container(
                   height: height * 0.15,
                   width: width * 0.25,
+                  padding: EdgeInsets.all(height * 0.01),
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(room.image), fit: BoxFit.fill),
-                      borderRadius: BorderRadius.circular(16)),
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage('assets/images/Dubai.png'),
+                    ),
+                  ),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: IconButton(
+                      style: IconButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(45, 0, 0, 0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {},
+                      icon:
+                          const Icon(Icons.fullscreen, color: backgroundColor),
+                    ),
+                  ),
                 ),
               ),
               sizedbox(height * 0.01, width * 0.03),
@@ -1117,11 +1342,12 @@ class RoomWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(room.title,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      style: GoogleFonts.montserrat(
+                          fontSize: 19, fontWeight: FontWeight.w600)),
                   Text(
                     '4 Rooms Photos',
-                    style: TextStyle(color: Color.fromARGB(255, 67, 1, 79)),
+                    style: GoogleFonts.montserrat(
+                        color: Color.fromARGB(255, 67, 1, 79), fontSize: 12),
                   )
                 ],
               ),
@@ -1154,14 +1380,13 @@ class RoomOptionWidget extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => BookingTabview()));
+              MaterialPageRoute(builder: (context) => BookingScreen()));
         },
         child: Container(
-          height: height * 0.30,
           width: width * 0.950,
           decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
                   offset: Offset(-0.3, 1),
@@ -1177,22 +1402,26 @@ class RoomOptionWidget extends StatelessWidget {
           ),
           child: Padding(
             padding: EdgeInsets.only(
-                top: height * 0.02, left: width * 0.02, right: width * 0.02),
+                top: height * 0.02,
+                left: width * 0.02,
+                right: width * 0.02,
+                bottom: height * 0.02),
             child: Column(
               children: [
                 Row(
                   children: [
                     Icon(
-                      Icons.bed,
+                      Icons.bed_rounded,
                       size: 12,
                       color: greyShadeDark,
                     ),
                     Text(
                       'Queen bed',
-                      style: TextStyle(fontSize: 10),
+                      style: GoogleFonts.montserrat(fontSize: 11),
                     )
                   ],
                 ),
+                sizedbox(height * 0.01, width),
                 Row(
                   children: [
                     Icon(
@@ -1204,10 +1433,11 @@ class RoomOptionWidget extends StatelessWidget {
                       option.breakfastIncluded
                           ? "Breakfast included"
                           : "Room only",
-                      style: TextStyle(fontSize: 10),
+                      style: GoogleFonts.montserrat(fontSize: 11),
                     )
                   ],
                 ),
+                sizedbox(height * 0.01, width),
                 Row(
                   children: [
                     Icon(
@@ -1217,10 +1447,11 @@ class RoomOptionWidget extends StatelessWidget {
                     ),
                     Text(
                       'No free cancellation',
-                      style: TextStyle(fontSize: 10),
+                      style: GoogleFonts.montserrat(fontSize: 11),
                     )
                   ],
                 ),
+                sizedbox(height * 0.01, width),
                 Row(
                   children: [
                     Icon(
@@ -1230,11 +1461,12 @@ class RoomOptionWidget extends StatelessWidget {
                     ),
                     Text(
                       'Pay Now',
-                      style: TextStyle(fontSize: 10),
+                      style: GoogleFonts.montserrat(fontSize: 11),
                     ),
                     Text(
                       '(Use bonus promo codes) ',
-                      style: TextStyle(color: Colors.green, fontSize: 10),
+                      style: GoogleFonts.montserrat(
+                          color: Colors.green, fontSize: 11),
                     )
                   ],
                 ),
@@ -1247,18 +1479,21 @@ class RoomOptionWidget extends StatelessWidget {
                       children: [
                         Text(
                           'For 1 night,\ntaxes included',
-                          style:
-                              TextStyle(fontSize: 10, color: greyShadeMedium),
+                          style: GoogleFonts.montserrat(
+                              fontSize: 11, color: greyShadeMedium),
                         ),
+                        sizedbox(height * 0.01, width * 0.01),
                         Text(
                           "Cashback in bonus point: \$${option.cashback.toStringAsFixed(2)}",
-                          style: TextStyle(color: Colors.green, fontSize: 10),
+                          style: GoogleFonts.montserrat(
+                              color: Colors.green, fontSize: 11),
                         ),
+                        sizedbox(height * 0.02, width * 0.01),
                         Text(
                           'More details',
-                          style: TextStyle(
+                          style: GoogleFonts.montserrat(
                               color: Color.fromARGB(255, 67, 1, 79),
-                              fontSize: 10),
+                              fontSize: 11),
                         ),
                       ],
                     ),
@@ -1267,30 +1502,27 @@ class RoomOptionWidget extends StatelessWidget {
                       children: [
                         Text(
                           "\$${option.price.toStringAsFixed(2)}",
-                          style: TextStyle(
-                              fontSize: 10, fontWeight: FontWeight.bold),
+                          style: GoogleFonts.montserrat(
+                              fontSize: 12, fontWeight: FontWeight.bold),
                         ),
+                        sizedbox(height * 0.01, width * 0.01),
+                        GradiantButton(
+                          height: height * 0.045,
+                          width: width * 0.12,
+                          text: 'Select',
+                          onpressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BookingScreen(),
+                              ),
+                            );
+                          },
+                        )
                       ],
                     )
                   ],
-                )
-
-                //   ListTile(
-                //     title: Text(option.description),
-                //     subtitle: Text(
-                //         option.breakfastIncluded ? "Breakfast included" : "Room only"),
-
-                //     trailing: Column(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       children: [
-                //         Text("\$${option.price.toStringAsFixed(2)}"),
-                //         Text("Cashback: \$${option.cashback.toStringAsFixed(2)}",
-                //             style: TextStyle(color: Colors.green)),
-                //       ],
-                //     ),
-                //   ),
-                //   Divider(),
-                // ],
+                ),
               ],
             ),
           ),
@@ -1311,129 +1543,119 @@ class ReviewWidget extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    return Padding(
-      padding: EdgeInsets.only(
-          right: width * 0.04, top: height * 0.03, left: width * 0.02),
-      child: Container(
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(-0.3, 1),
-                blurRadius: 2,
-                blurStyle: BlurStyle.normal,
-                spreadRadius: 0,
-                color: greyShadeLight),
-          ],
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.grey.shade200),
         ),
-        child: Padding(
-          padding: EdgeInsets.only(
-              top: height * 0.03,
-              left: width * 0.02,
-              right: width * 0.02,
-              bottom: height * 0.03),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    height: height * 0.04,
-                    width: width * 0.05,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(05),
-                      color: Colors.yellow,
-                    ),
-                    child: Center(
-                      child: Text(
-                        review.rating.toString(),
-                        style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w600, fontSize: 12),
-                      ),
-                    ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.only(
+            top: height * 0.03,
+            left: width * 0.02,
+            right: width * 0.02,
+            bottom: height * 0.03),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: height * 0.04,
+                  width: width * 0.05,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(05),
+                    color: Colors.yellow,
                   ),
-                  sizedbox(height * 0.01, width * 0.02),
-                  Text(
-                    review.title,
-                    style: GoogleFonts.montserrat(fontSize: 10),
-                  ),
-                ],
-              ),
-              sizedbox(height * 0.02, width),
-              Text(
-                review.body,
-                style: GoogleFonts.montserrat(fontSize: 10),
-              ),
-              sizedbox(height * 0.02, width),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: greyShadeMedium),
-                    borderRadius: BorderRadius.circular(08)),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: height * 0.02,
-                      left: width * 0.02,
-                      right: width * 0.02,
-                      bottom: height * 0.02),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 10,
-                            backgroundColor: greyShadeLight,
-                            child: Text(
-                              review.userName[0],
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 10, color: backgroundColor),
-                            ),
-                          ),
-                          sizedbox(height * 0.01, width * 0.02),
-                          Text(
-                            review.userName,
-                            style: GoogleFonts.montserrat(
-                              fontSize: 11,
-                            ),
-                          ),
-                        ],
-                      ),
-                      sizedbox(height * 0.02, width),
-                      // Row(
-                      //   children: [
-                      //     Icon(
-                      //       Icons.person_2_outlined,
-                      //       size: 12,
-                      //     ),
-                      //     // Text(
-                      //     //   review.userType,
-                      //     //   style: TextStyle(
-                      //     //     fontSize: 12,
-                      //     //   ),
-                      //     // ),
-                      //   ],
-                      // ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.calendar_month_outlined,
-                            size: 10,
-                            color: greyShadeMedium,
-                          ),
-                          Text(
-                            review.date,
-                            style: GoogleFonts.montserrat(
-                                fontSize: 10, color: greyShadeMedium),
-                          ),
-                        ],
-                      ),
-                    ],
+                  child: Center(
+                    child: Text(
+                      review.rating.toString(),
+                      style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.w600, fontSize: 12),
+                    ),
                   ),
                 ),
+                sizedbox(height * 0.01, width * 0.02),
+                Text(
+                  review.title,
+                  style: GoogleFonts.montserrat(
+                      fontSize: 12, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+            sizedbox(height * 0.02, width),
+            Text(
+              review.body,
+              style: GoogleFonts.montserrat(fontSize: 11),
+            ),
+            sizedbox(height * 0.02, width),
+            Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: greyShadeLight),
+                  borderRadius: BorderRadius.circular(08)),
+              child: Padding(
+                padding: EdgeInsets.only(
+                    top: height * 0.02,
+                    left: width * 0.02,
+                    right: width * 0.02,
+                    bottom: height * 0.02),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 10,
+                          backgroundColor: greyShadeLight,
+                          child: Text(
+                            review.userName[0],
+                            style: GoogleFonts.montserrat(
+                                fontSize: 12, color: backgroundColor),
+                          ),
+                        ),
+                        sizedbox(height * 0.01, width * 0.02),
+                        Text(
+                          review.userName,
+                          style: GoogleFonts.montserrat(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    sizedbox(height * 0.02, width),
+                    // Row(
+                    //   children: [
+                    //     Icon(
+                    //       Icons.person_2_outlined,
+                    //       size: 12,
+                    //     ),
+                    //     // Text(
+                    //     //   review.userType,
+                    //     //   style: TextStyle(
+                    //     //     fontSize: 12,
+                    //     //   ),
+                    //     // ),
+                    //   ],
+                    // ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.calendar_month_outlined,
+                          size: 10,
+                          color: greyShadeMedium,
+                        ),
+                        Text(
+                          review.date,
+                          style: GoogleFonts.montserrat(
+                              fontSize: 10, color: greyShadeMedium),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -1477,7 +1699,7 @@ class HotelCards extends StatelessWidget {
       child: Container(
         width: width * 0.860,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
                   offset: Offset(-0.3, 1),
@@ -1499,8 +1721,7 @@ class HotelCards extends StatelessWidget {
               height: height * 0.20,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15)),
+                    topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                 image: DecorationImage(
                     image: AssetImage(
                       hotel.imageUrl,
@@ -1531,7 +1752,7 @@ class HotelCards extends StatelessWidget {
                           ),
                           Text(
                             hotel.category,
-                            style: GoogleFonts.montserrat(fontSize: 10),
+                            style: GoogleFonts.montserrat(fontSize: 12),
                           ),
                         ],
                       ),
@@ -1554,12 +1775,13 @@ class HotelCards extends StatelessWidget {
                             color: Colors.red,
                           ),
                         ),
-                      sizedbox(height * 0.01, width),
+                      SizedBox(width: 8.0),
                       Text(
                         '\$${hotel.currentPrice}',
                         style: GoogleFonts.montserrat(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
+                      SizedBox(width: 4.0),
                       Text(
                         'For 1 night',
                         style: GoogleFonts.montserrat(fontSize: 12),

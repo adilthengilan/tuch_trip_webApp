@@ -185,8 +185,8 @@ class HotelCard extends StatelessWidget {
                 height: height * 0.22,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15)),
+                      topLeft: Radius.circular(09),
+                      topRight: Radius.circular(09)),
                   image: DecorationImage(
                       image: AssetImage(
                         hotel.imageUrl,

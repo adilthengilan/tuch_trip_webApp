@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/bookingProvider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
+import 'package:tuch/src/view/Common%20widget/footer.dart';
+import 'package:tuch/src/view/Desktop/details/detail_page.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
 import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
 import 'package:tuch/utils/app_colors.dart';
@@ -191,20 +193,11 @@ class BookingScreen extends StatelessWidget {
                             style: GoogleFonts.montserrat(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Container(
-                            height: height * 0.05,
-                            width: width * 0.150,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color.fromARGB(255, 208, 181, 255)),
-                            child: Center(
-                              child: Text(
-                                "Select",
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 12,
-                                    color: Color.fromARGB(255, 65, 6, 104)),
-                              ),
-                            ),
+                          GradiantButton(
+                            height: height * 0.045,
+                            width: width * 0.12,
+                            text: 'Select',
+                            onpressed: () {},
                           )
                         ],
                       ),
@@ -263,20 +256,18 @@ class BookingScreen extends StatelessWidget {
                             style: GoogleFonts.montserrat(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Container(
-                            height: height * 0.05,
-                            width: width * 0.150,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color.fromARGB(255, 208, 181, 255)),
-                            child: Center(
-                              child: Text(
-                                "Select",
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 12,
-                                    color: Color.fromARGB(255, 65, 6, 104)),
-                              ),
-                            ),
+                          GradiantButton(
+                            height: height * 0.045,
+                            width: width * 0.12,
+                            text: 'Select',
+                            onpressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BookingScreen(),
+                                ),
+                              );
+                            },
                           )
                         ],
                       ),
@@ -454,10 +445,13 @@ class BookingScreen extends StatelessWidget {
                         height: height * 0.05,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(08),
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                             colors: [
-                              Color.fromARGB(255, 163, 238, 255),
-                              Color.fromARGB(255, 252, 215, 249),
+                              Color.fromARGB(255, 105, 227, 255),
+                              Color.fromARGB(255, 255, 176, 248),
+                              Color.fromARGB(255, 255, 248, 184)
                             ],
                           ),
                         ),
@@ -473,7 +467,8 @@ class BookingScreen extends StatelessWidget {
                               ),
                               Text(
                                 '\$456.27',
-                                style: GoogleFonts.montserrat(fontSize: 12),
+                                style: GoogleFonts.montserrat(
+                                    fontSize: 12, fontWeight: FontWeight.w600),
                               )
                             ],
                           ),
@@ -485,19 +480,30 @@ class BookingScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: height * 0.06, left: width * 0.06),
-              child: AppTextButton(
-                text: "Countinue Booking",
-                onPressed: () {},
-                height: height,
-                width: width,
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 155, 231, 248),
-                    Color.fromARGB(255, 174, 154, 248),
-                    Color.fromARGB(255, 255, 163, 247),
-                  ],
+              padding: EdgeInsets.only(top: height * 0.10, left: width * 0.06),
+              child: Container(
+                height: height * 0.08,
+                width: width * 0.900,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color.fromARGB(255, 105, 227, 255),
+                      Color.fromARGB(255, 255, 176, 248),
+                      Color.fromARGB(255, 255, 248, 184)
+                    ],
+                  ),
                 ),
+                child: Center(
+                    child: Text(
+                  "Countinue Booking",
+                  style: GoogleFonts.montserrat(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: backgroundColor),
+                )),
               ),
             ),
             sizedbox(height * 0.08, width),

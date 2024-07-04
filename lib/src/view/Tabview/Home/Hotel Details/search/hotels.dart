@@ -5,15 +5,15 @@ import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/hotel_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
+import 'package:tuch/src/view/Common%20widget/footer.dart';
 import 'package:tuch/src/view/Common%20widget/search_bar.dart';
 import 'package:tuch/src/view/Mobile/Home/Hotel%20Details/hotel_details.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
-import 'package:tuch/src/view/Tabview/Home/Hotel%20Details/hotel_details.dart';
-import 'package:tuch/src/view/Tabview/tab_footer.dart';
+import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
-class TabHotelsList extends StatelessWidget {
+class HotelListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -60,8 +60,7 @@ class TabHotelsList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                        right: width * 0.30, left: width * 0.20),
+                    padding: EdgeInsets.only(right: width * 0.20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -77,7 +76,12 @@ class TabHotelsList extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LocationSearchScreen()));
+                      },
                       icon: Icon(
                         Icons.search,
                         size: 14,
@@ -128,8 +132,8 @@ class TabHotelsList extends StatelessWidget {
                 return HotelCard(hotel: hotel);
               },
             ),
-            sizedbox(height * 0.40, width),
-            TabFooter(),
+            sizedbox(height * 0.30, width),
+            Footer(),
             //...................................................................................................................
           ],
         ),
@@ -153,7 +157,7 @@ class HotelCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => HotelDetailTab()));
+              MaterialPageRoute(builder: (context) => HotelDetailScreen()));
         },
         child: Container(
           width: width * 0.860,
@@ -181,8 +185,8 @@ class HotelCard extends StatelessWidget {
                 height: height * 0.22,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15)),
+                      topLeft: Radius.circular(09),
+                      topRight: Radius.circular(09)),
                   image: DecorationImage(
                       image: AssetImage(
                         hotel.imageUrl,
