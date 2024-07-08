@@ -162,7 +162,7 @@ class Aboutus extends StatelessWidget {
                       ),
                       sizedbox(height * 0.02, width),
                       InkWell(
-                        onTap: () {},
+                        onTap: () { },
                         // => launch('mailto:media@solartrip.com'),
                         child: Container(
                             height: height * 0.05,
