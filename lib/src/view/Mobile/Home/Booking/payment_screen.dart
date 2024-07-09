@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/bookingProvider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
-import 'package:tuch/src/view/Mobile/Home/mobile_view_body.dart';
 import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
@@ -579,7 +578,7 @@ class CheckoutButton extends StatelessWidget {
 class FooterDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    // final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.only(left: width * 0.03, right: width * 0.03),
