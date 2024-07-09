@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:tuch/src/view%20model/location_searching_provider.dart';
+import 'package:tuch/src/view%20model/location_service.dart';
 import 'package:tuch/src/view/Common%20widget/toest_message.dart';
 
 class LocationProvider extends ChangeNotifier {
@@ -170,17 +170,4 @@ class LocationProvider extends ChangeNotifier {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  void simulateLoading() async {
-    isLoading = true;
-
-    // Simulate a network call or any other asynchronous operation
-    await Future.delayed(Duration(seconds: 3));
-
-    isLoading = false;
-    notifyListeners();
-  }
-
-  void updateLocationText(String value) {}
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

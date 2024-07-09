@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
-import 'package:tuch/src/view/Desktop/Search/searchPage.dart';
 import 'package:tuch/src/view/Desktop/booking_page/booking_page.dart';
 import 'package:tuch/src/view/Desktop/desktopview.dart';
+import 'package:tuch/src/view/Desktop/search_page/search_page.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
@@ -527,7 +527,7 @@ class DetailePageDesktop extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const BookingPage(),
+                                  builder: (context) => const BookingPageDeskTop(),
                                 ),
                               );
                             },

@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
-import 'package:provider/provider.dart';
-import 'package:tuch/src/view%20model/bookingProvider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
-import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
 import 'package:tuch/src/view/Common%20widget/footer.dart';
 import 'package:tuch/src/view/Desktop/details/detail_page.dart';
-import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
 import 'package:tuch/utils/app_colors.dart';
-import 'package:tuch/utils/textstyles.dart';
 
 class BookingScreen extends StatelessWidget {
   @override

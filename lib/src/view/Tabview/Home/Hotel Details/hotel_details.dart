@@ -1,9 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
-import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view%20model/hotel_details_provider.dart';
 import 'package:tuch/src/view%20model/room_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';

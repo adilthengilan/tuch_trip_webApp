@@ -6,11 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/hotel_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/footer.dart';
-import 'package:tuch/src/view/Common%20widget/search_bar.dart';
 import 'package:tuch/src/view/Mobile/Home/Hotel%20Details/hotel_details.dart';
 import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
 import 'package:tuch/utils/app_colors.dart';
-import 'package:tuch/utils/textstyles.dart';
 
 class HotelListScreen extends StatelessWidget {
   @override

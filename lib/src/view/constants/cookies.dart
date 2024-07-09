@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:tuch/utils/app_colors.dart';
-import 'package:tuch/utils/textstyles.dart';
 
 class CookiesPolicy extends StatelessWidget {
   const CookiesPolicy({super.key});

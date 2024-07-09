@@ -3,10 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/footer.dart';
-import 'package:tuch/src/view/Mobile/Home/Booking/booking.dart';
-import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
 import 'package:tuch/utils/app_colors.dart';
-import 'package:tuch/utils/textstyles.dart';
 
 class B2bSolutions extends StatelessWidget {
   const B2bSolutions({super.key});

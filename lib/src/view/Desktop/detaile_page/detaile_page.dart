@@ -527,7 +527,7 @@ class DetailePageDesktop extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const BookingPage(),
+                                  builder: (context) =>  BookingPageDeskTop(),
                                 ),
                               );
                             },
