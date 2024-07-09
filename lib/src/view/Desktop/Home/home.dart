@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Desktop/Search/searchPage.dart';
-import 'package:tuch/src/view/Desktop/features/search_bar.dart';
 import 'package:tuch/utils/textstyles.dart';
 
 class HomePageDeskTop extends StatefulWidget {
