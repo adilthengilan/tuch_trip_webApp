@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
-import 'package:tuch/src/view/Mobile/Home/menu.dart';
-import 'package:tuch/src/view/Mobile/Home/mobile_view_body.dart';
-import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
+import 'package:tuch/src/view/Common%20widget/footer.dart';
+import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
@@ -16,30 +17,32 @@ class Aboutus extends StatelessWidget {
     return Scaffold(
       backgroundColor: blackShadeColor,
       //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AppBar
-      drawer: DrawerScreen(),
       appBar: AppBar(
+        surfaceTintColor: blackShadeColor,
         backgroundColor: blackShadeColor,
-        leading: Builder(builder: (context) {
-          return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: Icon(
-                Icons.menu,
-                color: backgroundColor,
-              ));
-        }),
-        title: Text('Tuch Trip', style: heading),
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Tuchtrip',
+          style: GoogleFonts.montserrat(
+            fontSize: 24,
+            color: Colors.white,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle, color: Colors.white),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Profile(),
-                  ));
-            },
+            icon: Icon(
+              IconlyLight.chat,
+              color: Colors.white,
+            ),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.person_2_outlined,
+              color: Colors.white,
+            ),
+            onPressed: () {},
           ),
         ],
       ),
@@ -93,7 +96,7 @@ class Aboutus extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'SolarTrip',
+                    'TuchTrip',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 32,
@@ -104,7 +107,7 @@ class Aboutus extends StatelessWidget {
                   SizedBox(
                     width: width * 0.900,
                     child: Text(
-                      'We’re living on a planet full of endless possibilities, hundreds of countries to discover, thousands of experiences to live, and it makes our life extremely interesting, but also overwhelming and challenging. We craft Solartrip with a focus on a world where each choice shapes our journey, where the power of a reliable service with personalized approach, honest opinions and expert support, holds immense value.',
+                      'We’re living on a planet full of endless possibilities, hundreds of countries to discover, thousands of experiences to live, and it makes our life extremely interesting, but also overwhelming and challenging. We craft Tuchtrip with a focus on a world where each choice shapes our journey, where the power of a reliable service with personalized approach, honest opinions and expert support, holds immense value.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -160,7 +163,7 @@ class Aboutus extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                'media@solartrip.com',
+                                'media@tuchtrip.com',
                                 style: TextStyle(color: backgroundColor),
                                 textAlign: TextAlign.center,
                               ),
@@ -179,7 +182,7 @@ class Aboutus extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                'support@solartrip.com',
+                                'support@Tuchtrip.com',
                                 style: TextStyle(
                                   color: backgroundColor,
                                 ),
@@ -190,7 +193,7 @@ class Aboutus extends StatelessWidget {
                       sizedbox(height * 0.03, width),
                       accounts(),
                       sizedbox(height * 0.10, width),
-                      Footerlink(),
+                      Footer(),
                     ],
                   ),
                 ),

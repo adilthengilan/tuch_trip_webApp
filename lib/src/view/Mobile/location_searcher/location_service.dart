@@ -2,6 +2,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
+import 'package:tuch/src/view%20model/location_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/search_bar.dart';
 import 'package:tuch/utils/app_colors.dart';
@@ -48,6 +49,42 @@ class LocationSearchScreenState extends State<LocationSearchScreen> {
             ),
           ),
           sizedbox(height * 0.02, width),
+          Consumer<LocationProvider>(
+            builder: (context, location, child) => Container(
+              height: height * 0.07,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.025),
+              child: InkWell(
+                onTap: () {
+                  location.getCurrentPosition();
+                  Navigator.pop(context);
+                },
+                child: ListTile(
+                  leading: Icon(
+                    Icons.location_searching,
+                    color: Colors.grey.shade600,
+                    size: height * 0.04,
+                  ),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Arround Your Location',
+                        style: GoogleFonts.poppins(
+                            color: Colors.black87,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      location.isLoading
+                          ? CircularProgressIndicator()
+                          : Icon(Icons.chevron_right,
+                              color: Colors.grey.shade600)
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.06),
             child: Divider(color: Colors.grey.shade300),

@@ -5,7 +5,7 @@ class HotelDetailProvider with ChangeNotifier {
     name: "Jumeirah Mina A'Salam - Madinat Jumeirah",
     location: "Dubai, United Arab Emirates",
     rating: 8.9,
-    imageUrl: 'assets/images/uk.jpeg', // Replace with your image path
+    imageUrl: 'assets/images/luxury hotel.jpg', // Replace with your image path
     description:
         "Resort Jumeirah Mina A'Salam - Madinat Jumeirah is located in Dubai, United Arab Emirates at Dubai, Jumeirah Beach Road, Madinat Jumeirah Resort 18.2 km from the city center. Check in from 15:00 until 00:00, check out until 12:00.",
     amenities: ["Free Wi-Fi", "Air Conditioning"],

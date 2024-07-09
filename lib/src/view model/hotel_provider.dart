@@ -7,7 +7,7 @@ class HotelProvider with ChangeNotifier {
       location: 'Dubai',
       price: 643,
       cashback: 32,
-      imageUrl: 'assets/images/uk.jpeg',
+      imageUrl: 'assets/images/Dubai.png',
       isResort: true,
     ),
     Hotel(
@@ -15,7 +15,7 @@ class HotelProvider with ChangeNotifier {
       location: 'Dubai',
       price: 170,
       cashback: 8,
-      imageUrl: 'assets/images/uk.jpeg',
+      imageUrl: 'assets/images/Dubai.png',
       isResort: false,
     ),
   ];
