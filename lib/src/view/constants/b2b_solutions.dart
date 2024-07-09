@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/footer.dart';
 import 'package:tuch/src/view/Mobile/Home/Booking/booking.dart';
-import 'package:tuch/src/view/Mobile/Home/menu.dart';
 import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
@@ -19,23 +19,28 @@ class B2bSolutions extends StatelessWidget {
     return Scaffold(
       backgroundColor: blackShadeColor,
       //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AppBar
-      drawer: DrawerScreen(),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: Builder(builder: (context) {
-          return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: Icon(
-                Icons.menu,
-                color: backgroundColor,
-              ));
-        }),
-        title: Text('Tuch Trip', style: heading),
+        surfaceTintColor: backgroundColor,
+        backgroundColor: backgroundColor,
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Tuchtrip',
+          style: GoogleFonts.montserrat(
+            fontSize: 24,
+            color: Colors.black,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.person_2_outlined, color: Colors.white),
+            icon: Icon(IconlyLight.chat),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.person_2_outlined,
+              color: Colors.black,
+            ),
             onPressed: () {},
           ),
         ],

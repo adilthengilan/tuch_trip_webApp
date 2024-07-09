@@ -9,7 +9,6 @@ import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/footer.dart';
 import 'package:tuch/src/view/Desktop/details/detail_page.dart';
 import 'package:tuch/src/view/Mobile/Home/Booking/booking.dart';
-import 'package:tuch/src/view/Mobile/Home/menu.dart';
 import 'package:tuch/src/view/constants/calender_screen.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
@@ -61,34 +60,19 @@ class HotelDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AppBar
-      drawer: DrawerScreen(),
       appBar: AppBar(
-        surfaceTintColor: backgroundColor,
-        backgroundColor: backgroundColor,
-        leading: Builder(builder: (context) {
-          return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: Icon(
-                Icons.menu,
-                color: blackShadeColor,
-              ));
-        }),
-        title: Center(
-            child: Text(
-          'Tuch Trip',
-          style: GoogleFonts.montserrat(
-            fontSize: 24,
-            color: Colors.black,
-            fontWeight: FontWeight.w800,
-          ),
-        )),
+        backgroundColor: Colors.transparent,
+        title: Text('Tuchtrip', style: heading),
         actions: [
           IconButton(
-            icon: Icon(Icons.person_2_outlined, color: blackShadeColor),
             onPressed: () {},
+            icon: Icon(
+              Icons.person_2_outlined,
+              size: height * 0.035,
+              color: Colors.white,
+            ),
           ),
+          sizedbox(0.0, width * 0.02),
         ],
       ),
       //>.............................................................................................................................

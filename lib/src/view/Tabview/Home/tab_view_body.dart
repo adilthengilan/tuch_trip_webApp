@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/location_provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
@@ -6,7 +8,6 @@ import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view%20model/feauture_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
-import 'package:tuch/src/view/Mobile/Home/menu.dart';
 import 'package:tuch/src/view/Mobile/Search/hotel_lists.dart';
 import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
 import 'package:tuch/src/view/constants/aboutus.dart';
@@ -24,23 +25,28 @@ class TabViewHome extends StatelessWidget {
     return Scaffold(
       backgroundColor: blackShadeColor,
       //___________________________________________________AppBar______________________________________________________________
-      drawer: DrawerScreen(),
       appBar: AppBar(
-        backgroundColor: blackShadeColor,
-        leading: Builder(builder: (context) {
-          return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: Icon(
-                Icons.menu,
-                color: backgroundColor,
-              ));
-        }),
-        title: Text('Tuch Trip', style: heading),
+        surfaceTintColor: backgroundColor,
+        backgroundColor: backgroundColor,
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Tuchtrip',
+          style: GoogleFonts.montserrat(
+            fontSize: 24,
+            color: Colors.black,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle, color: Colors.white),
+            icon: Icon(IconlyLight.chat),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.person_2_outlined,
+              color: Colors.black,
+            ),
             onPressed: () {},
           ),
         ],

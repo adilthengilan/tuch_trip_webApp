@@ -7,7 +7,6 @@ import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
 import 'package:tuch/src/view/Common%20widget/footer.dart';
 import 'package:tuch/src/view/Desktop/details/detail_page.dart';
-import 'package:tuch/src/view/Mobile/Home/menu.dart';
 import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
@@ -20,7 +19,6 @@ class BookingScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AppBar
-      drawer: DrawerScreen(),
       appBar: AppBar(
         surfaceTintColor: backgroundColor,
         backgroundColor: backgroundColor,

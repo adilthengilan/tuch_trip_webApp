@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/footer.dart';
-import 'package:tuch/src/view/Mobile/Home/menu.dart';
 import 'package:tuch/src/view/Tabview/Home/Booking/booking.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
@@ -16,23 +17,31 @@ class Aboutus extends StatelessWidget {
     return Scaffold(
       backgroundColor: blackShadeColor,
       //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AppBar
-      drawer: DrawerScreen(),
       appBar: AppBar(
+        surfaceTintColor: blackShadeColor,
         backgroundColor: blackShadeColor,
-        leading: Builder(builder: (context) {
-          return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: Icon(
-                Icons.menu,
-                color: backgroundColor,
-              ));
-        }),
-        title: Text('Tuch Trip', style: heading),
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Tuchtrip',
+          style: GoogleFonts.montserrat(
+            fontSize: 24,
+            color: Colors.white,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.person_2_outlined, color: Colors.white),
+            icon: Icon(
+              IconlyLight.chat,
+              color: Colors.white,
+            ),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.person_2_outlined,
+              color: Colors.white,
+            ),
             onPressed: () {},
           ),
         ],
@@ -162,7 +171,7 @@ class Aboutus extends StatelessWidget {
                       ),
                       sizedbox(height * 0.02, width),
                       InkWell(
-                        onTap: () { },
+                        onTap: () {},
                         // => launch('mailto:media@solartrip.com'),
                         child: Container(
                             height: height * 0.05,
