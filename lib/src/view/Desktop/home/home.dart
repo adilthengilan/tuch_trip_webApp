@@ -46,12 +46,13 @@ class _HomePageState extends State<HomePageDeskTop> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 sizedbox(height * 0.25, width),
+
                 ///===========================================================================================================================
                 //===================================================== Home Seach Bar ======================================================
                 ///===========================================================================================================================
                 Text('Tuchtrip Travel Service', style: largeHeadings),
                 sizedbox(height * 0.2, 0.0),
-                SearchingBar(height: height, width: width),
+                // SearchingBar(height: height, width: width),
                 sizedbox(height * 0.3, width),
                 Text('Your', style: largeHeadings),
                 SizedBox(
