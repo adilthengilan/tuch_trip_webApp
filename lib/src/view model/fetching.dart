@@ -26,6 +26,11 @@ class Hotel {
 
 class ApiService extends ChangeNotifier {
   int pageNumber = 0;
+  int imageindex = 0;
+  void updateimageindex(int index) {
+    imageindex = index;
+    notifyListeners();
+  }
 
   int currentPage = 1;
   final int totalPages = 10;

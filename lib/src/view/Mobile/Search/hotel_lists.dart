@@ -130,7 +130,7 @@ class HotelListScreen extends StatelessWidget {
               },
             ),
             sizedbox(height * 0.30, width),
-            Footer(),
+            // Footer(),
             //...................................................................................................................
           ],
         ),

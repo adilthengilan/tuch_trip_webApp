@@ -99,15 +99,20 @@ class DetailePageDesktop extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          Container(
-                            height: height * 0.4,
-                            width: width * 0.5,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(5),
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: NetworkImage(thumbnail),
+                          Consumer<ApiService>(
+                            builder: (context, value, child) => Container(
+                              height: height * 0.4,
+                              width: width * 0.5,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(5),
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(value.HotelImages.isEmpty
+                                      ? thumbnail
+                                      : value.HotelImages[value.imageindex]
+                                          ['url_1440']),
+                                ),
                               ),
                             ),
                           ),
@@ -118,20 +123,25 @@ class DetailePageDesktop extends StatelessWidget {
                               width: width * 0.5,
                               child: value.HotelImages.isNotEmpty
                                   ? ListView.builder(
-                                      itemCount: 15,
+                                      itemCount: value.HotelImages.length,
                                       physics: AlwaysScrollableScrollPhysics(),
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) =>
-                                          Container(
-                                        width: width * 0.1,
-                                        margin: EdgeInsets.only(
-                                            right: width * 0.01),
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.shade100,
-                                          image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: NetworkImage(
-                                                '${value.HotelImages[index]['url_1440']}'),
+                                          GestureDetector(
+                                        onTap: () {
+                                          value.updateimageindex(index);
+                                        },
+                                        child: Container(
+                                          width: width * 0.1,
+                                          margin: EdgeInsets.only(
+                                              right: width * 0.01),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade100,
+                                            image: DecorationImage(
+                                              fit: BoxFit.fill,
+                                              image: NetworkImage(
+                                                  '${value.HotelImages[index]['url_1440']}'),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -151,11 +161,6 @@ class DetailePageDesktop extends StatelessWidget {
                                               right: width * 0.01),
                                           decoration: BoxDecoration(
                                             color: Colors.grey.shade100,
-                                            image: DecorationImage(
-                                              fit: BoxFit.fill,
-                                              image: AssetImage(
-                                                  'assets/images/thailand.png'),
-                                            ),
                                           ),
                                         ),
                                       ),
@@ -564,7 +569,7 @@ class DetailePageDesktop extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>  BookingPageDeskTop(),
+                                  builder: (context) => BookingPageDeskTop(),
                                 ),
                               );
                             },

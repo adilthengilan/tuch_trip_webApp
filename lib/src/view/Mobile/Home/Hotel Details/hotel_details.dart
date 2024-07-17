@@ -138,12 +138,6 @@ class HotelDetailScreen extends StatelessWidget {
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       sizedbox(height * 0.01, width * 0.01),
-                      GradiantButton(
-                        height: height * 0.045,
-                        width: width * 0.12,
-                        text: 'Offers',
-                        onpressed: () {},
-                      )
                     ],
                   )
                 ],
@@ -1495,19 +1489,19 @@ class RoomOptionWidget extends StatelessWidget {
                               fontSize: 12, fontWeight: FontWeight.bold),
                         ),
                         sizedbox(height * 0.01, width * 0.01),
-                        GradiantButton(
-                          height: height * 0.045,
-                          width: width * 0.12,
-                          text: 'Select',
-                          onpressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BookingScreen(),
-                              ),
-                            );
-                          },
-                        )
+                        // GradiantButton(
+                        //   height: height * 0.045,
+                        //   width: width * 0.12,
+                        //   text: 'Select',
+                        //   onpressed: () {
+                        //     Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //         builder: (context) => BookingScreen(),
+                        //       ),
+                        //     );
+                        //   },
+                        // )
                       ],
                     )
                   ],

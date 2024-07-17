@@ -25,250 +25,247 @@ class MobileViewBody extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: blackShadeColor,
-        //___________________________________________________AppBar______________________________________________________________
-        // drawer: DrawerScreen(),
-        appBar: AppBar(
-            backgroundColor: blackShadeColor,
-            // leading: Builder(builder: (context) {
-            //   return IconButton(
-            //       onPressed: () {
-            //         Scaffold.of(context).openDrawer();
-            //       },
-            //       icon: Icon(
-            //         Icons.menu,
-            //         color: backgroundColor,
-            //       ));
-            // }),
-            title: Text('Tuch Trip', style: heading),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.account_circle, color: Colors.white),
-                onPressed: () {
-                  // Navigator.push(
-                  //     context, MaterialPageRoute(builder: (context) => Profile()));
-                },
-                // appBar: AppBar(
-                //   backgroundColor: Colors.transparent,
-                //   title: Text('Tuchtrip', style: heading),
-                //   actions: [
-                //     IconButton(
-                //       onPressed: () {},
-                //       icon: Icon(
-                //         Icons.person_2_outlined,
-                //         size: height * 0.035,
-                //         color: Colors.white,
-                //       ),
-                //     ),
-                //     sizedbox(0.0, width * 0.02),
-                //   ],
-                // ),
-                //________________________________________________________________________________________________________________________________
-               
-              )
-            ])
-             body: SingleChildScrollView(
-                  child: Column(children: [
-                    //--------------------------------------------------------------------------------------------------------------------------------
-                    //--------------------------------------------------Headline-----------------------------------------------------------------------
-                    sizedbox(height * 0.09, width),
-                    // Title
-                    SizedBox(
-                      width: width * 0.900,
-                      child: Text(
-                          'Explore Hundreds of Premium Hotels : \nFind Your Perfect Stay',
-                          style: heading2),
-                    ),
-                    //------------------------------------------------------------------------------------------------------------------------------------
-                    sizedbox(height * 0.09, width),
-                    // // Tabs for Stays
-                    // ChoiceChip(
-                    //   label: Text('Stays'),
-                    //   selected: true,
-                    //   onSelected: (selected) {},
-                    //   selectedColor: const Color.fromARGB(255, 188, 116, 116),
-                    //   backgroundColor: Colors.grey[800],
-                    //   labelStyle:
-                    //       TextStyle(color: Colors.black, fontFamily: 'Montserrat'),
-                    // ),
-                    //-----------------------------------------------Location search and rooms ,guests.calender widget-----------------------------------------
-                    LocationDatePersonCountBox(height, width, context),
-                    sizedbox(height * 0.29, width),
-                    //_______________________________________________________ an ad of our  quality of booking __________________________________________
-                    Text('Your smart', style: largeboldstyle),
-                    Text('booking\n experience',
-                        style: largenormalstyle, textAlign: TextAlign.center),
-                    sizedbox(height * 0.03, width),
-                    AdSection(
-                      image: 'assets/images/luxury hotel.jpg',
-                      title: 'Stays & flights',
-                      caption:
-                          'Experience the world with our wide selection of stays',
-                    ),
-                    //_______________________________________________________________________________________________________________________________________________
-                    sizedbox(height * 0.20, width),
-                    Text('Pay your way', style: largeboldstyle),
-                    Text('Cards or pays', style: largenormalstyle),
-                    sizedbox(height * 0.02, width),
+      backgroundColor: blackShadeColor,
+      //___________________________________________________AppBar______________________________________________________________
+      // drawer: DrawerScreen(),
+      appBar: AppBar(
+          backgroundColor: blackShadeColor,
+          // leading: Builder(builder: (context) {
+          //   return IconButton(
+          //       onPressed: () {
+          //         Scaffold.of(context).openDrawer();
+          //       },
+          //       icon: Icon(
+          //         Icons.menu,
+          //         color: backgroundColor,
+          //       ));
+          // }),
+          title: Text('Tuch Trip', style: heading),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.account_circle, color: Colors.white),
+              onPressed: () {
+                // Navigator.push(
+                //     context, MaterialPageRoute(builder: (context) => Profile()));
+              },
+              // appBar: AppBar(
+              //   backgroundColor: Colors.transparent,
+              //   title: Text('Tuchtrip', style: heading),
+              //   actions: [
+              //     IconButton(
+              //       onPressed: () {},
+              //       icon: Icon(
+              //         Icons.person_2_outlined,
+              //         size: height * 0.035,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //     sizedbox(0.0, width * 0.02),
+              //   ],
+              // ),
+              //________________________________________________________________________________________________________________________________
+            )
+          ]),
+      body: SingleChildScrollView(
+        child: Column(children: [
+          //--------------------------------------------------------------------------------------------------------------------------------
+          //--------------------------------------------------Headline-----------------------------------------------------------------------
+          sizedbox(height * 0.09, width),
+          // Title
+          SizedBox(
+            width: width * 0.900,
+            child: Text(
+                'Explore Hundreds of Premium Hotels : \nFind Your Perfect Stay',
+                style: heading2),
+          ),
+          //------------------------------------------------------------------------------------------------------------------------------------
+          sizedbox(height * 0.09, width),
+          // // Tabs for Stays
+          // ChoiceChip(
+          //   label: Text('Stays'),
+          //   selected: true,
+          //   onSelected: (selected) {},
+          //   selectedColor: const Color.fromARGB(255, 188, 116, 116),
+          //   backgroundColor: Colors.grey[800],
+          //   labelStyle:
+          //       TextStyle(color: Colors.black, fontFamily: 'Montserrat'),
+          // ),
+          //-----------------------------------------------Location search and rooms ,guests.calender widget-----------------------------------------
+          LocationDatePersonCountBox(height, width, context),
+          sizedbox(height * 0.29, width),
+          //_______________________________________________________ an ad of our  quality of booking __________________________________________
+          Text('Your smart', style: largeboldstyle),
+          Text('booking\n experience',
+              style: largenormalstyle, textAlign: TextAlign.center),
+          sizedbox(height * 0.03, width),
+          AdSection(
+            image: 'assets/images/luxury hotel.jpg',
+            title: 'Stays & flights',
+            caption: 'Experience the world with our wide selection of stays',
+          ),
+          //_______________________________________________________________________________________________________________________________________________
+          sizedbox(height * 0.20, width),
+          Text('Pay your way', style: largeboldstyle),
+          Text('Cards or pays', style: largenormalstyle),
+          sizedbox(height * 0.02, width),
 
-                    Container(
-                      height: height * 0.40,
-                      width: width * 0.900,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25.0),
-                          image: DecorationImage(
-                              image: AssetImage(
-                                'assets/images/bank cards.png',
-                              ),
-                              fit: BoxFit.fill)),
+          Container(
+            height: height * 0.40,
+            width: width * 0.900,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25.0),
+                image: DecorationImage(
+                    image: AssetImage(
+                      'assets/images/bank cards.png',
                     ),
-                    sizedbox(height * 0.10, width),
-                    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> section of ai powerd customer support>>>>>>>>>>>>>>>>>>>>>>
+                    fit: BoxFit.fill)),
+          ),
+          sizedbox(height * 0.10, width),
+          //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> section of ai powerd customer support>>>>>>>>>>>>>>>>>>>>>>
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'AI-powered\n customer support',
-                          style: mediumtextstyle,
-                          textAlign: TextAlign.center,
-                        ),
-                        Text('Immediate expert assistance via chat.\nAnytime',
-                            textAlign: TextAlign.center,
-                            style: smallTextstylewhite),
-                        sizedbox(height * 0.02, width),
-                        Container(
-                          height: height * 0.40,
-                          width: width * 0.50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            image: DecorationImage(
-                                image:
-                                    AssetImage('assets/images/Ai powerd.png'),
-                                fit: BoxFit.fill),
-                          ),
-                        ),
-                      ],
-                    ),
-                    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Loyalty program>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                    LoyaltyProgramSection(),
-                    //___________________________________________________________ Our application image like availability appstore/play store..........loading.....................
-                    //===============================================================================================================================
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'AI-powered\n customer support',
+                style: mediumtextstyle,
+                textAlign: TextAlign.center,
+              ),
+              Text('Immediate expert assistance via chat.\nAnytime',
+                  textAlign: TextAlign.center, style: smallTextstylewhite),
+              sizedbox(height * 0.02, width),
+              Container(
+                height: height * 0.40,
+                width: width * 0.50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/Ai powerd.png'),
+                      fit: BoxFit.fill),
+                ),
+              ),
+            ],
+          ),
+          //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Loyalty program>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+          LoyaltyProgramSection(),
+          //___________________________________________________________ Our application image like availability appstore/play store..........loading.....................
+          //===============================================================================================================================
 
-                    // sizedbox(height * 0.16, width),
-                    // Column(
-                    //   children: [
-                    //     Text('Innovative', style: largeboldstyle),
-                    //     //===================================== Heading ===============================================================
-                    //     Text(
-                    //       'Booking App',
-                    //       style: GoogleFonts.poppins(
-                    //           color: Colors.white,
-                    //           fontSize: 40,
-                    //           fontWeight: FontWeight.w400),
-                    //     ),
-                    //     sizedbox(height * 0.01, 0.0),
-                    //     //===================================== Heading ===============================================================
-                    //     Text('Change The way you Travel', style: mediumtextstyle),
-                    //     sizedbox(height * 0.28, 0.0),
-                    //     //======================================== QR Code ==========================================================================
-                    //     Container(
-                    //       height: height * 0.35,
-                    //       width: width * 0.403,
-                    //       margin: EdgeInsets.only(right: width * 0.01),
-                    //       decoration: BoxDecoration(
-                    //         color: Colors.grey.shade900,
-                    //         image: const DecorationImage(
-                    //           fit: BoxFit.fill,
-                    //           image: AssetImage('assets/images/QrCode.png'),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     sizedbox(height * 0.1, 0.0),
+          // sizedbox(height * 0.16, width),
+          // Column(
+          //   children: [
+          //     Text('Innovative', style: largeboldstyle),
+          //     //===================================== Heading ===============================================================
+          //     Text(
+          //       'Booking App',
+          //       style: GoogleFonts.poppins(
+          //           color: Colors.white,
+          //           fontSize: 40,
+          //           fontWeight: FontWeight.w400),
+          //     ),
+          //     sizedbox(height * 0.01, 0.0),
+          //     //===================================== Heading ===============================================================
+          //     Text('Change The way you Travel', style: mediumtextstyle),
+          //     sizedbox(height * 0.28, 0.0),
+          //     //======================================== QR Code ==========================================================================
+          //     Container(
+          //       height: height * 0.35,
+          //       width: width * 0.403,
+          //       margin: EdgeInsets.only(right: width * 0.01),
+          //       decoration: BoxDecoration(
+          //         color: Colors.grey.shade900,
+          //         image: const DecorationImage(
+          //           fit: BoxFit.fill,
+          //           image: AssetImage('assets/images/QrCode.png'),
+          //         ),
+          //       ),
+          //     ),
+          //     sizedbox(height * 0.1, 0.0),
 
-                    //     // Row(
-                    //     //   mainAxisAlignment: MainAxisAlignment.center,
-                    //     //   children: List.generate(
-                    //     //     2,
-                    //     //     (index) => Padding(
-                    //     //       padding: EdgeInsets.only(right: width * 0.02),
-                    //     //       child: InkWell(
-                    //     //         onTap: () {},
-                    //     //         child: Container(
-                    //     //           height: height * 0.08,
-                    //     //           width: width * 0.234,
-                    //     //           padding: EdgeInsets.symmetric(
-                    //     //             horizontal: width * 0.008,
-                    //     //           ),
-                    //     //           decoration: BoxDecoration(
-                    //     //             borderRadius: BorderRadius.circular(10),
-                    //     //             gradient: const LinearGradient(
-                    //     //               colors: [
-                    //     //                 Color.fromARGB(255, 255, 176, 248),
-                    //     //                 Color.fromARGB(255, 105, 227, 255),
-                    //     //               ],
-                    //     //             ),
-                    //     //           ),
-                    //     //           child: Row(
-                    //     //             children: [
-                    //     //               SizedBox(
-                    //     //                 height: height * 0.05,
-                    //     //                 width: width * 0.068,
-                    //     //                 child: Image(
-                    //     //                   fit: BoxFit.fill,
-                    //     //                   image: AssetImage(index == 0
-                    //     //                       ? 'assets/images/googlePlayStore.png'
-                    //     //                       : 'assets/images/appleStore.png'),
-                    //     //                 ),
-                    //     //               ),
-                    //     //               sizedbox(width * 0.02, 0.0),
-                    //     //               Column(
-                    //     //                 crossAxisAlignment: CrossAxisAlignment.start,
-                    //     //                 mainAxisSize: MainAxisSize.min,
-                    //     //                 children: [
-                    //     //                   Text(
-                    //     //                     'GET IT ON',
-                    //     //                     style: GoogleFonts.montserrat(
-                    //     //                       fontSize: 08,
-                    //     //                       color: Colors.black,
-                    //     //                     ),
-                    //     //                   ),
-                    //     //                   //======================== google Play============ Store and App Store ====================================
-                    //     //                   Text(
-                    //     //                     index == 0 ? 'Google Play' : 'App Store',
-                    //     //                     style: GoogleFonts.montserrat(fontSize: 12),
-                    //     //                   ),
-                    //     //                 ],
-                    //     //               ),
-                    //     //             ],
-                    //     //           ),
-                    //     //         ),
-                    //     //       ),
-                    //     //     ),
-                    //     //   ),
-                    //     // ),
-                    //   ],
-                    // ),
-                    //Loading.................................................................................
-                    sizedbox(height * 0.10, width),
-                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; choose destinations
+          //     // Row(
+          //     //   mainAxisAlignment: MainAxisAlignment.center,
+          //     //   children: List.generate(
+          //     //     2,
+          //     //     (index) => Padding(
+          //     //       padding: EdgeInsets.only(right: width * 0.02),
+          //     //       child: InkWell(
+          //     //         onTap: () {},
+          //     //         child: Container(
+          //     //           height: height * 0.08,
+          //     //           width: width * 0.234,
+          //     //           padding: EdgeInsets.symmetric(
+          //     //             horizontal: width * 0.008,
+          //     //           ),
+          //     //           decoration: BoxDecoration(
+          //     //             borderRadius: BorderRadius.circular(10),
+          //     //             gradient: const LinearGradient(
+          //     //               colors: [
+          //     //                 Color.fromARGB(255, 255, 176, 248),
+          //     //                 Color.fromARGB(255, 105, 227, 255),
+          //     //               ],
+          //     //             ),
+          //     //           ),
+          //     //           child: Row(
+          //     //             children: [
+          //     //               SizedBox(
+          //     //                 height: height * 0.05,
+          //     //                 width: width * 0.068,
+          //     //                 child: Image(
+          //     //                   fit: BoxFit.fill,
+          //     //                   image: AssetImage(index == 0
+          //     //                       ? 'assets/images/googlePlayStore.png'
+          //     //                       : 'assets/images/appleStore.png'),
+          //     //                 ),
+          //     //               ),
+          //     //               sizedbox(width * 0.02, 0.0),
+          //     //               Column(
+          //     //                 crossAxisAlignment: CrossAxisAlignment.start,
+          //     //                 mainAxisSize: MainAxisSize.min,
+          //     //                 children: [
+          //     //                   Text(
+          //     //                     'GET IT ON',
+          //     //                     style: GoogleFonts.montserrat(
+          //     //                       fontSize: 08,
+          //     //                       color: Colors.black,
+          //     //                     ),
+          //     //                   ),
+          //     //                   //======================== google Play============ Store and App Store ====================================
+          //     //                   Text(
+          //     //                     index == 0 ? 'Google Play' : 'App Store',
+          //     //                     style: GoogleFonts.montserrat(fontSize: 12),
+          //     //                   ),
+          //     //                 ],
+          //     //               ),
+          //     //             ],
+          //     //           ),
+          //     //         ),
+          //     //       ),
+          //     //     ),
+          //     //   ),
+          //     // ),
+          //   ],
+          // ),
+          //Loading.................................................................................
+          sizedbox(height * 0.10, width),
+          //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; choose destinations
 
-                    Column(
-                      children: [
-                        Text(
-                          'Choose your next\n destination',
-                          style: mediumtextstyle,
-                          textAlign: TextAlign.center,
-                        ),
-                        sizedbox(height * 0.04, width),
-                        chooseDestinations(height, width),
-                      ],
-                    ),
-                    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                    sizedbox(height * 0.18, width),
-                    Footerlink(),
-                  ]),
-                ),);
+          Column(
+            children: [
+              Text(
+                'Choose your next\n destination',
+                style: mediumtextstyle,
+                textAlign: TextAlign.center,
+              ),
+              sizedbox(height * 0.04, width),
+              chooseDestinations(height, width),
+            ],
+          ),
+          //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+          sizedbox(height * 0.18, width),
+          Footerlink(),
+        ]),
+      ),
+    );
   }
 
 //___________________________________________________Choose destinaton category when tap move search filtered destinations>>>>>>>>.
