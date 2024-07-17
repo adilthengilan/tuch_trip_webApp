@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tuch/src/view%20model/calender_provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
+import 'package:tuch/src/view%20model/fetching.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
 import 'package:tuch/src/view/Mobile/Search/hotel_lists.dart';
@@ -26,26 +28,26 @@ class MobileViewBody extends StatelessWidget {
     return Scaffold(
       backgroundColor: blackShadeColor,
       //___________________________________________________AppBar______________________________________________________________
-      drawer: DrawerScreen(),
+      // drawer: DrawerScreen(),
       appBar: AppBar(
         backgroundColor: blackShadeColor,
-        leading: Builder(builder: (context) {
-          return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: Icon(
-                Icons.menu,
-                color: backgroundColor,
-              ));
-        }),
+        // leading: Builder(builder: (context) {
+        //   return IconButton(
+        //       onPressed: () {
+        //         Scaffold.of(context).openDrawer();
+        //       },
+        //       icon: Icon(
+        //         Icons.menu,
+        //         color: backgroundColor,
+        //       ));
+        // }),
         title: Text('Tuch Trip', style: heading),
         actions: [
           IconButton(
             icon: Icon(Icons.account_circle, color: Colors.white),
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profile()));
+              // Navigator.push(
+              //     context, MaterialPageRoute(builder: (context) => Profile()));
             },
           ),
         ],
@@ -262,9 +264,6 @@ class MobileViewBody extends StatelessWidget {
 //In the Column Has 3 Containers and a AppTextButton
 //The Three container are indicates, Location searcher, Choosing Dates, Room Count and Persons Count
   Widget LocationDatePersonCountBox(height, width, context) {
-    final bottomProvider =
-        Provider.of<DashBoardProvider>(context, listen: false);
-
     // Define the list of locations and initialize the selected location to null
     List<String> locations = ['Dubai', 'Jeddhah', 'London'];
     String? selectedLocation;
@@ -282,22 +281,19 @@ class MobileViewBody extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            offset: Offset(3, 2),
-            blurRadius: 4,
-            color: Color.fromARGB(47, 80, 79, 79),
-          ),
-          BoxShadow(
-            offset: Offset(-2, -0),
-            blurRadius: 4,
-            color: Color.fromARGB(255, 216, 216, 216),
+            offset: Offset(-0.3, 1),
+            blurRadius: 2,
+            blurStyle: BlurStyle.normal,
+            spreadRadius: 0,
+            color: greyShadeDark,
           ),
         ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Consumer<FeaturesProvider>(
-            builder: (context, featuresProvider, child) {
+          Consumer2<FeaturesProvider, CalendarProvider>(
+            builder: (context, featuresProvider, calendarprovider, child) {
               return Column(
                 children: List.generate(
                   3,
@@ -337,9 +333,9 @@ class MobileViewBody extends StatelessWidget {
                         break;
                       case 1:
                         icon = Icons.calendar_today_outlined;
-                        text = featuresProvider.selectedDates.isEmpty
+                        text = calendarprovider.selectedDates.isEmpty
                             ? 'Choose Your Dates'
-                            : '${featuresProvider.checkingDate} - ${featuresProvider.checkoutDate}  ${featuresProvider.selectedDates.length - 1} Night';
+                            : '${calendarprovider.checkingDate} - ${calendarprovider.checkoutDate}  ${calendarprovider.selectedDates.length - 1} Night';
                         iconColor = Colors.pinkAccent;
                         onpressed = () {
                           Navigator.push(
@@ -348,6 +344,7 @@ class MobileViewBody extends StatelessWidget {
                               builder: (context) => BookingCalendarPage(),
                             ),
                           );
+                          // print(featuresProvider.selectedDates);
                         };
                         childWidget = Text(
                           text,
@@ -414,12 +411,15 @@ class MobileViewBody extends StatelessWidget {
               builder: (context, value, child) => AppTextButton(
                 text: "Search",
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HotelListScreen(),
-                    ),
-                  );
+                  // Provider.of<ApiService>(context, listen: false)
+                  //     .searchHotel(selectedLocation.toString());
+                  print('================');
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => HotelListScreen(),
+                  //   ),
+                  // );
                 },
                 gradient: LinearGradient(
                   colors: [
@@ -531,8 +531,7 @@ class BottomSheetContent extends StatelessWidget {
                       Color.fromARGB(255, 22, 228, 251)
                     ],
                   ),
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                   height: height,
                   width: double.infinity,
                 ),

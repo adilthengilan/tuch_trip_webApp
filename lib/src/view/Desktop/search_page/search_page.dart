@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
+import 'package:tuch/src/view%20model/features_provider.dart';
+import 'package:tuch/src/view%20model/fetching.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Desktop/desktopview.dart';
 import 'package:tuch/src/view/Desktop/detaile_page/detaile_page.dart';
@@ -46,7 +49,64 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
                   hotelListingListviewBuilder(width, height),
                 ],
               ),
-            )
+            ),
+            Consumer2<ApiService, FeaturesProvider>(
+              builder: (context, api_service, features, child) => Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Previous button (disabled on first page)
+                  InkWell(
+                    onTap: api_service.currentPage > 1
+                        ? () {
+                            api_service.goToPage(api_service.currentPage - 1);
+                            api_service.pagenumberdec();
+                            api_service.searchLocation(
+                                features.selectedLocation,
+                                features.checkingDate,
+                                features.checkoutDate,
+                                0,
+                                api_service.pageNumber);
+                          }
+                        : null,
+                    child: Icon(Icons.chevron_left),
+                  ),
+                  SizedBox(width: 10),
+                  // Show a limited range of page buttons around current page
+                  for (int i = api_service.currentPage - 2 > 0
+                          ? api_service.currentPage - 2
+                          : 1;
+                      i <= api_service.currentPage + 2 &&
+                          i <= api_service.totalPages;
+                      i++)
+                    InkWell(
+                      onTap: () {
+                        api_service.goToPage(i);
+                        api_service.pagenumberset(i);
+                        api_service.searchLocation(
+                            features.selectedLocation,
+                            features.checkingDate,
+                            features.checkoutDate,
+                            0,
+                            api_service.pageNumber);
+                      },
+                      child: Container(
+                          margin: EdgeInsets.all(10),
+                          height: 50,
+                          width: 50,
+                          child: Center(child: Text('$i'))),
+                    ),
+                  SizedBox(width: 10),
+                  // Next button (disabled on last page)
+                  InkWell(
+                    onTap: api_service.currentPage < api_service.totalPages
+                        ? () =>
+                            api_service.goToPage(api_service.currentPage + 1)
+                        : null,
+                    child: Icon(Icons.chevron_right),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -206,164 +266,351 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
   Column hotelListingListviewBuilder(double width, double height) {
     return Column(
       children: [
-        SizedBox(
-          width: width * 0.55,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: 10,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => Padding(
-              padding: EdgeInsets.only(bottom: height * 0.02),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailePageDesktop(),
+        Stack(children: [
+          SizedBox(
+              width: width * 0.7,
+              child: Consumer<ApiService>(builder: (context, value, child) {
+                print(value.HotelsDetails.length);
+
+                if (value.HotelsDetails.isNotEmpty) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: value.HotelsDetails.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.only(bottom: height * 0.02),
+                      child: InkWell(
+                        onTap: () {
+                          // url_1440
+                          value.SearchHotelDetail(
+                              value.HotelsDetails[index]['hotel_id']);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailePageDesktop(
+                                HotelName: value.HotelsDetails[index]
+                                    ['hotel_name'],
+                                thumbnail: value.HotelsDetails[index]
+                                    ['max_1440_photo_url'],
+                                rate: value.HotelsDetails[index]
+                                    ['min_total_price'],
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: height * 0.3,
+                          width: width * 0.4,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: const [
+                              BoxShadow(
+                                offset: Offset(0, -2),
+                                blurRadius: 1,
+                                color: Color.fromARGB(123, 237, 237, 237),
+                              ),
+                              BoxShadow(
+                                offset: Offset(0, -0),
+                                blurRadius: 2,
+                                color: Color.fromARGB(255, 216, 216, 216),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: double.infinity,
+                                width: width * 0.16,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  borderRadius: const BorderRadius.horizontal(
+                                    left: Radius.circular(15),
+                                  ),
+                                  //====================================================================== Hotel Image ========================================================
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: NetworkImage(
+                                        '${value.HotelsDetails[index]['max_1440_photo_url']}'),
+                                  ),
+                                ),
+                              ),
+                              sizedbox(0.0, width * 0.02),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: height * 0.04,
+                                  left: width * 0.01,
+                                  bottom: height * 0.01,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        StarRating(
+                                          height: height * 0.025,
+                                          rating: 4.8,
+                                          starCount: 5,
+                                          color: Colors.black,
+                                        ),
+                                        sizedbox(0.0, width * 0.01),
+                                        Text(
+                                          index != 1 ? 'Hotel' : 'Resort',
+                                          style: GoogleFonts.montserrat(
+                                            color: Colors.black,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    //================================================ Hotel Name ==============================================================================
+                                    SizedBox(
+                                      width: width * 0.2,
+                                      height: height * 0.1,
+                                      child: Text(
+                                        '${value.HotelsDetails[index]['hotel_name']}',
+                                        style: GoogleFonts.montserrat(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    //============================================== Hotel Location ================================================================================
+                                    Text(
+                                        '${value.HotelsDetails[index]['city']}',
+                                        style: smallTextStyle),
+                                    Text(
+                                        '${value.HotelsDetails[index]['distances'][0]['text']}',
+                                        style: smallTextStyle),
+                                    sizedbox(height * 0.02, 0.0),
+                                    Container(
+                                      height: height * 0.0315,
+                                      width: width * 0.125,
+                                      decoration: BoxDecoration(
+                                        color: Color.fromRGBO(255, 233, 189, 1),
+                                        borderRadius: BorderRadius.circular(5),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            offset: Offset(2, 4),
+                                            blurRadius: 2,
+                                            color: Color.fromARGB(
+                                                123, 237, 237, 237),
+                                          ),
+                                          BoxShadow(
+                                            offset: Offset(-2, -1),
+                                            blurRadius: 2,
+                                            color: Color.fromARGB(
+                                                255, 216, 216, 216),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Center(
+                                          child: Text(
+                                        'Smart Check-In Offered',
+                                        style: GoogleFonts.poppins(
+                                            color:
+                                                Color.fromRGBO(36, 94, 65, 1)),
+                                      )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Spacer(),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: height * 0.07,
+                                    right: width * 0.02,
+                                    bottom: height * 0.02),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    //=================================================== Hotel Price ===========================================================================
+                                    Text(
+                                      'AED - ${value.HotelsDetails[index]['min_total_price']}',
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Text('Including Taxes and Fees',
+                                        style: GoogleFonts.montserrat()),
+                                    const Text('1 /Night'),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   );
-                },
-                child: Container(
-                  height: height * 0.25,
-                  width: width * 0.23,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: const [
-                      BoxShadow(
-                        offset: Offset(0, -2),
-                        blurRadius: 1,
-                        color: Color.fromARGB(123, 237, 237, 237),
-                      ),
-                      BoxShadow(
-                        offset: Offset(0, -0),
-                        blurRadius: 2,
-                        color: Color.fromARGB(255, 216, 216, 216),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: double.infinity,
-                        width: width * 0.16,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: const BorderRadius.horizontal(
-                            left: Radius.circular(15),
-                          ),
-                          //====================================================================== Hotel Image ========================================================
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('assets/images/luxury hotel.jpg'),
-                          ),
-                        ),
-                      ),
-                      sizedbox(0.0, width * 0.02),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: height * 0.04,
-                          left: width * 0.01,
-                          bottom: height * 0.01,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                StarRating(
-                                  height: height * 0.025,
-                                  rating: 4.8,
-                                  starCount: 5,
-                                  color: Colors.black,
+                } else {
+                  print(value.HotelsDetails.length);
+
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: 10,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.only(bottom: height * 0.02),
+                        child: InkWell(
+                          onTap: () {},
+                          child: Container(
+                            height: height * 0.3,
+                            width: width * 0.4,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: const [
+                                BoxShadow(
+                                  offset: Offset(0, -2),
+                                  blurRadius: 1,
+                                  color: Color.fromARGB(123, 237, 237, 237),
                                 ),
-                                sizedbox(0.0, width * 0.01),
-                                Text(
-                                  index != 1 ? 'Hotel' : 'Resort',
-                                  style: GoogleFonts.montserrat(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                BoxShadow(
+                                  offset: Offset(0, -0),
+                                  blurRadius: 2,
+                                  color: Color.fromARGB(255, 216, 216, 216),
                                 ),
                               ],
                             ),
-                            //================================================ Hotel Name ==============================================================================
-                            Text(
-                              'Burj Al Arab Jumeirah',
-                              style: GoogleFonts.montserrat(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            //============================================== Hotel Location ================================================================================
-                            Text('New York, USA', style: smallTextStyle),
-                            Text('185 km from the Center',
-                                style: smallTextStyle),
-                            sizedbox(height * 0.02, 0.0),
-                            Container(
-                              height: height * 0.0315,
-                              width: width * 0.125,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Colors.cyanAccent,
-                                    Colors.cyan.shade300
-                                  ],
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: double.infinity,
+                                  width: width * 0.16,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[100],
+                                    borderRadius: const BorderRadius.horizontal(
+                                      left: Radius.circular(15),
+                                    ),
+                                    //====================================================================== Hotel Image ========================================================
+                                  ),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    offset: Offset(2, 4),
-                                    blurRadius: 2,
-                                    color: Color.fromARGB(123, 237, 237, 237),
+                                sizedbox(0.0, width * 0.02),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: height * 0.04,
+                                    left: width * 0.01,
+                                    bottom: height * 0.01,
                                   ),
-                                  BoxShadow(
-                                    offset: Offset(-2, -1),
-                                    blurRadius: 2,
-                                    color: Color.fromARGB(255, 216, 216, 216),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          StarRating(
+                                            height: height * 0.025,
+                                            rating: 4.8,
+                                            starCount: 5,
+                                            color: Colors.black,
+                                          ),
+                                          sizedbox(0.0, width * 0.01),
+                                          Container()
+                                        ],
+                                      ),
+                                      //================================================ Hotel Name ==============================================================================
+                                      Container(
+                                        width: width * 0.2,
+                                        height: height * 0.1,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                      ),
+                                      //============================================== Hotel Location ================================================================================
+                                      Container(
+                                        width: width * 0.2,
+                                        height: height * 0.1,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                      ),
+                                      Container(
+                                        width: width * 0.2,
+                                        height: height * 0.1,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                      ),
+                                      sizedbox(height * 0.02, 0.0),
+                                      Container(
+                                        height: height * 0.0315,
+                                        width: width * 0.125,
+                                        decoration: BoxDecoration(
+                                          color:
+                                              Color.fromRGBO(255, 233, 189, 1),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              offset: Offset(2, 4),
+                                              blurRadius: 2,
+                                              color: Color.fromARGB(
+                                                  123, 237, 237, 237),
+                                            ),
+                                            BoxShadow(
+                                              offset: Offset(-2, -1),
+                                              blurRadius: 2,
+                                              color: Color.fromARGB(
+                                                  255, 216, 216, 216),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                              child: const Center(
-                                  child: Text('Smart Check-In Offered')),
+                                ),
+                                // const Spacer(),
+                                // Padding(
+                                //   padding: EdgeInsets.only(
+                                //       top: height * 0.07,
+                                //       right: width * 0.02,
+                                //       bottom: height * 0.02),
+                                //   child: Column(
+                                //     crossAxisAlignment: CrossAxisAlignment.end,
+                                //     children: [
+                                //       //=================================================== Hotel Price ===========================================================================
+                                //       Container(
+                                //         width: width * 0.2,
+                                //         height: height * 0.05,
+                                //         decoration: BoxDecoration(
+                                //             color: Colors.grey,
+                                //             borderRadius:
+                                //                 BorderRadius.circular(20)),
+                                //       ),
+                                //       Container(
+                                //         width: width * 0.2,
+                                //         height: height * 0.05,
+                                //         decoration: BoxDecoration(
+                                //             color: Colors.grey,
+                                //             borderRadius:
+                                //                 BorderRadius.circular(20)),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // )
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
-                      const Spacer(),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: height * 0.07,
-                            right: width * 0.02,
-                            bottom: height * 0.02),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            //=================================================== Hotel Price ===========================================================================
-                            Text(
-                              '\$1,999',
-                              style: GoogleFonts.montserrat(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Text('Including Taxes and Fees',
-                                style: GoogleFonts.montserrat()),
-                            const Text('1 /Night'),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+                    ),
+                  );
+                }
+              })),
+        ]),
         sizedbox(height * 0.1, 0.0),
       ],
     );

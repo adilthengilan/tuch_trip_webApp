@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: providers,
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'tuchtrip-bookings',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,

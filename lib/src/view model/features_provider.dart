@@ -41,7 +41,7 @@ class FeaturesProvider extends ChangeNotifier {
   ///============================================================================================================================================
   ///============================================================================================================================================
   List<DateTime?> rangeDatePickerValueWithDefaultValue = [null, null];
-  List<DateTime?> selectedDates = [null, null];
+  List<DateTime?> selectedDates = [];
   String checkingDate = '';
   String checkoutDate = '';
   int nights = 1;

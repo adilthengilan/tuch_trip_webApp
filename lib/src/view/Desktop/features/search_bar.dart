@@ -2,6 +2,7 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
+import 'package:tuch/src/view%20model/fetching.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/toest_message.dart';
 import 'package:tuch/src/view/Desktop/features/rooms_guest_counter.dart';
@@ -185,16 +186,26 @@ class _SearchBarState extends State<SearchingBar> {
   }
 
   Widget buildSearchButton() {
-    return Consumer<FeaturesProvider>(
-      builder: (context, feature, child) => InkWell(
+    return Consumer2<FeaturesProvider, ApiService>(
+      builder: (context, feature, Apiservice, child) => InkWell(
         borderRadius: BorderRadius.circular(15),
         onTap: () {
           if (feature.selectedLocation != '' &&
               feature.checkingDate != '' &&
               feature.checkoutDate != '') {
             feature.disposeAllSheets();
-            Navigator.push(context,MaterialPageRoute(builder: (context) => const SearchPageDeskTop()));
-            feature.gethNightCount();
+            print('==================');
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const SearchPageDeskTop()));
+            // feature.gethNightCount();
+            Apiservice.searchLocation(
+                feature.selectedLocation,
+                feature.checkingDate,
+                feature.checkoutDate,
+                feature.adults,
+                Apiservice.pageNumber);
           } else {
             toastmessege(
                 'Please let us know your destination and travel dates, so we can arrange a suitable stay');
@@ -224,7 +235,8 @@ class _SearchBarState extends State<SearchingBar> {
   }
 
   Container buildLocationSearchSheet() {
-    final featureProvider = Provider.of<FeaturesProvider>(context, listen: false);
+    final featureProvider =
+        Provider.of<FeaturesProvider>(context, listen: false);
     return Container(
       height: widget.height * 0.5,
       width: widget.width * 0.25,
@@ -266,7 +278,6 @@ class _SearchBarState extends State<SearchingBar> {
     );
   }
 }
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////// CALENDAR DATE PICKER  ///////////////////////////////////////////////////////////////////////

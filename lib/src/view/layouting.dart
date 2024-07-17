@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tuch/src/view%20model/fetching.dart';
 import 'package:tuch/src/view/Desktop/desktopview.dart';
 import 'package:tuch/src/view/Mobile/mobile_view.dart';
 import 'package:tuch/src/view/Tabview/tab_view.dart';
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: ResponsiveLayout(
           DesktopView: DesktopView(),
-          MobileViews: MobileView(),
+          MobileViews: ShimmerListItem(),
           TabView: TabView()),
     );
   }

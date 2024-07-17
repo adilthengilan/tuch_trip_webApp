@@ -9,8 +9,6 @@ TextEditingController phoneNumberController = TextEditingController();
 TextEditingController firstNameController = TextEditingController();
 TextEditingController lastNameController = TextEditingController();
 
-
-
 class DesktopView extends StatelessWidget {
   const DesktopView({super.key});
 
@@ -36,14 +34,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       automaticallyImplyLeading: false,
-      title: Text(
-        'Tuchtrip',
-        style: GoogleFonts.montserrat(
-          fontSize: 24,
-          color: Colors.black,
-          fontWeight: FontWeight.w800,
-        ),
-      ),
+      // title: Text(
+      //   'Tuchtrip',
+      //   style: GoogleFonts.montserrat(
+      //     fontSize: 24,
+      //     color: Colors.black,
+      //     fontWeight: FontWeight.w800,
+      //   ),
+      // ),
+      title: Image.asset('assets/images/logo_removed.png'),
       actions: [
         IconButton(
           onPressed: () {},

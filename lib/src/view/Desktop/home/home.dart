@@ -28,7 +28,8 @@ class _HomePageState extends State<HomePageDeskTop> {
           backgroundColor: Colors.black,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            title: Text('Tuchtrip', style: heading),
+            title: SizedBox(
+                height: 200, child: Image.asset('assets/images/tuchtrip_.png')),
             actions: [
               IconButton(
                 onPressed: () {},
@@ -46,11 +47,13 @@ class _HomePageState extends State<HomePageDeskTop> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 sizedbox(height * 0.25, width),
+
                 ///===========================================================================================================================
                 //===================================================== Home Seach Bar ======================================================
                 ///===========================================================================================================================
                 Text('Tuchtrip Travel Service', style: largeHeadings),
                 sizedbox(height * 0.2, 0.0),
+                // searchingBar
                 SearchingBar(height: height, width: width),
                 sizedbox(height * 0.3, width),
                 Text('Your', style: largeHeadings),
@@ -265,7 +268,8 @@ class _HomePageState extends State<HomePageDeskTop> {
                                         ),
                                         sizedbox(width * 0.02, 0.0),
                                         Column(
-                                          crossAxisAlignment:CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(
