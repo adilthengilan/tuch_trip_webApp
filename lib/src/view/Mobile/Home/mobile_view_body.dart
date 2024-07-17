@@ -6,6 +6,7 @@ import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view%20model/feauture_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
+import 'package:tuch/src/view/Mobile/Home/Sign%20in/sign_in.dart';
 import 'package:tuch/src/view/Mobile/Search/hotel_lists.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
@@ -32,7 +33,16 @@ class MobileViewBody extends StatelessWidget {
         title: Text('Tuchtrip', style: heading),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: backgroundColor,
+                builder: (context) => SignInBottomSheet(
+                  
+                ),
+              );
+            },
             icon: Icon(
               Icons.person_2_outlined,
               size: height * 0.035,

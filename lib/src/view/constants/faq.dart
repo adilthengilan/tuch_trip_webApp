@@ -126,7 +126,7 @@ class Faq extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'About us',
+                      'Support contacts',
                       style: smallboldTextStyle,
                     ),
                   ),
@@ -153,7 +153,7 @@ class Faq extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'About us',
+                      'Tuch Loyalty Program',
                       style: smallboldTextStyle,
                     ),
                   ),
@@ -177,12 +177,6 @@ class Faq extends StatelessWidget {
                       ),
                     ],
                     borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'About us',
-                      style: smallboldTextStyle,
-                    ),
                   ),
                 ),
                 SizedBox(height: height * 0.90, child: ArticleList()),
@@ -197,14 +191,14 @@ class Faq extends StatelessWidget {
 
 class ArticleList extends StatelessWidget {
   final List<String> articles = [
-    'Which digital wallet can I use to store my collectible stickers?',
-    'What is a digital wallet?',
-    'What blockchain are these NFTs minted on?',
-    'How to pay for your trip with crypto?',
-    'What is cryptocurrency?',
-    'Will I get a planet reward if I have booked a ticket or hotel but missed my trip?',
-    'When can I add a planet to my planetary system?',
-    'What is an NFT?',
+    'Will I Get a Reward If I Have Booked a Ticket or Hotel but Missed My Trip?',
+    'How Does the Tuch Loyalty Programme Work?',
+    'Where Can I Collect Stickers During My Trip?',
+    'Can I Transfer My Stickers to Someone Else?',
+    'How Do I Join the Tuch Loyalty Programme?',
+    'Can I Earn Stickers Without Booking a Stay?',
+    'How Do I Contact Support for Issues with My Stickers?',
+    'Can I Earn Stickers Without Booking a Stay?',
   ];
 
   @override

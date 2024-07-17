@@ -8,10 +8,13 @@ import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view%20model/feauture_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
+import 'package:tuch/src/view/Mobile/Home/Sign%20in/sign_in.dart';
 import 'package:tuch/src/view/Mobile/Search/hotel_lists.dart';
 import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
+import 'package:tuch/src/view/Tabview/sign%20in.dart/sign_in.dart';
 import 'package:tuch/src/view/constants/aboutus.dart';
 import 'package:tuch/src/view/constants/calender_screen.dart';
+import 'package:tuch/src/view/constants/faq.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
 
@@ -26,28 +29,38 @@ class TabViewHome extends StatelessWidget {
       backgroundColor: blackShadeColor,
       //___________________________________________________AppBar______________________________________________________________
       appBar: AppBar(
-        surfaceTintColor: backgroundColor,
-        backgroundColor: backgroundColor,
+        surfaceTintColor: blackShadeColor,
+        backgroundColor: blackShadeColor,
         automaticallyImplyLeading: false,
         title: Text(
           'Tuchtrip',
           style: GoogleFonts.montserrat(
             fontSize: 24,
-            color: Colors.black,
+            color: Colors.white,
             fontWeight: FontWeight.w800,
           ),
         ),
         actions: [
           IconButton(
-            icon: Icon(IconlyLight.chat),
+            icon: Icon(
+              IconlyLight.chat,
+              color: backgroundColor,
+            ),
             onPressed: () {},
           ),
           IconButton(
             icon: Icon(
               Icons.person_2_outlined,
-              color: Colors.black,
+              color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: backgroundColor,
+                builder: (context) => SignInBottomSheetTabView(),
+              );
+            },
           ),
         ],
       ),
@@ -143,7 +156,6 @@ class TabViewHome extends StatelessWidget {
                 LoyaltyProgramSection(),
                 //___________________________________________________________ Our application image like availability appstore/play store..........loading.....................
                 sizedbox(height * 0.06, width),
-                
               ],
             ),
           ),
@@ -753,7 +765,7 @@ class Footerlink extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(left: width * 0.06),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -789,7 +801,10 @@ class Footerlink extends StatelessWidget {
                     ),
                     // FAQ section
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Faq()));
+                      },
                       child: Text('FAQ', style: whiteSmallTextStyle),
                     ),
                     //User Agreement
@@ -834,19 +849,19 @@ class Footerlink extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-            height: 60,
-            width: 60,
+            height: 50,
+            width: 50,
             child: Image(
                 image:
                     AssetImage('assets/images/facebk-removebg-preview.png'))),
         Container(
-            height: 50,
-            width: 50,
+            height: 40,
+            width: 40,
             child: Image(
                 image: AssetImage('assets/images/insta-removebg-preview.png'))),
         Container(
-            height: 60,
-            width: 60,
+            height: 50,
+            width: 50,
             child: Image(
                 image: AssetImage('assets/images/xtw-removebg-preview.png'))),
       ],

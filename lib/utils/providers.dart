@@ -10,6 +10,8 @@ import 'package:tuch/src/view%20model/search_provider.dart';
 import 'package:tuch/src/view%20model/hotel_provider.dart';
 import 'package:tuch/src/view%20model/hotel_details_provider.dart';
 import 'package:tuch/src/view%20model/room_provider.dart';
+import 'package:tuch/src/view%20model/sign_in_provider.dart';
+import 'package:tuch/src/view/Mobile/Home/Sign%20in/sign_in.dart';
 
 List<ChangeNotifierProvider<ChangeNotifier>> providers = [
   ChangeNotifierProvider<DashBoardProvider>(
@@ -28,5 +30,6 @@ List<ChangeNotifierProvider<ChangeNotifier>> providers = [
     ChangeNotifierProvider<LocationProvider>(create: (context) => LocationProvider()),
         ChangeNotifierProvider<RoomsProvider>(create: (context) => RoomsProvider()),
 
+        ChangeNotifierProvider<AuthModel>(create: (context) => AuthModel()),
 
 ];

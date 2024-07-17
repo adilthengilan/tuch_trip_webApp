@@ -8,23 +8,26 @@ final TextStyle smallTextStyle = GoogleFonts.poppins(
     color: Colors.black,
   ),
 );
-final largeHeadings = GoogleFonts.poppins(
+
+final TextStyle greytextstyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-      fontSize: 54,
-      fontWeight: FontWeight.w600,
-      color: Colors.white),
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: Color.fromARGB(255, 203, 201, 201),
+  ),
+);
+
+final largeHeadings = GoogleFonts.poppins(
+  textStyle:
+      TextStyle(fontSize: 54, fontWeight: FontWeight.w600, color: Colors.white),
 );
 final largeHeadingsmv = GoogleFonts.poppins(
-  textStyle: TextStyle(
-      fontSize: 35,
-      fontWeight: FontWeight.w600,
-      color: Colors.white),
+  textStyle:
+      TextStyle(fontSize: 35, fontWeight: FontWeight.w600, color: Colors.white),
 );
 final largeHeadingsmvlight = GoogleFonts.poppins(
-  textStyle: TextStyle(
-      fontSize: 35,
-      fontWeight: FontWeight.w300,
-      color: Colors.white),
+  textStyle:
+      TextStyle(fontSize: 35, fontWeight: FontWeight.w300, color: Colors.white),
 );
 
 final TextStyle whiteSmallTextStyle = GoogleFonts.poppins(
@@ -103,9 +106,17 @@ final TextStyle smallTextstylelight = GoogleFonts.montserrat(
   fontWeight: FontWeight.w300,
   color: Colors.white,
 );
+final TextStyle mediumboldTextStyle = GoogleFonts.montserrat(
+  textStyle: TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+  ),
+);
+
 final TextStyle smallboldTextStyle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.black,
   ),
