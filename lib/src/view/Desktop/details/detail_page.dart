@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
-import 'package:tuch/src/view%20model/fetching.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Desktop/booking_page/booking_page.dart';
 import 'package:tuch/src/view/Desktop/desktopview.dart';
@@ -14,17 +12,10 @@ import 'package:tuch/utils/textstyles.dart';
 
 class DetailePageDesktop extends StatelessWidget {
   final double? rating;
-  final String HotelName;
-  final String thumbnail;
-  final rate;
-  final images;
-  DetailePageDesktop(
-      {super.key,
-      this.rating = 4.6,
-      required this.HotelName,
-      required this.thumbnail,
-      this.images,
-      required this.rate});
+  const DetailePageDesktop({
+    super.key,
+    this.rating = 4.6,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +49,7 @@ class DetailePageDesktop extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        HotelName,
+                        'Burj Al Arab Jumeirah',
                         style: GoogleFonts.montserrat(
                           color: Colors.black,
                           fontSize: 24,
@@ -79,7 +70,7 @@ class DetailePageDesktop extends StatelessWidget {
                         ),
                       ),
                       sizedbox(0.0, width * 0.01),
-                      Text('AED - $rate', style: mediumtextstylelight),
+                      Text('\$460', style: mediumtextstylelight),
                       sizedbox(0.0, width * 0.01),
                       GradiantButton(
                         height: height * 0.05,
@@ -107,59 +98,31 @@ class DetailePageDesktop extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5),
                               image: DecorationImage(
                                 fit: BoxFit.fill,
-                                image: NetworkImage(thumbnail),
+                                image: AssetImage(
+                                    'assets/images/luxury hotel.jpg'),
                               ),
                             ),
                           ),
                           sizedbox(height * 0.01, 0.0),
-                          Consumer<ApiService>(
-                            builder: (context, value, child) => SizedBox(
-                              height: height * 0.1,
-                              width: width * 0.5,
-                              child: value.HotelImages.isNotEmpty
-                                  ? ListView.builder(
-                                      itemCount: 15,
-                                      physics: AlwaysScrollableScrollPhysics(),
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) =>
-                                          Container(
-                                        width: width * 0.1,
-                                        margin: EdgeInsets.only(
-                                            right: width * 0.01),
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.shade100,
-                                          image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: NetworkImage(
-                                                '${value.HotelImages[index]['url_1440']}'),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : Shimmer.fromColors(
-                                      baseColor: Colors.grey[200]!,
-                                      highlightColor: Colors.grey[100]!,
-                                      child: ListView.builder(
-                                        itemCount: 15,
-                                        physics:
-                                            AlwaysScrollableScrollPhysics(),
-                                        scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) =>
-                                            Container(
-                                          width: width * 0.1,
-                                          margin: EdgeInsets.only(
-                                              right: width * 0.01),
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey.shade100,
-                                            image: DecorationImage(
-                                              fit: BoxFit.fill,
-                                              image: AssetImage(
-                                                  'assets/images/thailand.png'),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                          SizedBox(
+                            height: height * 0.1,
+                            width: width * 0.5,
+                            child: ListView.builder(
+                              itemCount: 15,
+                              physics: AlwaysScrollableScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => Container(
+                                width: width * 0.1,
+                                margin: EdgeInsets.only(right: width * 0.01),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade100,
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage(
+                                        'assets/images/thailand.png'),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -564,7 +527,7 @@ class DetailePageDesktop extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>  BookingPageDeskTop(),
+                                  builder: (context) => const BookingPageDeskTop(),
                                 ),
                               );
                             },
@@ -1431,11 +1394,11 @@ class DetailePageDesktop extends StatelessWidget {
         3,
         (index) => InkWell(
           onTap: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => DetailePageDesktop(),
-            //     ));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailePageDesktop(),
+                ));
           },
           child: Container(
             width: width * 0.225,

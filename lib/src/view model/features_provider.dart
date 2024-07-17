@@ -15,21 +15,21 @@ class FeaturesProvider extends ChangeNotifier {
   }
 
   void getLocationSearchSheet() {
-    isLocationSearchSheetOn = true;
+    isLocationSearchSheetOn = !isLocationSearchSheetOn;
     isCalendarPickerSheetOn = false;
     isRoomsCounterSheetOn = false;
     notifyListeners();
   }
 
   void getDatePickerSheet() {
-    isCalendarPickerSheetOn = true;
+    isCalendarPickerSheetOn = !isCalendarPickerSheetOn;
     isRoomsCounterSheetOn = false;
     isLocationSearchSheetOn = false;
     notifyListeners();
   }
 
   void getRoomsGuestCounterSheet() {
-    isRoomsCounterSheetOn = true;
+    isRoomsCounterSheetOn = !isRoomsCounterSheetOn;
     isCalendarPickerSheetOn = false;
     isLocationSearchSheetOn = false;
     notifyListeners();

@@ -48,10 +48,6 @@ class LocationSearchScreenState extends State<LocationSearchScreen> {
             ),
           ),
           sizedbox(height * 0.02, width),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: width * 0.06),
-            child: Divider(color: Colors.grey.shade300),
-          ),
           Consumer<FeaturesProvider>(
             builder: (context, locationProvider, child) => Expanded(
               child: locationProvider.searchResults.isEmpty
