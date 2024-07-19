@@ -1,10 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashBoardProvider extends ChangeNotifier {
   int selectedCategoryIndex = 0;
   String locationText = '';
   int bottombarindex = 0;
   bool isTimeStarted = false;
+  bool isLogined = false;
+
+  void toggle() {
+    isLogined = !isLogined;
+    notifyListeners();
+  }
+
+  Future<void> loadSwitchValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    isLogined = prefs.getBool('Login') ?? false;
+    print('Logined Successfully');
+    notifyListeners();
+  }
+
+  Future<void> saveSwitchValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('Login', isLogined);
+    print('saved----------------');
+    notifyListeners();
+  }
 
   void setBottomBarindex(index) {
     bottombarindex = index;

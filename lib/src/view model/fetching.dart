@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,6 +26,8 @@ class Hotel {
 class ApiService extends ChangeNotifier {
   int pageNumber = 0;
   int imageindex = 0;
+  List<dynamic> HotelFacilites = [];
+  List<dynamic> NearestPlaces = [];
   void updateimageindex(int index) {
     imageindex = index;
     notifyListeners();
@@ -58,7 +59,7 @@ class ApiService extends ChangeNotifier {
   List<dynamic> HotelsDetails = [];
   List<dynamic> HotelImages = [];
   var _LocationID;
-  var _HotelId;
+  var HotelDescription;
   static const Map<String, String> _headers = {
     'x-rapidapi-host': 'booking-com.p.rapidapi.com',
     'x-rapidapi-key':
@@ -147,7 +148,75 @@ class ApiService extends ChangeNotifier {
     }
   }
 
+  void SearchDescription(HotelId) async {
+    print('================ffffffffffffffffff');
+    try {
+      final response = await http.get(
+        Uri.parse(
+            'https://booking-com.p.rapidapi.com/v1/hotels/description?hotel_id=$HotelId&locale=en-gb'),
+        headers: _headers,
+      );
+      if (response.statusCode == 200) {
+        var temp = jsonDecode(response.body)['description'];
+        HotelDescription = temp;
+        // _HotelDescription = temp;
+        // print(HotelsDetails);
+        notifyListeners();
+        // print(HotelsDetails[0]);
+      } else {
+        print('${response.statusCode}================');
+
+        throw Exception('Failed to load hotels');
+      }
+      final facility = await http.get(
+        Uri.parse(
+            'https://booking-com.p.rapidapi.com/v1/hotels/facilities?hotel_id=$HotelId&locale=en-gb'),
+        headers: _headers,
+      );
+      if (facility.statusCode == 200) {
+        List<dynamic> temp = jsonDecode(facility.body);
+        HotelFacilites = temp;
+        // _HotelDescription = temp;
+        // print(HotelsDetails);
+        notifyListeners();
+        // print(HotelsDetails[0]);
+      } else {
+        print('${response.statusCode}================');
+
+        throw Exception('Failed to load hotels');
+      }
+
+      final nearplaces = await http.get(
+        Uri.parse(
+            'https://booking-com.p.rapidapi.com/v1/hotels/nearby-places?hotel_id=$HotelId&locale=en-gb'),
+        headers: _headers,
+      );
+      if (nearplaces.statusCode == 200) {
+        Map<String, dynamic> temp = jsonDecode(nearplaces.body);
+        print(temp['landmarks']['closests']);
+        NearestPlaces.add(temp['landmarks']['closests']);
+        NearestPlaces.add(temp['landmarks']['populars']);
+        // _HotelDescription = temp;
+        print(NearestPlaces);
+        // print(HotelsDetails);
+        notifyListeners();
+        // print(HotelsDetails[0]);
+      } else {
+        print('${response.statusCode}================');
+
+        throw Exception('Failed to load hotels');
+      }
+      // https://booking-com.p.rapidapi.com/v1/hotels/nearby-places?hotel_id=1676161&locale=en-gb
+      //  https://booking-com.p.rapidapi.com/v1/hotels/facilities?hotel_id=1676161&locale=en-gb
+      // https://booking-com.p.rapidapi.com/v1/hotels/description?hotel_id=1377073&locale=en-gb
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void SearchHotelDetail(HotelId) async {
+    SearchDescription(HotelId);
+
     try {
       print('hotel finded');
       // print(checkin);

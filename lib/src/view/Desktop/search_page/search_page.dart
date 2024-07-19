@@ -268,7 +268,7 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
       children: [
         Stack(children: [
           SizedBox(
-              width: width * 0.7,
+              width: width * 0.6,
               child: Consumer<ApiService>(builder: (context, value, child) {
                 print(value.HotelsDetails.length);
 

@@ -92,7 +92,7 @@ class DetailePageDesktop extends StatelessWidget {
                       sizedbox(0.0, width * 0.012),
                     ],
                   ),
-                  Text('Dubai, United Emirites'),
+                  Text(HotelName),
                   sizedbox(height * 0.02, width),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1119,18 +1119,18 @@ class DetailePageDesktop extends StatelessWidget {
             padding: EdgeInsets.symmetric(
               horizontal: width * 0.01,
             ),
-            child: SizedBox(
-              child: Text(
-                'Hotel Le Méridien Dubai Hotel & Conference Centre is located in Dubai,'
-                'United Arab Emirates at Dubai,'
-                'Airport Road 4.5 km from the city center.'
-                'Check in after 14:00, check out until 12:00.',
-                maxLines: 6,
-                style: GoogleFonts.montserrat(
-                  color: Colors.black,
-                  fontSize: 14,
-                ),
-              ),
+            child: Consumer<ApiService>(
+              builder: (context, value, child) => SizedBox(
+                  child: value.HotelFacilites.isNotEmpty
+                      ? Text(
+                          value.HotelDescription,
+                          maxLines: 6,
+                          style: GoogleFonts.montserrat(
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
+                        )
+                      : Container()),
             ),
           ),
           sizedbox(height * 0.01, 0.0),
@@ -1158,47 +1158,97 @@ class DetailePageDesktop extends StatelessWidget {
       height: height * 0.23,
       width: width,
       color: backgroundColor,
-      child: Wrap(
-        runSpacing: height * 0.015,
-        alignment: WrapAlignment.spaceBetween,
-        children: List.generate(
-          10,
-          (index) => Padding(
-            padding: EdgeInsets.only(right: width * 0.01),
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: width * 0.01,
-                vertical: height * 0.025,
-              ),
-              decoration: index != 9
-                  ? BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.grey.shade200),
-                    )
-                  : null,
-              child: index != 9
-                  ? Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.pool_outlined),
-                        sizedbox(0.0, width * 0.006),
-                        Text('Fabulous breakfast'),
-                      ],
-                    )
-                  : Padding(
-                      padding: EdgeInsets.only(right: width * 0.02),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'View all',
-                          style: GoogleFonts.montserrat(
-                              fontSize: 14, color: Colors.deepPurple),
+      child: Consumer<ApiService>(
+        builder: (context, value, child) => Wrap(
+          runSpacing: height * 0.015,
+          alignment: WrapAlignment.spaceBetween,
+          children: value.HotelFacilites.isNotEmpty
+              ? List.generate(
+                  10,
+                  (index) => Padding(
+                    padding: EdgeInsets.only(right: width * 0.01),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: width * 0.01,
+                        vertical: height * 0.025,
+                      ),
+                      decoration: index != 9
+                          ? BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.grey.shade200),
+                            )
+                          : null,
+                      child: index != 9
+                          ? Consumer<ApiService>(
+                              builder: (context, value, child) => Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.room_service),
+                                  sizedbox(0.0, width * 0.006),
+                                  Text(value.HotelFacilites[index]
+                                      ['facility_name']),
+                                ],
+                              ),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.only(right: width * 0.02),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  'View all',
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 14, color: Colors.deepPurple),
+                                ),
+                              ),
+                            ),
+                    ),
+                  ),
+                )
+              : List.generate(
+                  10,
+                  (index) => Padding(
+                    padding: EdgeInsets.only(right: width * 0.01),
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: width * 0.01,
+                          vertical: height * 0.025,
                         ),
+                        decoration: index != 9
+                            ? BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.grey.shade200),
+                              )
+                            : null,
+                        child: index != 9
+                            ? Consumer<ApiService>(
+                                builder: (context, value, child) => Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.room_service),
+                                    sizedbox(0.0, width * 0.006),
+                                  ],
+                                ),
+                              )
+                            : Padding(
+                                padding: EdgeInsets.only(right: width * 0.02),
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'View all',
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 14, color: Colors.deepPurple),
+                                  ),
+                                ),
+                              ),
                       ),
                     ),
-            ),
-          ),
+                  ),
+                ),
         ),
       ),
     );
@@ -1225,57 +1275,71 @@ class DetailePageDesktop extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-                top: height * 0.02, left: width * 0.015, bottom: height * 0.01),
-            child: Text(
-              "What's Near",
-              style: mediumtextstylelight,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: height * 0.02,
-              horizontal: width * 0.02,
-            ),
-            child: Wrap(
-              runSpacing: height * 0.03,
-              spacing: width * 0.1,
-              children: List.generate(
-                8,
-                (index) => index != 7
-                    ? Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.shopping_bag_outlined),
-                          sizedbox(0.0, width * 0.006),
-                          Text(
-                            'Dubai Tennis ',
-                            style: GoogleFonts.montserrat(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      )
-                    : TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'View all',
-                          style: GoogleFonts.montserrat(
-                            color: Colors.deepPurple,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
+      child: Consumer<ApiService>(
+        builder: (context, value, child) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  top: height * 0.02,
+                  left: width * 0.015,
+                  bottom: height * 0.01),
+              child: Text(
+                "What's Near",
+                style: mediumtextstylelight,
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: height * 0.02,
+                horizontal: width * 0.02,
+              ),
+              child: Wrap(
+                runSpacing: height * 0.03,
+                spacing: width * 0.1,
+                children: List.generate(
+                    value.NearestPlaces.length,
+                    (index) => Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.location_city),
+                            sizedbox(0.0, width * 0.006),
+                            value.NearestPlaces.isNotEmpty
+                                ? Text(
+                                    '${value.NearestPlaces[0][index]['landmark_name']}',
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  )
+                                : Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      height: 10,
+                                      width: 100,
+                                      color: Colors.grey,
+                                    ),
+                                  )
+                          ],
+                        )
+                    // ?
+                    // : TextButton(
+                    //     onPressed: () {},
+                    //     child: Text(
+                    //       'View all',
+                    //       style: GoogleFonts.montserrat(
+                    //         color: Colors.deepPurple,
+                    //         fontSize: 14,
+                    //       ),
+                    //     ),
+                    //   ),
+                    ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

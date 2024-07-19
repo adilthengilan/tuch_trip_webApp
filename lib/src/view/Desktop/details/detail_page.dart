@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
+import 'package:tuch/src/view%20model/fetching.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Desktop/booking_page/booking_page.dart';
 import 'package:tuch/src/view/Desktop/desktopview.dart';
@@ -527,7 +528,8 @@ class DetailePageDesktop extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const BookingPageDeskTop(),
+                                  builder: (context) =>
+                                      const BookingPageDeskTop(),
                                 ),
                               );
                             },
@@ -1136,13 +1138,15 @@ class DetailePageDesktop extends StatelessWidget {
                     )
                   : null,
               child: index != 9
-                  ? Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.pool_outlined),
-                        sizedbox(0.0, width * 0.006),
-                        Text('Fabulous breakfast'),
-                      ],
+                  ? Consumer<ApiService>(
+                      builder: (context, value, child) => Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.pool_outlined),
+                          sizedbox(0.0, width * 0.006),
+                          Text(value.HotelFacilites[index]['facility_name']),
+                        ],
+                      ),
                     )
                   : Padding(
                       padding: EdgeInsets.only(right: width * 0.02),
