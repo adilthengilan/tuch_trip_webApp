@@ -25,7 +25,7 @@ class DetailePageDesktop extends StatelessWidget {
         Provider.of<DashBoardProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: CustomAppBar(height: height, width: width),
+      appBar: CustomAppBar(height: height, width: width,darkMode: false),
       body: SingleChildScrollView(
         controller: dashboardProvider.scrollController,
         child: Column(

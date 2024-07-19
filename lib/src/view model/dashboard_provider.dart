@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class DashBoardProvider extends ChangeNotifier {
   int selectedCategoryIndex = 0;
@@ -210,6 +212,43 @@ class DashBoardProvider extends ChangeNotifier {
       case 30:
         above3000 = newValue;
         break;
+    }
+    notifyListeners();
+  }
+
+//======================================================================================================================================
+//======================================================================================================================================
+//=============================================================== Login ================================================================
+//======================================================================================================================================
+//======================================================================================================================================
+  PageController loginPaeController = PageController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController mobileNumberController = TextEditingController();
+
+  void goToPage(int page) {
+    if (loginPaeController.hasClients) {
+      loginPaeController.animateToPage(
+        page,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  bool isMobbileNumber = true;
+
+  void setSelectedSignInOption(){
+    isMobbileNumber = !isMobbileNumber;
+    notifyListeners();
+  }
+
+  void launchGmail() async {
+    final url =
+        'https://mail.google.com/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
     notifyListeners();
   }

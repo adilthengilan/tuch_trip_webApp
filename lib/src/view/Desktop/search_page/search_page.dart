@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
-import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Desktop/desktopview.dart';
 import 'package:tuch/src/view/Desktop/detaile_page/detaile_page.dart';
@@ -22,41 +21,33 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return Consumer<FeaturesProvider>(
-      builder: (context, person, child) => 
-      GestureDetector(
-        onTap: () {
-          person.disposeAllSheets();
-        },
-        child: Scaffold(
-          backgroundColor: backgroundColor,
-          appBar: CustomAppBar(height: height, width: width),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                sizedbox(height * 0.06, width),
-                Center(
-                  child: SearchingBar(
-                    height: height,
-                    width: width,
-                  ),
-                ),
-                sizedbox(height * 0.06, width),
-                Center(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      filteringBoxWithLocationContainer(height, width),
-                      sizedbox(0.0, width * 0.02),
-                      // Hotels Listing in the Listview builder with detailes
-                      hotelListingListviewBuilder(width, height),
-                    ],
-                  ),
-                )
-              ],
+    return Scaffold(
+      backgroundColor: backgroundColor,
+      appBar: CustomAppBar(height: height, width: width, darkMode: false),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            sizedbox(height * 0.06, width),
+            Center(
+              child: SearchingBar(
+                height: height,
+                width: width,
+              ),
             ),
-          ),
+            sizedbox(height * 0.06, width),
+            Center(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  filteringBoxWithLocationContainer(height, width),
+                  sizedbox(0.0, width * 0.02),
+                  // Hotels Listing in the Listview builder with detailes
+                  hotelListingListviewBuilder(width, height),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -143,7 +134,7 @@ class _SearchPageDeskTopState extends State<SearchPageDeskTop> {
                 ),
                 onPressed: () {},
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const Icon(Icons.location_on_outlined),
                     sizedbox(0.0, width * 0.002),

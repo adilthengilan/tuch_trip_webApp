@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/bookingProvider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Mobile/Home/menu.dart';
-import 'package:tuch/src/view/Mobile/Home/mobile_view_body.dart';
 import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
 import 'package:tuch/utils/app_colors.dart';
 import 'package:tuch/utils/textstyles.dart';
@@ -432,48 +431,43 @@ class Footer extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.white,
-                  decoration: TextDecoration.none,
                 ),
               ),
-              SizedBox(width: 16.0),
+              sizedbox(height * 0.01, width * 0.02),
               Text(
                 'FAQ',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.white,
-                  decoration: TextDecoration.none,
                 ),
               ),
-              SizedBox(width: 16.0),
+              sizedbox(height * 0.01, width * 0.02),
               Text(
                 'User Agreement',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.white,
-                  decoration: TextDecoration.none,
                 ),
               ),
-              SizedBox(width: 16.0),
+              sizedbox(height * 0.01, width * 0.02),
               Text(
                 'Privacy Policy',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.white,
-                  decoration: TextDecoration.none,
                 ),
               ),
-              SizedBox(width: 16.0),
+              sizedbox(height * 0.01, width * 0.02),
               Text(
                 'Cookies Policy',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.white,
-                  decoration: TextDecoration.none,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 16.0),
+          sizedbox(height * 0.02, width),
           Text(
             'The contents of this website are subject to copyright protection. ©2024 ONLINE TRAVEL SOLUTIONS - FZCO. All rights reserved. No contents of this website may be copied, used, distributed or modified. Solartrip shall not be held liable for the content of any external websites.',
             style: TextStyle(
@@ -482,7 +476,6 @@ class Footer extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 16.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -585,7 +578,7 @@ class CheckoutButton extends StatelessWidget {
 class FooterDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    // final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.only(left: width * 0.03, right: width * 0.03),

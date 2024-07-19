@@ -118,7 +118,7 @@ class TabFooter extends StatelessWidget {
               width: width * 0.560,
               child: Text(
                 'The contents of this website are subject to copyright protection. ©2024 ONLINE TRAVEL SOLUTIONS - FZCO. All rights reserved. No contents of this website may be copied, used, distributed or modified. Solartrip shall not be held liable for the content of any external websites.',
-                style: lightsmalltext,
+                style: smallTextStyle,
                 textAlign: TextAlign.start,
               ),
             )

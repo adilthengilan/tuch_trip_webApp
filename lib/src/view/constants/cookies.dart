@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconly/iconly.dart';
+import 'package:tuch/src/view/Mobile/Home/menu.dart';
+import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
 import 'package:tuch/utils/app_colors.dart';
+import 'package:tuch/utils/textstyles.dart';
 
 class CookiesPolicy extends StatelessWidget {
   const CookiesPolicy({super.key});
@@ -11,32 +12,34 @@ class CookiesPolicy extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AppBar
-appBar: AppBar(
-        surfaceTintColor: backgroundColor,
-        backgroundColor: backgroundColor,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Tuchtrip',
-          style: GoogleFonts.montserrat(
-            fontSize: 24,
-            color: Colors.black,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+      drawer: DrawerScreen(),
+      appBar: AppBar(
+        backgroundColor: blackShadeColor,
+        leading: Builder(builder: (context) {
+          return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: Icon(
+                Icons.menu,
+                color: backgroundColor,
+              ));
+        }),
+        title: Text('Tuch Trip', style: heading),
         actions: [
           IconButton(
-            icon: Icon(IconlyLight.chat),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.person_2_outlined,
-              color: Colors.black,
-            ),
-            onPressed: () {},
+            icon: Icon(Icons.account_circle, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Profile(),
+                  ));
+            },
           ),
         ],
-      ),      body: SingleChildScrollView(child: Column(children: [ 
+      ),
+      body: SingleChildScrollView(child: Column(children: [ 
         
        ],),),
     );

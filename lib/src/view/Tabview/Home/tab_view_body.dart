@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
-import 'package:tuch/src/view/Mobile/Search/hotel_lists.dart';
+import 'package:tuch/src/view/Mobile/Home/menu.dart';
+import 'package:tuch/src/view/Mobile/Search/search_screen.dart';
 import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
+import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
 import 'package:tuch/src/view/constants/aboutus.dart';
 import 'package:tuch/src/view/constants/calender_screen.dart';
 import 'package:tuch/utils/app_colors.dart';
@@ -23,29 +23,27 @@ class TabViewHome extends StatelessWidget {
     return Scaffold(
       backgroundColor: blackShadeColor,
       //___________________________________________________AppBar______________________________________________________________
+      drawer: DrawerScreen(),
       appBar: AppBar(
-        surfaceTintColor: backgroundColor,
-        backgroundColor: backgroundColor,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Tuchtrip',
-          style: GoogleFonts.montserrat(
-            fontSize: 24,
-            color: Colors.black,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+        backgroundColor: blackShadeColor,
+        leading: Builder(builder: (context) {
+          return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: Icon(
+                Icons.menu,
+                color: backgroundColor,
+              ));
+        }),
+        title: Text('Tuch Trip', style: heading),
         actions: [
           IconButton(
-            icon: Icon(IconlyLight.chat),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.person_2_outlined,
-              color: Colors.black,
-            ),
-            onPressed: () {},
+            icon: Icon(Icons.account_circle, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Profile()));
+            },
           ),
         ],
       ),
@@ -105,7 +103,7 @@ class TabViewHome extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25.0),
                       image: DecorationImage(
                           image: AssetImage(
-                            'assets/images/Ai powerd.png',
+                            'assets/images/bank cards.png',
                           ),
                           fit: BoxFit.fill)),
                 ),
@@ -141,7 +139,18 @@ class TabViewHome extends StatelessWidget {
                 LoyaltyProgramSection(),
                 //___________________________________________________________ Our application image like availability appstore/play store..........loading.....................
                 sizedbox(height * 0.06, width),
-                
+                Column(
+                  children: [
+                    Text(
+                      'Ultimate travel app',
+                      style: mediumtextstyle,
+                    ),
+                    Text(
+                      'Change the way you travel',
+                      style: smallTextstylelight,
+                    )
+                  ],
+                ),
               ],
             ),
           ),
@@ -191,7 +200,7 @@ class TabViewHome extends StatelessWidget {
               image = 'assets/images/dubai.jpg';
               onPressed = () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
               };
               break;
             case 1:
@@ -199,7 +208,7 @@ class TabViewHome extends StatelessWidget {
               image = 'assets/images/jeddhah.jpeg';
               onPressed = () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
               };
 
               break;
@@ -208,7 +217,7 @@ class TabViewHome extends StatelessWidget {
               image = 'assets/images/uk.jpeg';
               onPressed = () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
               };
 
               break;
@@ -217,7 +226,7 @@ class TabViewHome extends StatelessWidget {
               image = 'assets/images/uk.jpeg';
               onPressed = () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
               };
 
               break;
@@ -226,7 +235,7 @@ class TabViewHome extends StatelessWidget {
               image = 'assets/images/uk.jpeg';
               onPressed = () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
               };
 
               break;
@@ -257,13 +266,14 @@ class TabViewHome extends StatelessWidget {
     );
   }
 
-  //This has Location searcher, Choose Your Dates, How many persons booking
+//This has Location searcher, Choose Your Dates, How many persons booking
 //Its in a Container with BoxShadow the provided a column
 //In the Column Has 3 Containers and a AppTextButton
 //The Three container are indicates, Location searcher, Choosing Dates, Room Count and Persons Count
   Widget LocationDatePersonCountBox(height, width, context) {
+    final bottomProvider =
+        Provider.of<DashBoardProvider>(context, listen: false);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: width * 0.04),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(
@@ -289,7 +299,7 @@ class TabViewHome extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Consumer<FeaturesProvider>(
-            builder: (context,featuresProvider, child) {
+            builder: (context, featuresProvider, child) {
               return Column(
                 children: List.generate(
                   3,
@@ -302,8 +312,8 @@ class TabViewHome extends StatelessWidget {
                       case 0:
                         icon = Icons.search;
                         text = featuresProvider.selectedLocation == ''
-                            ? 'Where would you like to go?'
-                            : featuresProvider.selectedLocation;
+                                ? 'Where would you like to go?'
+                                : featuresProvider.selectedLocation;
                         iconColor = Colors.blueAccent;
                         onpressed = () async {
                           Navigator.push(
@@ -342,8 +352,7 @@ class TabViewHome extends StatelessWidget {
                       onTap: onpressed,
                       child: Container(
                         height: height * 0.083,
-                        padding: EdgeInsets.only(
-                            left: width * 0.05, right: width * 0.02),
+                        width: width,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(10),
@@ -351,22 +360,26 @@ class TabViewHome extends StatelessWidget {
                             border:
                                 Border(bottom: BorderSide(color: Colors.grey)),
                             color: Colors.transparent),
-                        child: Row(
-                          children: [
-                            AppIcon(
-                              iconData: icon,
-                              color: iconColor,
-                              height: height * 0.04,
-                            ),
-                            sizedbox(0.0, width * 0.04),
-                            SizedBox(
-                              child: Text(
-                                text,
-                                style: smallTextStyle,
-                                maxLines: 1,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: width * 0.02),
+                          child: Row(
+                            children: [
+                              AppIcon(
+                                iconData: icon,
+                                color: iconColor,
+                                height: height * 0.04,
                               ),
-                            ),
-                          ],
+                              sizedbox(0.0, width * 0.04),
+                              SizedBox(
+                                width: width * 0.5,
+                                child: Text(
+                                  text,
+                                  style: smallTextStyle,
+                                  maxLines: 1,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -380,14 +393,7 @@ class TabViewHome extends StatelessWidget {
             child: Consumer<DashBoardProvider>(
               builder: (context, value, child) => AppTextButton(
                 text: "Search",
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HotelListScreen(),
-                    ),
-                  );
-                },
+                onPressed: () {},
                 gradient: LinearGradient(
                   colors: [
                     Color.fromARGB(255, 51, 192, 252),
@@ -498,7 +504,8 @@ class BottomSheetContent extends StatelessWidget {
                       Color.fromARGB(255, 22, 228, 251)
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                   height: height,
                   width: double.infinity,
                 ),

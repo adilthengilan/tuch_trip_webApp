@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:tuch/src/view%20model/dashboard_provider.dart';
 import 'package:tuch/src/view/Common%20widget/app_icon.dart';
 import 'package:tuch/src/view/Common%20widget/app_text_button.dart';
 import 'package:tuch/src/view/Mobile/Search/hotel_lists.dart';
+import 'package:tuch/src/view/Mobile/Search/search_screen.dart';
 import 'package:tuch/src/view%20model/features_provider.dart';
-import 'package:tuch/src/view/Mobile/location_searcher/location_service.dart';
 import 'package:tuch/src/view/constants/aboutus.dart';
+import 'package:tuch/src/view/Mobile/Home/menu.dart';
+import 'package:tuch/src/view/Mobile/profile/profile_screen.dart';
 import 'package:tuch/src/view/constants/calender_screen.dart';
 import 'package:tuch/src/view/constants/contact_details.dart';
 import 'package:tuch/src/view/constants/cookies.dart';
@@ -25,19 +26,28 @@ class MobileViewBody extends StatelessWidget {
     return Scaffold(
       backgroundColor: blackShadeColor,
       //___________________________________________________AppBar______________________________________________________________
+      drawer: DrawerScreen(),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text('Tuchtrip', style: heading),
+        backgroundColor: blackShadeColor,
+        leading: Builder(builder: (context) {
+          return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: Icon(
+                Icons.menu,
+                color: backgroundColor,
+              ));
+        }),
+        title: Text('Tuch Trip', style: heading),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.person_2_outlined,
-              size: height * 0.035,
-              color: Colors.white,
-            ),
+            icon: Icon(Icons.account_circle, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Profile()));
+            },
           ),
-          sizedbox(0.0, width * 0.02),
         ],
       ),
       //________________________________________________________________________________________________________________________________
@@ -115,7 +125,7 @@ class MobileViewBody extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   image: DecorationImage(
-                      image: AssetImage('assets/images/Ai powerd.png'),
+                      image: AssetImage('assets/images/ai powerd chats.png'),
                       fit: BoxFit.fill),
                 ),
               ),
@@ -124,102 +134,19 @@ class MobileViewBody extends StatelessWidget {
           //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Loyalty program>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
           LoyaltyProgramSection(),
           //___________________________________________________________ Our application image like availability appstore/play store..........loading.....................
-          //===============================================================================================================================
-
-          // sizedbox(height * 0.16, width),
-          // Column(
-          //   children: [
-          //     Text('Innovative', style: largeboldstyle),
-          //     //===================================== Heading ===============================================================
-          //     Text(
-          //       'Booking App',
-          //       style: GoogleFonts.poppins(
-          //           color: Colors.white,
-          //           fontSize: 40,
-          //           fontWeight: FontWeight.w400),
-          //     ),
-          //     sizedbox(height * 0.01, 0.0),
-          //     //===================================== Heading ===============================================================
-          //     Text('Change The way you Travel', style: mediumtextstyle),
-          //     sizedbox(height * 0.28, 0.0),
-          //     //======================================== QR Code ==========================================================================
-          //     Container(
-          //       height: height * 0.35,
-          //       width: width * 0.403,
-          //       margin: EdgeInsets.only(right: width * 0.01),
-          //       decoration: BoxDecoration(
-          //         color: Colors.grey.shade900,
-          //         image: const DecorationImage(
-          //           fit: BoxFit.fill,
-          //           image: AssetImage('assets/images/QrCode.png'),
-          //         ),
-          //       ),
-          //     ),
-          //     sizedbox(height * 0.1, 0.0),
-
-          //     // Row(
-          //     //   mainAxisAlignment: MainAxisAlignment.center,
-          //     //   children: List.generate(
-          //     //     2,
-          //     //     (index) => Padding(
-          //     //       padding: EdgeInsets.only(right: width * 0.02),
-          //     //       child: InkWell(
-          //     //         onTap: () {},
-          //     //         child: Container(
-          //     //           height: height * 0.08,
-          //     //           width: width * 0.234,
-          //     //           padding: EdgeInsets.symmetric(
-          //     //             horizontal: width * 0.008,
-          //     //           ),
-          //     //           decoration: BoxDecoration(
-          //     //             borderRadius: BorderRadius.circular(10),
-          //     //             gradient: const LinearGradient(
-          //     //               colors: [
-          //     //                 Color.fromARGB(255, 255, 176, 248),
-          //     //                 Color.fromARGB(255, 105, 227, 255),
-          //     //               ],
-          //     //             ),
-          //     //           ),
-          //     //           child: Row(
-          //     //             children: [
-          //     //               SizedBox(
-          //     //                 height: height * 0.05,
-          //     //                 width: width * 0.068,
-          //     //                 child: Image(
-          //     //                   fit: BoxFit.fill,
-          //     //                   image: AssetImage(index == 0
-          //     //                       ? 'assets/images/googlePlayStore.png'
-          //     //                       : 'assets/images/appleStore.png'),
-          //     //                 ),
-          //     //               ),
-          //     //               sizedbox(width * 0.02, 0.0),
-          //     //               Column(
-          //     //                 crossAxisAlignment: CrossAxisAlignment.start,
-          //     //                 mainAxisSize: MainAxisSize.min,
-          //     //                 children: [
-          //     //                   Text(
-          //     //                     'GET IT ON',
-          //     //                     style: GoogleFonts.montserrat(
-          //     //                       fontSize: 08,
-          //     //                       color: Colors.black,
-          //     //                     ),
-          //     //                   ),
-          //     //                   //======================== google Play============ Store and App Store ====================================
-          //     //                   Text(
-          //     //                     index == 0 ? 'Google Play' : 'App Store',
-          //     //                     style: GoogleFonts.montserrat(fontSize: 12),
-          //     //                   ),
-          //     //                 ],
-          //     //               ),
-          //     //             ],
-          //     //           ),
-          //     //         ),
-          //     //       ),
-          //     //     ),
-          //     //   ),
-          //     // ),
-          //   ],
-          // ),
+          sizedbox(height * 0.06, width),
+          Column(
+            children: [
+              Text(
+                'Ultimate travel app',
+                style: mediumtextstyle,
+              ),
+              Text(
+                'Change the way you travel',
+                style: smallTextstylelight,
+              )
+            ],
+          ),
           //Loading.................................................................................
           sizedbox(height * 0.10, width),
           //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; choose destinations
@@ -264,7 +191,7 @@ class MobileViewBody extends StatelessWidget {
               image = 'assets/images/dubai.jpg';
               onPressed = () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
               };
               break;
             case 1:
@@ -272,7 +199,7 @@ class MobileViewBody extends StatelessWidget {
               image = 'assets/images/jeddhah.jpeg';
               onPressed = () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
               };
 
               break;
@@ -281,7 +208,7 @@ class MobileViewBody extends StatelessWidget {
               image = 'assets/images/uk.jpeg';
               onPressed = () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
               };
 
               break;
@@ -290,7 +217,7 @@ class MobileViewBody extends StatelessWidget {
               image = 'assets/images/uk.jpeg';
               onPressed = () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
               };
 
               break;
@@ -299,7 +226,7 @@ class MobileViewBody extends StatelessWidget {
               image = 'assets/images/uk.jpeg';
               onPressed = () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
               };
 
               break;
@@ -330,11 +257,18 @@ class MobileViewBody extends StatelessWidget {
     );
   }
 
-  //This has Location searcher, Choose Your Dates, How many persons booking
+//This has Location searcher, Choose Your Dates, How many persons booking
 //Its in a Container with BoxShadow the provided a column
 //In the Column Has 3 Containers and a AppTextButton
 //The Three container are indicates, Location searcher, Choosing Dates, Room Count and Persons Count
   Widget LocationDatePersonCountBox(height, width, context) {
+    final bottomProvider =
+        Provider.of<DashBoardProvider>(context, listen: false);
+
+    // Define the list of locations and initialize the selected location to null
+    List<String> locations = ['Dubai', 'Jeddhah', 'London'];
+    String? selectedLocation;
+
     return Container(
       width: width,
       margin: EdgeInsets.symmetric(horizontal: width * 0.04),
@@ -371,22 +305,36 @@ class MobileViewBody extends StatelessWidget {
                     IconData icon = Icons.circle;
                     String text = "";
                     Color iconColor = Colors.black;
+                    Widget childWidget = Container();
                     VoidCallback onpressed = () {};
                     switch (index) {
                       case 0:
                         icon = Icons.search;
-                        text = featuresProvider.selectedDates == ''
-                            ? 'Where would you like to go?'
-                            : featuresProvider.selectedLocation;
                         iconColor = Colors.blueAccent;
-                        onpressed = () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LocationSearchScreen(),
-                            ),
-                          );
-                        };
+                        childWidget = DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            hint: Text('Where would you like to go?'),
+                            value: selectedLocation,
+                            onChanged: (String? newValue) {
+                              if (newValue != null) {
+                                selectedLocation = newValue;
+                                (context as Element).markNeedsBuild();
+                              }
+                            },
+                            items: locations
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            icon: SizedBox
+                                .shrink(), // This removes the dropdown icon
+                          ),
+                        );
+                        onpressed = () {};
+                        break;
                       case 1:
                         icon = Icons.calendar_today_outlined;
                         text = featuresProvider.selectedDates.isEmpty
@@ -401,6 +349,12 @@ class MobileViewBody extends StatelessWidget {
                             ),
                           );
                         };
+                        childWidget = Text(
+                          text,
+                          style: smallTextStyle,
+                          maxLines: 1,
+                        );
+                        break;
                       case 2:
                         icon = Icons.person_outline_outlined;
                         text =
@@ -409,6 +363,11 @@ class MobileViewBody extends StatelessWidget {
                         onpressed = () {
                           showBottomSheet(context, height, width);
                         };
+                        childWidget = Text(
+                          text,
+                          style: smallTextStyle,
+                          maxLines: 1,
+                        );
                         break;
                       default:
                     }
@@ -420,12 +379,14 @@ class MobileViewBody extends StatelessWidget {
                         padding: EdgeInsets.only(
                             left: width * 0.05, right: width * 0.02),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(10),
-                            ),
-                            border:
-                                Border(bottom: BorderSide(color: Colors.grey)),
-                            color: Colors.transparent),
+                          borderRadius: index == 2
+                              ? BorderRadius.vertical(
+                                  bottom: Radius.circular(10))
+                              : BorderRadius.zero,
+                          border:
+                              Border(bottom: BorderSide(color: Colors.grey)),
+                          color: Colors.transparent,
+                        ),
                         child: Row(
                           children: [
                             AppIcon(
@@ -436,11 +397,7 @@ class MobileViewBody extends StatelessWidget {
                             sizedbox(0.0, width * 0.04),
                             SizedBox(
                               width: width * 0.7,
-                              child: Text(
-                                text,
-                                style: smallTextStyle,
-                                maxLines: 1,
-                              ),
+                              child: childWidget,
                             ),
                           ],
                         ),
@@ -467,7 +424,7 @@ class MobileViewBody extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     Color.fromARGB(255, 51, 192, 252),
-                    Color.fromARGB(255, 22, 228, 251)
+                    Color.fromARGB(255, 22, 228, 251),
                   ],
                 ),
                 height: height,
@@ -574,7 +531,8 @@ class BottomSheetContent extends StatelessWidget {
                       Color.fromARGB(255, 22, 228, 251)
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                   height: height,
                   width: double.infinity,
                 ),
@@ -887,11 +845,7 @@ class Footerlink extends StatelessWidget {
           height: height * 0.25,
           child: Text(
             'The contents of this website are subject to copyright protection. ©2024 ONLINE TRAVEL SOLUTIONS - FZCO. All rights reserved. No contents of this website may be copied, used, distributed or modified. Solartrip shall not be held liable for the content of any external websites.',
-            style: GoogleFonts.montserrat(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: const Color.fromARGB(255, 152, 150, 150),
-            ),
+            style: smallTextstylelight,
             textAlign: TextAlign.center,
           ),
         )
@@ -904,19 +858,19 @@ class Footerlink extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-            height: 40,
-            width: 40,
+            height: 60,
+            width: 60,
             child: Image(
                 image:
                     AssetImage('assets/images/facebk-removebg-preview.png'))),
         Container(
-            height: 30,
-            width: 30,
+            height: 50,
+            width: 50,
             child: Image(
                 image: AssetImage('assets/images/insta-removebg-preview.png'))),
         Container(
-            height: 40,
-            width: 40,
+            height: 60,
+            width: 60,
             child: Image(
                 image: AssetImage('assets/images/xtw-removebg-preview.png'))),
       ],

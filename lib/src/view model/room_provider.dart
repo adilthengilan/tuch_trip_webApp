@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class RoomProvider with ChangeNotifier {
   List<Room> _rooms = [
     Room(
-      title: 'Deluxe rooms,\n 538 — 591.8 m2',
+      title: "Deluxe rooms",
       options: [
         RoomOption(
             description: "Room only",
@@ -16,18 +16,19 @@ class RoomProvider with ChangeNotifier {
             cashback: 23.0,
             breakfastIncluded: true),
       ],
-      image: 'assets/images/Dubai.png',
+      image: 'assets/images/luxury hotel.jpg',
     ),
     Room(
       title: "Club rooms, 538 m²",
+    
       options: [
         RoomOption(
             description: "Queen Bed",
             price: 577.0,
             cashback: 28.0,
             breakfastIncluded: true),
-      ],
-      image: 'assets/images/luxury hotel.jpg',
+      ], image: 'assets/images/luxury hotel.jpg',
+      
     ),
   ];
 
